@@ -3,7 +3,6 @@ import numpy as np
 from pathlib import Path
 import cv2
 from typing import Tuple
-import matplotlib.pyplot as plt
 import urllib.request
 from pathlib import Path
 from tqdm import tqdm
@@ -42,32 +41,18 @@ class Leafnet:
         else:
             raise Exception("Unexpected dimension for the model, please choose from: 1024, 4096 pixel")
 
-        # Download the models if not present
-        # self.download_file(str(key_model), 'https://polybox.ethz.ch/index.php/s/CttzqTimBSZFRpy/download')
-        # self.download_file(str(key_model), 'https://polybox.ethz.ch/index.php/s/w7CFG1RQPTFgs3Q/download')
-    
-        # self.download_file(str(seg_model), 'https://polybox.ethz.ch/index.php/s/DvDvQRP6Y1Kp2E8/download')
-        # self.download_file(seg_model, 'https://polybox.ethz.ch/index.php/s/ZkN0usVSuMRYDiF/download')
-        # self.download_file(seg_model, 'https://polybox.ethz.ch/index.php/s/MjSfybQuXlFILcO/download')
-        # self.download_file(seg_model, 'https://polybox.ethz.ch/index.php/s/fXC6ajQzTEmwXat/download')
-
-
-
         self.key_session = onnxruntime.InferenceSession(
             key_model_path, 
-            # providers=['CUDAExecutionProvider', 'CPUExecutionProvider']
             providers=['CPUExecutionProvider']
 
             )
         
         self.seg_session = onnxruntime.InferenceSession(
             seg_model_path, 
-            # providers=['CUDAExecutionProvider', 'CPUExecutionProvider']
             providers=['CPUExecutionProvider']
 
             )
 
-        
         self.export_path = export_path
 
         self.img_sz = img_sz
@@ -79,6 +64,7 @@ class Leafnet:
         self.debug = debug
 
     def predict(self, src: str):
+
         # Check what type of a source it is
         src_path = Path(src)
 
@@ -126,12 +112,6 @@ class Leafnet:
             print("execution time: {}".format(time.time()-start_time))
 
         if self.debug:
-            # print("close the figure window to continue")
-            # plt.figure(figsize=(20,5))
-            # plt.imshow(result.astype(np.uint8))
-            # plt.show()
-            # plt.clf()
-            # plt.close("all")
             pass
     
         else:
@@ -167,7 +147,6 @@ class Leafnet:
     
     def merge_patches(self, patches: np.array) -> np.array:
         # currently only the case where patch size and its stride are equal is considered
-        # TODO expand this to a more general case
         if self.img_sz != self.patch_stride:
             raise Exception(NotImplemented)
         
@@ -221,8 +200,6 @@ class Leafnet:
         input_name = self.key_session.get_inputs()[0].name
         ort_inputs = {input_name: input_tensor}
         ort_outs = self.key_session.run(None, ort_inputs)
-
-
 
         predictions = np.squeeze(ort_outs[0]).T
         # Filter out object confidence scores below threshold
@@ -293,7 +270,6 @@ class Leafnet:
         cv2.drawContours(image_bgr, lesi_cnts, -1, color_lesion, 3)
         cv2.drawContours(image_bgr, inse_cnts, -1, color_insect, 3)
 
-
         alpha = 0.75
         beta = (1.0 - alpha)
         image_bgr[segmentations == leaf_id] = (alpha*(image_bgr)+beta*(leaf_mask))[segmentations == leaf_id]
@@ -317,34 +293,6 @@ class Leafnet:
             save_path = self.export_path / 'visualization' / image_src.name
             save_path.parents[0].mkdir(parents=True, exist_ok=True)
             cv2.imwrite(str(save_path), image_bgr)
-
-
-        # image_rgb = cv2.cvtColor(cv2.imread(str(image_src)), cv2.COLOR_BGR2RGB)
-
-        # image_mask = np.zeros((*image_rgb.shape[:-1], 4), dtype=int)
-
-        # # image_mask[segmentations == lesion_id] = [255, 0, 0, int(0.4*255)]  # leave out the lesion for easier inspection
-        # image_mask[segmentations == leaf_id] = [0, 0, 255, int(0.4*255)]
-        # image_mask[segmentations == 0] = [255, 0, 0, int(0.4*255)]
-
-        # plt.figure(dpi=640, figsize=(20,20))
-        # plt.imshow(image_rgb)
-        # plt.imshow(image_mask)
-
-        # plt.scatter(x=pycndia[1], y=pycndia[0], c='r', s=3, marker="x", linewidths=0.5)
-        # plt.axis('off')
-
-        # if self.debug:
-        #     print("close the figure window to continue")
-        #     plt.show()
-            
-        # else:
-        #     save_path = self.export_path / 'visualization' / image_src.name
-        #     save_path.parents[0].mkdir(parents=True, exist_ok=True)
-        #     plt.savefig(str(save_path), bbox_inches='tight', dpi=640)
-        # plt.clf()
-        # plt.close("all")
-        # gc.collect()
     
     def download_file(self, file_path, url):
         file_path = Path(file_path)
@@ -360,11 +308,5 @@ class Leafnet:
         self.predict(test_name)
 
 if __name__=='__main__':
-    # leafnet = Leafnet(debug=True)
-    leafnet = Leafnet(debug=False, img_sz=4096)
-    # leafnet.test()
-
-    # leafnet.predict('/home/radekz/Downloads/export_julien')
-    # leafnet.predict('/home/radekz/Datasets/diseasenet/val')
-    leafnet.predict('/leafnet/data/setup2/cropped')
-
+    leafnet = Leafnet(debug=False)
+    leafnet.test()

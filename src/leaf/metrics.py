@@ -89,12 +89,11 @@ def placl(segmentations: np.array, lesion_id: int = 2) -> float:
     
     return lesion /  leaf
 
-def pycndia_count(segmentations: np.array, pycnidia_id: int = 3) -> int:
+def pycndia_count(segmentations: np.array, pycnidia_id: int = 5) -> int:
     
     return np.sum(segmentations == pycnidia_id)
 
 
 if __name__=="__main__":
     evaluator = Evaluator('results.csv', debug=True)
-    # evaluator.predict('export/predictions/test.png')
-    evaluator.predict('/home/radekz/Coding/diseasenet/inference/src/diseasenet/export/predictions')
+    evaluator.predict('export/predictions/test.png')

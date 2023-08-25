@@ -8,6 +8,7 @@ from matplotlib.widgets import Button, TextBox
 import time
 from tqdm import tqdm
 from typing import List, Dict, Tuple
+import numpy as np
 
 
 CROPPING_SIZE: Tuple[int, int] = (1024, 8192)
@@ -272,6 +273,6 @@ class BoundingBoxSelector:
 
 if __name__ == "__main__":
     src_path = 'data/images'
-    export_path = 'export/individual_samples'
+    export_path = 'export/individual_images'
     error_logs_path = 'err_log.txt'
     prepare_folder(src_path, export_path, error_logs_path, manual_correction=True)
