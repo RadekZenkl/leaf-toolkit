@@ -24,11 +24,13 @@ setup(
         "setuptools>=61.0", 
         "opencv-python", 
         "scikit-image", 
-        "onnxruntime-gpu",
+        "torch>=2.0.1",
+        "torchvision",
         "matplotlib",
         "mpldatacursor",
         "mplcursors",
         "protobuf",
-        "tqdm"
+        "tqdm",
+        "psutil"
     ],
 )
