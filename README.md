@@ -5,7 +5,9 @@ Pull requests for better runtime are welcome.
 
 ## Installation 
 ```
-pip install leaf-toolkit
+git clone https://github.com/RadekZenkl/leaf-toolkit.git
+cd leaf-toolkit
+pip install -e .
 ```
 
 If you are going to utilize QR code detection please install pyzbar on your system: `sudo apt-get install libzbar0`  
@@ -96,4 +98,12 @@ when compiling the `.tex` file from `generate_sheets.py` does not work, you can 
 
 ## Citation
 
-`WIP`
+@software{Jocher_YOLO_by_Ultralytics_2023,
+author = {Zenkl, Radek and Anderegg, Jonas and McDonald, Bruce},
+license = {GPLv3},
+month = sep,
+title = {{leaf-toolkit}},
+url = {https://github.com/RadekZenkl/leaf-toolkit},
+version = {0.1.0},
+year = {2023}
+}

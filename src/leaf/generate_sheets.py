@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+# This is a modified version of https://apsjournals.apsnet.org/doi/suppl/10.1094/PHYTO-01-16-0018-R/suppl_file/PHYTO-01-16-0018-R.sf2.txt
+# from: 
+# An Improved Method for Measuring Quantitative 
+# Resistance to the Wheat Pathogen Zymoseptoria tritici 
+# Using High-Throughput Automated Image Analysis
+
 from string import Template
 import os
 
