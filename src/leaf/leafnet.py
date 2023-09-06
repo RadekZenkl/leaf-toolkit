@@ -1,8 +1,10 @@
+
 import numpy as np
 from pathlib import Path
 import cv2
 from typing import Tuple
 import matplotlib.pyplot as plt
+
 import urllib.request
 from pathlib import Path
 from tqdm import tqdm
@@ -15,8 +17,6 @@ import torch
 import psutil
 import torchvision.transforms.functional as F
 
-
-# TODO get rid of numpy in favor of torch
 
 
 class Leafnet:
@@ -35,6 +35,7 @@ class Leafnet:
         self.debug = debug
                 
         if self.debug:
+
             pass
         else:
             matplotlib.use('Agg')  # Without using the write only backend, memory leak occurs. 
@@ -79,14 +80,15 @@ class Leafnet:
             torch.set_num_threads(num_threads) 
         
         self.export_path = Path(export_path)
+
         self.img_sz = img_sz
         
         # Currently the only supported stride is the input size
         # Stride and Imagesize lead to image cropping when the image isn't a multiple 
         self.patch_stride = self.img_sz  
 
-
     def predict(self, src: str):
+
         # Check what type of a source it is
         src_path = Path(src)
 
@@ -141,7 +143,7 @@ class Leafnet:
             predictions_path = self.export_path / 'predictions' / src.name
             predictions_path.parents[0].mkdir(parents=True, exist_ok=True)
             cv2.imwrite(str(predictions_path),result.astype(np.uint8))
-            
+           
         self.visualize_predictions(src, result)
         gc.collect()
 
@@ -169,6 +171,7 @@ class Leafnet:
     def merge_patches(self, patches: np.array) -> np.array:
         # currently only the case where patch size and its stride are equal is considered
         # TODO expand this to a more general case
+
         if self.img_sz != self.patch_stride:
             raise Exception(NotImplemented)
         
@@ -244,6 +247,7 @@ class Leafnet:
                 mask[points[class_mask, 1], points[class_mask, 0]] = value
 
             return mask.cpu().detach().numpy()
+          
     
     def visualize_predictions(self, image_src: Path, segmentations: np.array, 
                               pycnidia_id: int = 5, rust_id: int = 6, insect_damage_id: int = 3, lesion_id: int = 2, leaf_id: int = 1):
@@ -303,6 +307,7 @@ class Leafnet:
         filename = params["filename"]
 
         file_path = Path(filename)
+
         if not file_path.exists():
             urllib.request.urlretrieve(url, file_path)
             print(f"File downloaded successfully: {file_path}")
@@ -313,6 +318,7 @@ class Leafnet:
 
     def test(self):
         test_name = self.download_file('https://polybox.ethz.ch/index.php/s/Gz7bBBzHmlbl1sg/download')
+
         self.predict(test_name)
 
 if __name__=='__main__':

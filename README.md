@@ -98,4 +98,12 @@ when compiling the `.tex` file from `generate_sheets.py` does not work, you can 
 
 ## Citation
 
-@software{Leaf-Toolkit, author = {Zenkl, Radek and Anderegg, Jonas and McDonald, Bruce}, license = {GPLv3}, month = sep, title = {{leaf-toolkit}}, url = {https://github.com/RadekZenkl/leaf-toolkit}, version = {0.2.0}, year = {2023} }
+@software{Leaf-Toolkit,
+author = {Zenkl, Radek and Anderegg, Jonas and McDonald, Bruce},
+license = {GPLv3},
+month = sep,
+title = {{leaf-toolkit}},
+url = {https://github.com/RadekZenkl/leaf-toolkit},
+version = {0.2.0},
+year = {2023}
+}

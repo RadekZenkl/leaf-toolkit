@@ -8,6 +8,8 @@ from matplotlib.widgets import Button, TextBox
 import time
 from tqdm import tqdm
 from typing import List, Dict, Tuple
+import numpy as np
+Offending key for IP in /home/radek/.ssh/known_hosts:4
 
 
 CROPPING_SIZE: Tuple[int, int] = (1024, 8192)
