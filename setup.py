@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='leaf-toolkit',              
-    version='0.1.0',                  # Replace with your desired version
-    packages=find_packages(where='src'),         # Automatically find all packages in the directory
+    name='leaf-toolkit',               
+    version='0.2.0',                  # Replace with your desired version
+    packages=find_packages(where='src'),         
     package_dir={'': 'src'},
     author='Radek Zenkl',
     author_email='radek.zenkl@usys.ethz.ch',
@@ -19,11 +19,13 @@ setup(
         "setuptools>=61.0", 
         "opencv-python", 
         "scikit-image", 
-        "onnxruntime-gpu",
+        "torch>=2.0.1",
+        "torchvision",
         "matplotlib",
         "mpldatacursor",
         "mplcursors",
         "protobuf",
-        "tqdm"
+        "tqdm",
+        "psutil"
     ],
 )

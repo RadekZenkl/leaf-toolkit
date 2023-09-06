@@ -104,6 +104,6 @@ license = {GPLv3},
 month = sep,
 title = {{leaf-toolkit}},
 url = {https://github.com/RadekZenkl/leaf-toolkit},
-version = {0.1.0},
+version = {0.2.0},
 year = {2023}
 }

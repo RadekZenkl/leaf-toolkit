@@ -1,8 +1,10 @@
-import onnxruntime
+
 import numpy as np
 from pathlib import Path
 import cv2
 from typing import Tuple
+import matplotlib.pyplot as plt
+
 import urllib.request
 from pathlib import Path
 from tqdm import tqdm
@@ -10,58 +12,80 @@ import time
 from skimage.util import view_as_blocks
 import gc      
 import matplotlib
+import cgi
+import torch
+import psutil
+import torchvision.transforms.functional as F
+
 
 
 class Leafnet:
 
     def __init__(
             self, 
-            seg_model: Path = Path('segmentation.onnx'), 
-            key_model: Path = Path('keypoint.onnx'),
-            export_path: Path = Path('export'), 
+            seg_model_name: str = 'latest', 
+            key_model_name: str = 'latest',
+            export_path: str = 'export', 
             img_sz: int = 1024,
-            debug: bool = False
+            debug: bool = False,
+            use_gpu: bool = False,
+            cuda_device: str = 'cuda:0',
             ) -> None:
+        
+        self.debug = debug
                 
-        if debug:
+        if self.debug:
+
             pass
         else:
             matplotlib.use('Agg')  # Without using the write only backend, memory leak occurs. 
 
-        if img_sz == 1024:
-            key_model_path = '1024px-' + str(key_model)
-            seg_model_path = '1024px-' + str(seg_model)
-            self.download_file(key_model_path, 'https://polybox.ethz.ch/index.php/s/EHDui6JfpLrkZij/download')
-            self.download_file(seg_model_path, 'https://polybox.ethz.ch/index.php/s/fXC6ajQzTEmwXat/download')
-        elif img_sz == 4096:
-            key_model_path = '4096px-' + str(key_model)
-            seg_model_path = '4096px-' + str(seg_model)
-            self.download_file(key_model_path, 'https://polybox.ethz.ch/index.php/s/Bm4Bb8bMgnVSEPy/download')
-            self.download_file(seg_model_path, 'https://polybox.ethz.ch/index.php/s/99dOEfS42s08Ukh/download')
+        self.use_gpu = use_gpu
+        self.cuda_device = cuda_device
+        self.seg_model_path = None
+        self.key_model_path = None
+
+        if seg_model_name == 'latest':
+            # Since this model is fully convolutinal, we do not care about the input size
+            self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/btBCq8dNSSxJtDW/download')
         else:
-            raise Exception("Unexpected dimension for the model, please choose from: 1024, 4096 pixel")
-
-        self.key_session = onnxruntime.InferenceSession(
-            key_model_path, 
-            providers=['CPUExecutionProvider']
-
-            )
+            raise Exception("Unexpected Segmentation Model Name")    
         
-        self.seg_session = onnxruntime.InferenceSession(
-            seg_model_path, 
-            providers=['CPUExecutionProvider']
+        if key_model_name == 'latest':
+            if img_sz == 1024:
+                self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/WqoL0ESNeyVi5EF/download')
+            elif img_sz == 2048:
+                self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/FDPZLock7W0uOzg/download')
+            elif img_sz == 4096:
+                self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/gvtgrwtYf3y9Wjo/download')
+            else:
+                raise Exception("Unexpected Keypoint Detection Model Input Size")
+        else:
+            raise Exception("Unexpected Keypoint Detection Model Name")    
 
-            )
+        if use_gpu:
+            # Check if GPU is available
+            if not torch.cuda.is_available():
+                raise Exception("GPU requested but torch cannot utilize it, please check your torch and cuda installation.")
 
-        self.export_path = export_path
+            self.key_model = torch.jit.optimize_for_inference(torch.jit.load(self.key_model_path, map_location=self.cuda_device))
+            self.seg_model = torch.jit.optimize_for_inference(torch.jit.load(self.seg_model_path, map_location=self.cuda_device))
+            
+        else:
+            self.key_model = torch.jit.optimize_for_inference(torch.jit.load(self.key_model_path, map_location='cpu'))
+            self.seg_model = torch.jit.optimize_for_inference(torch.jit.load(self.seg_model_path, map_location='cpu'))
+
+            # use all available threads for inference
+            num_threads = psutil.cpu_count(logical=True)
+            torch.set_num_threads(num_threads) 
+        
+        self.export_path = Path(export_path)
 
         self.img_sz = img_sz
         
         # Currently the only supported stride is the input size
         # Stride and Imagesize lead to image cropping when the image isn't a multiple 
         self.patch_stride = self.img_sz  
-
-        self.debug = debug
 
     def predict(self, src: str):
 
@@ -119,8 +143,7 @@ class Leafnet:
             predictions_path = self.export_path / 'predictions' / src.name
             predictions_path.parents[0].mkdir(parents=True, exist_ok=True)
             cv2.imwrite(str(predictions_path),result.astype(np.uint8))
-            
-
+           
         self.visualize_predictions(src, result)
         gc.collect()
 
@@ -147,6 +170,8 @@ class Leafnet:
     
     def merge_patches(self, patches: np.array) -> np.array:
         # currently only the case where patch size and its stride are equal is considered
+        # TODO expand this to a more general case
+
         if self.img_sz != self.patch_stride:
             raise Exception(NotImplemented)
         
@@ -164,85 +189,65 @@ class Leafnet:
         return merged
 
     def prepare_model_input(self, image: np.array) -> np.array:
+        
+
         input_img = image / 255.0
         input_img = input_img.transpose(2, 0, 1)
-        input_tensor = input_img[np.newaxis, :, :, :].astype(np.float32)
+        input_array = input_img[np.newaxis, :, :, :].astype(np.float32)
 
-        return input_tensor
+        return input_array      
     
-    def normalize_model_input(self, 
-                              image: np.array,  
-                              mean: Tuple[float, float, float] = (0.485, 0.456, 0.406), 
-                              std: Tuple[float, float, float] = (0.229, 0.224, 0.225), 
-                              max_pixel_value: float = 1.0) -> np.array:
-        
-        image = np.swapaxes(image, axis1=0, axis2=2)
-        mean = np.array(mean, dtype=np.float32)
-        mean *= max_pixel_value
+    def models_predict(self, input_array: np.array) -> Tuple[np.array, np.array]:
 
-        std = np.array(std, dtype=np.float32)
-        std *= max_pixel_value
+        with torch.no_grad():
+            # input for segementations needs to be normalized
+            segmentation_input = torch.from_numpy(input_array)
+            segmentation_input = F.normalize(segmentation_input, (0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
 
-        denominator = np.reciprocal(std, dtype=np.float32)
+            keypoints_input = torch.from_numpy(input_array)
 
-        image = image.astype(np.float32)
-        image -= mean
-        image *= denominator
+            if self.use_gpu:
+                segmentation_input = segmentation_input.to(self.cuda_device)
+                keypoints_input = keypoints_input.to(self.cuda_device)
 
-        image = np.swapaxes(image, axis1=2, axis2=0)
+            # keypoints
+            keypoints_preds = self.key_model(keypoints_input)
 
-        return image        
+            # segmentations 
+            segmentation_preds = self.seg_model(segmentation_input)
+            
+            # Keypoint post processing
+            keypoints_preds = keypoints_preds[0].squeeze().T
+            # Filter out object confidence scores below threshold
+            scores, _ = torch.max(keypoints_preds[:, 4:6], axis=1)
 
-    
-    def models_predict(self, input_tensor: np.array) -> Tuple[np.array, np.array]:
+            keypoints_preds = keypoints_preds[scores > 0.1, :]
 
-        # keypoints
-        input_name = self.key_session.get_inputs()[0].name
-        ort_inputs = {input_name: input_tensor}
-        ort_outs = self.key_session.run(None, ort_inputs)
+            scores = scores[scores > 0.1]
+            # Get the class with the highest confidence
+            class_ids = torch.argmax(keypoints_preds[:, 4:6], axis=1)
+            points = keypoints_preds[:,6:].int()
 
-        predictions = np.squeeze(ort_outs[0]).T
-        # Filter out object confidence scores below threshold
-        scores = np.max(predictions[:, 4:6], axis=1)
-        predictions = predictions[scores > 0.1, :]
-        scores = scores[scores > 0.1]
-        # Get the class with the highest confidence
-        class_ids = np.argmax(predictions[:, 4:6], axis=1)
-        points = predictions[:,6:].astype(int)
-    
-        # segmentations 
-        # input for segementations needs to be normalized
-        segmentation_input = self.normalize_model_input(np.squeeze(input_tensor, 0))
-        segmentation_input = np.expand_dims(segmentation_input, 0)
+            segmentation_preds = segmentation_preds[0].squeeze()
+            mask = torch.argmax(segmentation_preds, axis=0).squeeze()
 
-        input_name = self.seg_session.get_inputs()[0].name
-        ort_inputs = {input_name: segmentation_input}
-        ort_outs = self.seg_session.run(None, ort_inputs)
+            probs = torch.softmax(segmentation_preds, axis=0)
+            low_conf = torch.bitwise_not(torch.sum(probs >= 0.5, axis=0))
+            mask[low_conf] = 0
 
-        predictions = np.squeeze(ort_outs[0])
-        mask = np.argmax(predictions, axis=0).squeeze()
+            # Define a dictionary to map classes to integer values
+            class_mapping = {0: 5, 1: 6, 2: 7}  # Customize the class mapping as desired
 
-        # softmax (probs = torch.softmax(..., axis=0))
-        axis = 0
-        x_max = np.amax(predictions, axis=axis, keepdims=True)
-        exp_x_shifted = np.exp(predictions - x_max)
-        probs = exp_x_shifted / np.sum(exp_x_shifted, axis=axis, keepdims=True)
+            # Assign the class values to the corresponding pixels
+            for cls, value in class_mapping.items():
+                class_mask = class_ids == cls
+                if len(class_mask) == 0:  # check if list/array is empty
+                    continue
 
-        low_conf = np.bitwise_not(np.sum(probs >= 0.5, axis=0))
-        mask[low_conf] = 0
+                mask[points[class_mask, 1], points[class_mask, 0]] = value
 
-        # Define a dictionary to map classes to integer values
-        class_mapping = {0: 5, 1: 6, 2: 7}  # Customize the class mapping as desired
-
-        # Assign the class values to the corresponding pixels
-        for cls, value in class_mapping.items():
-            class_mask = class_ids == cls
-            if len(class_mask) == 0:  # check if list/array is empty
-                continue
-
-            mask[points[class_mask, 1], points[class_mask, 0]] = value
-
-        return mask
+            return mask.cpu().detach().numpy()
+          
     
     def visualize_predictions(self, image_src: Path, segmentations: np.array, 
                               pycnidia_id: int = 5, rust_id: int = 6, insect_damage_id: int = 3, lesion_id: int = 2, leaf_id: int = 1):
@@ -293,20 +298,30 @@ class Leafnet:
             save_path = self.export_path / 'visualization' / image_src.name
             save_path.parents[0].mkdir(parents=True, exist_ok=True)
             cv2.imwrite(str(save_path), image_bgr)
-    
-    def download_file(self, file_path, url):
-        file_path = Path(file_path)
+
+    def download_file(self, url):
+
+        remotefile = urllib.request.urlopen(url)
+        contentdisposition = remotefile.info()['Content-Disposition']
+        _, params = cgi.parse_header(contentdisposition)
+        filename = params["filename"]
+
+        file_path = Path(filename)
+
         if not file_path.exists():
             urllib.request.urlretrieve(url, file_path)
             print(f"File downloaded successfully: {file_path}")
         else:
             print(f"File already exists: {file_path}")
 
+        return filename
+
     def test(self):
-        test_name = Path('test.png')
-        self.download_file(test_name, 'https://polybox.ethz.ch/index.php/s/Gz7bBBzHmlbl1sg/download')
+        test_name = self.download_file('https://polybox.ethz.ch/index.php/s/Gz7bBBzHmlbl1sg/download')
+
         self.predict(test_name)
 
 if __name__=='__main__':
     leafnet = Leafnet(debug=False)
     leafnet.test()
+
