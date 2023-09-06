@@ -44,30 +44,6 @@ class Leafnet:
         self.seg_model_path = None
         self.key_model_path = None
 
-        # if img_sz == 1024:
-        #     key_model_path = '1024px-' + str(key_model)
-        #     seg_model_path = '1024px-' + str(seg_model)
-        #     self.download_file(key_model_path, 'https://polybox.ethz.ch/index.php/s/EHDui6JfpLrkZij/download')
-        #     self.download_file(seg_model_path, 'https://polybox.ethz.ch/index.php/s/fXC6ajQzTEmwXat/download')
-        # elif img_sz == 4096:
-        #     key_model_path = '4096px-' + str(key_model)
-        #     seg_model_path = '4096px-' + str(seg_model)
-        #     self.download_file(key_model_path, 'https://polybox.ethz.ch/index.php/s/Bm4Bb8bMgnVSEPy/download')
-        #     self.download_file(seg_model_path, 'https://polybox.ethz.ch/index.php/s/99dOEfS42s08Ukh/download')
-        # else:
-        #     raise Exception("Unexpected dimension for the model, please choose from: 1024, 4096 pixel")
-
-        # Download the models if not present
-        # self.download_file(str(key_model), 'https://polybox.ethz.ch/index.php/s/CttzqTimBSZFRpy/download')
-        # self.download_file(str(key_model), 'https://polybox.ethz.ch/index.php/s/w7CFG1RQPTFgs3Q/download')
-    
-        # self.download_file(str(seg_model), 'https://polybox.ethz.ch/index.php/s/DvDvQRP6Y1Kp2E8/download')
-        # self.download_file(seg_model, 'https://polybox.ethz.ch/index.php/s/ZkN0usVSuMRYDiF/download')
-        # self.download_file(seg_model, 'https://polybox.ethz.ch/index.php/s/MjSfybQuXlFILcO/download')
-        # self.download_file(seg_model, 'https://polybox.ethz.ch/index.php/s/fXC6ajQzTEmwXat/download')
-
-        # TODO reference to Juliens models
-
         if seg_model_name == 'latest':
             # Since this model is fully convolutinal, we do not care about the input size
             self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/btBCq8dNSSxJtDW/download')
@@ -231,7 +207,6 @@ class Leafnet:
                 segmentation_input = segmentation_input.to(self.cuda_device)
                 keypoints_input = keypoints_input.to(self.cuda_device)
 
-            # TODO models are exported with grad
             # keypoints
             keypoints_preds = self.key_model(keypoints_input)
 
@@ -341,13 +316,6 @@ class Leafnet:
         self.predict(test_name)
 
 if __name__=='__main__':
-    # leafnet = Leafnet(debug=True)
-    # leafnet = Leafnet(debug=False, img_sz=4096)
-    # leafnet.test()
-
-    # leafnet.predict('/home/radekz/Downloads/export_julien')
-    # leafnet.predict('/home/radekz/Datasets/diseasenet/val')
-    # leafnet.predict('/leafnet/data/setup2/cropped')
     leafnet = Leafnet(debug=False)
     leafnet.test()
 

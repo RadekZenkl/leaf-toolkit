@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='leaf-toolkit',                # This will be the name of the package on PyPI
-    version='0.1.0',                  # Replace with your desired version
-    packages=find_packages(where='src'),         # Automatically find all packages in the directory
+    name='leaf-toolkit',               
+    version='0.2.0',                  # Replace with your desired version
+    packages=find_packages(where='src'),         
     package_dir={'': 'src'},
     author='Radek Zenkl',
     author_email='radek.zenkl@usys.ethz.ch',
