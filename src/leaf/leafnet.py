@@ -3,8 +3,6 @@ import numpy as np
 from pathlib import Path
 import cv2
 from typing import Tuple
-import matplotlib.pyplot as plt
-
 import urllib.request
 from pathlib import Path
 from tqdm import tqdm
@@ -16,6 +14,7 @@ import cgi
 import torch
 import psutil
 import torchvision.transforms.functional as F
+from ultralytics import YOLO
 
 
 
@@ -30,6 +29,8 @@ class Leafnet:
             debug: bool = False,
             use_gpu: bool = False,
             cuda_device: str = 'cuda:0',
+            keypoints_thresh: float = 0.15,
+            max_det_patch: int = 10000,
             ) -> None:
         
         self.debug = debug
@@ -44,22 +45,17 @@ class Leafnet:
         self.cuda_device = cuda_device
         self.seg_model_path = None
         self.key_model_path = None
+        self.keypoints_thresh = keypoints_thresh
+        self.max_det_patch = max_det_patch
+
 
         if seg_model_name == 'latest':
-            # Since this model is fully convolutinal, we do not care about the input size
-            self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/btBCq8dNSSxJtDW/download')
+            self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/axfYtbvX32TawJn/download')
         else:
             raise Exception("Unexpected Segmentation Model Name")    
         
         if key_model_name == 'latest':
-            if img_sz == 1024:
-                self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/WqoL0ESNeyVi5EF/download')
-            elif img_sz == 2048:
-                self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/FDPZLock7W0uOzg/download')
-            elif img_sz == 4096:
-                self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/gvtgrwtYf3y9Wjo/download')
-            else:
-                raise Exception("Unexpected Keypoint Detection Model Input Size")
+            self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/7OwuVJO6igaew9g/download')
         else:
             raise Exception("Unexpected Keypoint Detection Model Name")    
 
@@ -68,11 +64,13 @@ class Leafnet:
             if not torch.cuda.is_available():
                 raise Exception("GPU requested but torch cannot utilize it, please check your torch and cuda installation.")
 
-            self.key_model = torch.jit.optimize_for_inference(torch.jit.load(self.key_model_path, map_location=self.cuda_device))
+            self.key_model = YOLO(self.key_model_path)
+            self.key_model.model.to(self.cuda_device)
             self.seg_model = torch.jit.optimize_for_inference(torch.jit.load(self.seg_model_path, map_location=self.cuda_device))
             
         else:
-            self.key_model = torch.jit.optimize_for_inference(torch.jit.load(self.key_model_path, map_location='cpu'))
+            self.key_model = YOLO(self.key_model_path)
+            self.key_model.model.to('cpu')
             self.seg_model = torch.jit.optimize_for_inference(torch.jit.load(self.seg_model_path, map_location='cpu'))
 
             # use all available threads for inference
@@ -142,7 +140,7 @@ class Leafnet:
             # save predictions
             predictions_path = self.export_path / 'predictions' / src.name
             predictions_path.parents[0].mkdir(parents=True, exist_ok=True)
-            cv2.imwrite(str(predictions_path),result.astype(np.uint8))
+            cv2.imwrite(str(predictions_path.with_suffix('.png')),result.astype(np.uint8))
            
         self.visualize_predictions(src, result)
         gc.collect()
@@ -189,11 +187,11 @@ class Leafnet:
         return merged
 
     def prepare_model_input(self, image: np.array) -> np.array:
-        
 
         input_img = image / 255.0
         input_img = input_img.transpose(2, 0, 1)
         input_array = input_img[np.newaxis, :, :, :].astype(np.float32)
+        input_array = np.ascontiguousarray(input_array)
 
         return input_array      
     
@@ -201,32 +199,22 @@ class Leafnet:
 
         with torch.no_grad():
             # input for segementations needs to be normalized
-            segmentation_input = torch.from_numpy(input_array)
-            segmentation_input = F.normalize(segmentation_input, (0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-
-            keypoints_input = torch.from_numpy(input_array)
+            model_input = torch.from_numpy(input_array)
+            model_input = F.normalize(model_input, (0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
 
             if self.use_gpu:
-                segmentation_input = segmentation_input.to(self.cuda_device)
-                keypoints_input = keypoints_input.to(self.cuda_device)
+                model_input = model_input.to(self.cuda_device)
 
             # keypoints
-            keypoints_preds = self.key_model(keypoints_input)
+            # Keypoint model only needs input scaled to [0,1] no normalization is required
+            res = self.key_model.predict(torch.from_numpy(input_array), conf=self.keypoints_thresh, max_det=self.max_det_patch,
+                                         imgsz=self.img_sz, iou=0.6)
 
             # segmentations 
-            segmentation_preds = self.seg_model(segmentation_input)
-            
-            # Keypoint post processing
-            keypoints_preds = keypoints_preds[0].squeeze().T
-            # Filter out object confidence scores below threshold
-            scores, _ = torch.max(keypoints_preds[:, 4:6], axis=1)
+            segmentation_preds = self.seg_model(model_input)
 
-            keypoints_preds = keypoints_preds[scores > 0.1, :]
-
-            scores = scores[scores > 0.1]
-            # Get the class with the highest confidence
-            class_ids = torch.argmax(keypoints_preds[:, 4:6], axis=1)
-            points = keypoints_preds[:,6:].int()
+            class_ids = res[0].boxes.cls
+            points = res[0].keypoints.xy.squeeze().int()
 
             segmentation_preds = segmentation_preds[0].squeeze()
             mask = torch.argmax(segmentation_preds, axis=0).squeeze()
@@ -241,6 +229,7 @@ class Leafnet:
             # Assign the class values to the corresponding pixels
             for cls, value in class_mapping.items():
                 class_mask = class_ids == cls
+
                 if len(class_mask) == 0:  # check if list/array is empty
                     continue
 
@@ -317,11 +306,10 @@ class Leafnet:
         return filename
 
     def test(self):
-        test_name = self.download_file('https://polybox.ethz.ch/index.php/s/Gz7bBBzHmlbl1sg/download')
-
+        test_name = self.download_file('https://polybox.ethz.ch/index.php/s/YamWv4LWcuM9Tto/download')
         self.predict(test_name)
 
-if __name__=='__main__':
-    leafnet = Leafnet(debug=False)
-    leafnet.test()
 
+if __name__=='__main__':
+    leafnet = Leafnet(debug=False, img_sz=1024, use_gpu=False, keypoints_thresh=0.15)
+    leafnet.test()

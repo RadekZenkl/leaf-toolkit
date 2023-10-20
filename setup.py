@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='leaf-toolkit',               
-    version='0.2.0',                  # Replace with your desired version
+    version='0.3.0',                  # Replace with your desired version
     packages=find_packages(where='src'),         
     package_dir={'': 'src'},
     author='Radek Zenkl',
@@ -16,7 +16,8 @@ setup(
     ],
     python_requires='>=3.6',          # Adjust to your package's compatibility requirements
     install_requires=[                # Add any dependencies your package needs
-        "setuptools>=61.0", 
+        "setuptools>=61.0",
+        "ultralytics", 
         "opencv-python", 
         "scikit-image", 
         "torch>=2.0.1",
