@@ -15,6 +15,7 @@ import torch
 import psutil
 import torchvision.transforms.functional as F
 from ultralytics import YOLO
+from data_prep import check_file
 
 
 
@@ -50,12 +51,14 @@ class Leafnet:
 
 
         if seg_model_name == 'latest':
-            self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/axfYtbvX32TawJn/download')
+            # self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/axfYtbvX32TawJn/download')
+            self.seg_model_path = '/projects/leaf-toolkit/src/leaf/fpn_mitb1_dsnv6.torchscript'
         else:
             raise Exception("Unexpected Segmentation Model Name")    
         
         if key_model_name == 'latest':
-            self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/7OwuVJO6igaew9g/download')
+            # self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/7OwuVJO6igaew9g/download')
+            self.key_model_path = '/projects/leaf-toolkit/src/leaf/yolov8m_dsnv6.pt'
         else:
             raise Exception("Unexpected Keypoint Detection Model Name")    
 
@@ -100,15 +103,17 @@ class Leafnet:
         files = list(src.rglob('*.*'))
         
         for file in tqdm(files):
-            if not file.is_file():
-                raise Exception("Path: {} is not a file".format(str(file)))
+            
+            if not check_file(str(file)):
+                continue
             
             self.predict_image(file)
 
     def predict_image(self, src: Path) -> np.array:
         
         if self.debug:
-            start_time = time.time()     
+            start_time = time.time()
+
         image = cv2.imread(str(src))
         if image is None:
             raise Exception("Reading in the image: {} was unsucessful".format(str(src)))
@@ -233,6 +238,9 @@ class Leafnet:
                 if len(class_mask) == 0:  # check if list/array is empty
                     continue
 
+                if len(points.shape) == 1:
+                    points = points.unsqueeze(0)
+
                 mask[points[class_mask, 1], points[class_mask, 0]] = value
 
             return mask.cpu().detach().numpy()
@@ -311,5 +319,14 @@ class Leafnet:
 
 
 if __name__=='__main__':
-    leafnet = Leafnet(debug=False, img_sz=1024, use_gpu=False, keypoints_thresh=0.15)
-    leafnet.test()
+    # leafnet = Leafnet(debug=False, img_sz=1024, use_gpu=False, keypoints_thresh=0.15, export_path='/projects/leaf-toolkit/data/images_exp')
+    # # leafnet.test()
+    # leafnet.predict('/projects/leaf-toolkit/data/images')
+
+    # leafnet = Leafnet(debug=False, img_sz=1024, use_gpu=True, keypoints_thresh=0.15, export_path='/projects/leaf-toolkit/src/leaf/test_export')
+    # leafnet.predict('/projects/leaf-toolkit/src/leaf/test_data')
+
+    leafnet = Leafnet(debug=False, img_sz=1024, use_gpu=True, keypoints_thresh=0.1, export_path='/projects/leaf-toolkit/data/predictions_Luzia')
+    leafnet.predict('/projects/leaf-toolkit/data/export_Luzia')
+
+

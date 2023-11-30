@@ -9,12 +9,63 @@ import time
 from tqdm import tqdm
 from typing import List, Dict, Tuple
 import numpy as np
-Offending key for IP in /home/radek/.ssh/known_hosts:4
+import logging
+from pyzbar.pyzbar import ZBarSymbol
 
 
-CROPPING_SIZE: Tuple[int, int] = (1024, 8192)
-SCALE_FACTOR: float = 1/4
+# CROPPING_SIZE: Tuple[int, int] = (1024, 8192)
+# CROPPING_SIZE: Tuple[int, int] = (1024, 6144)
+CROPPING_SIZE: Tuple[int, int] = (512, 3072)
+
+
+# SCALE_FACTOR: float = 1/4
+SCALE_FACTOR: float = 1/3
+
 N_QR_CODES: int = 8
+# QR_OFFSET_X = 2000
+# QR_OFFSET_X = 750
+# QR_OFFSET_Y = 600
+QR_OFFSET_X = 375
+QR_OFFSET_Y = 300
+
+
+def is_hidden_file(file_path: str) -> bool: 
+    # Unix systems
+    if Path(file_path).name.startswith('.'):
+        return True
+    
+    # windows
+    try:
+        attrs = Path(file_path).stat().st_file_attributes
+        # Check if the hidden attribute is set (bitwise AND with 2)
+        if attrs & 2 != 0:
+            return True
+    except AttributeError:
+        pass
+
+    return False
+
+
+def check_file(file_path: str) -> bool:
+    # This is true when file is ok and false when there are some issues
+
+    # Check if file is a folder
+    if not Path(file_path).is_file():
+        logging.warning("Path: {} is not a file.  Skipping".format(str(file_path)))
+        return False
+
+    # check if file is a hidden file
+    if is_hidden_file(file_path):
+        logging.warning("File: {} seems to be hidden. Skipping".format(file_path))
+        return False
+
+    # check if file can be read by opencv
+    if cv2.imread(file_path) is None:
+        logging.warning("File: {} seems not to be an image, or is corrupted. Skipping".format(file_path))
+        return False
+
+    # return boolean
+    return True
 
 
 def prepare_folder(folder_path: str, export_path: str, error_logs_path: str, manual_correction: bool = False, debug: bool = False) -> None:
@@ -27,6 +78,10 @@ def prepare_folder(folder_path: str, export_path: str, error_logs_path: str, man
     # List all images in the folder
     paths: List[Path] = [i for i in folder_path.rglob("*")]
     for path in tqdm(paths):
+        # check if file is relevant and can be processed
+        if not check_file(str(path)):
+            continue
+
         # Iterate image per image
         qr_codes_info: List[Dict[str, object]] = find_qr_codes(str(path), SCALE_FACTOR, debug)
         crop_qr_code_patches(str(path), qr_codes_info, export_path, debug)
@@ -36,7 +91,7 @@ def prepare_folder(folder_path: str, export_path: str, error_logs_path: str, man
             errors.append(str(path))
 
     # Log images which have not all QR codes detected
-    print("In {} image, not all QR codes have been detected".format(len(errors)))
+    logging.warning("In {} images, not all QR codes have been detected".format(len(errors)))
     with open(str(error_logs_path), 'w') as fp:
         for error in errors:
             fp.write(error+'\n')
@@ -90,7 +145,7 @@ def find_qr_codes(image_path: str, scale_factor: float, debug: bool = False) -> 
     gray: np.ndarray = cv2.cvtColor(downscaled_image, cv2.COLOR_BGR2GRAY)
 
     # Find QR codes in the downscaled image
-    qr_codes: List[pyzbar.ZBarSymbol] = pyzbar.decode(gray)
+    qr_codes: List[pyzbar.ZBarSymbol] = pyzbar.decode(gray, symbols=[ZBarSymbol.QRCODE])
 
     # List to store QR code coordinates and values
     qr_code_info: List[Dict[str, object]] = []
@@ -149,8 +204,9 @@ def crop_qr_code_patches(image_path: str, qr_codes_info: List[Dict[str, object]]
         (x, y, w, h) = qr_code['coordinates']
 
         # Apply the offset to adjust the patch size
-        x = 750
-        y += 600
+        x = QR_OFFSET_X
+        y += QR_OFFSET_Y
+
         w = CROPPING_SIZE[1]
         h = CROPPING_SIZE[0]
 
@@ -167,7 +223,7 @@ def crop_qr_code_patches(image_path: str, qr_codes_info: List[Dict[str, object]]
         # Save the image patch as a PNG file
         if not debug:
             cv2.imwrite(filename, qr_patch)
-            print(f"QR Code: {qr_value}, Patch saved as: {filename}")
+            logging.info(f"QR Code: {qr_value}, Patch saved as: {filename}")
         if debug:
             plt.imshow(cv2.cvtColor(qr_patch, cv2.COLOR_BGR2RGB))
             plt.axis('off')
@@ -273,7 +329,12 @@ class BoundingBoxSelector:
 
 
 if __name__ == "__main__":
-    src_path = 'data/images'
-    export_path = 'export/individual_samples'
-    error_logs_path = 'err_log.txt'
+    # src_path = 'data/images'
+    # export_path = 'export/individual_samples'
+    # error_logs_path = 'err_log.txt'
+    # prepare_folder(src_path, export_path, error_logs_path, manual_correction=True)
+
+    src_path = '/projects/leaf-toolkit/data/Zt_P_inplant.1'
+    export_path = '/projects/leaf-toolkit/data/export_Luzia2'
+    error_logs_path = 'err_log2.txt'
     prepare_folder(src_path, export_path, error_logs_path, manual_correction=True)
