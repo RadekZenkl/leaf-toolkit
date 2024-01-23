@@ -53,12 +53,16 @@ class Leafnet:
         if seg_model_name == 'latest':
             # self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/axfYtbvX32TawJn/download')
             self.seg_model_path = '/projects/leaf-toolkit/src/leaf/fpn_mitb1_dsnv6.torchscript'
+        elif seg_model_name == 'tracking':
+            self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/qevIZ5iHMRZrGL2/download')
         else:
             raise Exception("Unexpected Segmentation Model Name")    
         
         if key_model_name == 'latest':
             # self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/7OwuVJO6igaew9g/download')
             self.key_model_path = '/projects/leaf-toolkit/src/leaf/yolov8m_dsnv6.pt'
+        elif key_model_name == 'tracking':
+            self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/JOcECeAwlo9SkhE/download')
         else:
             raise Exception("Unexpected Keypoint Detection Model Name")    
 
@@ -326,7 +330,7 @@ if __name__=='__main__':
     # leafnet = Leafnet(debug=False, img_sz=1024, use_gpu=True, keypoints_thresh=0.15, export_path='/projects/leaf-toolkit/src/leaf/test_export')
     # leafnet.predict('/projects/leaf-toolkit/src/leaf/test_data')
 
-    leafnet = Leafnet(debug=False, img_sz=1024, use_gpu=True, keypoints_thresh=0.1, export_path='/projects/leaf-toolkit/data/predictions_Luzia')
+    leafnet = Leafnet(seg_model_name='tracking', key_model_name='tracking', debug=False, img_sz=1024, use_gpu=True, keypoints_thresh=0.1, export_path='/projects/leaf-toolkit/data/predictions_Luzia')
     leafnet.predict('/projects/leaf-toolkit/data/export_Luzia')
 
 
