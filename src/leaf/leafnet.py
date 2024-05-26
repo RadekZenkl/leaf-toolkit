@@ -1,4 +1,3 @@
-
 import numpy as np
 from pathlib import Path
 import cv2
@@ -16,6 +15,8 @@ import psutil
 import torchvision.transforms.functional as F
 from ultralytics import YOLO
 from data_prep import check_file
+from typing import Union, Tuple
+import logging
 
 
 
@@ -25,16 +26,20 @@ class Leafnet:
             self, 
             seg_model_name: str = 'latest', 
             key_model_name: str = 'latest',
-            export_path: str = 'export', 
-            img_sz: int = 1024,
+            img_sz: Union[int, Tuple[int, int]] = 1024,
             debug: bool = False,
+            visualize: bool = True, 
             use_gpu: bool = False,
             cuda_device: str = 'cuda:0',
             keypoints_thresh: float = 0.15,
             max_det_patch: int = 10000,
+            search_pattern: str = '*.*',
+            export_pattern_pred: Union[str, Tuple[str, str]] = 'export/predictions',  # single str --> export path, tuple --> used to with str.replace(*) to change parts of orignal path
+            export_pattern_vis: Union[str, Tuple[str, str]] = 'export/visualizations',  # single str --> export path, tuple --> used to with str.replace(*) to change parts of orignal path
             ) -> None:
         
         self.debug = debug
+        self.visualize = visualize
                 
         if self.debug:
 
@@ -48,28 +53,33 @@ class Leafnet:
         self.key_model_path = None
         self.keypoints_thresh = keypoints_thresh
         self.max_det_patch = max_det_patch
+        self.search_pattern = search_pattern  # This parameter can be adjusted when there is a more complex filesystem
+        self.export_pattern_pred = export_pattern_pred  # This parameter can be adjusted when a more complex export paths need to be composed
+        self.export_pattern_vis = export_pattern_vis  # This parameter can be adjusted when a more complex export paths need to be composed
 
 
         if seg_model_name == 'latest':
-            # self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/axfYtbvX32TawJn/download')
-            self.seg_model_path = '/projects/leaf-toolkit/src/leaf/fpn_mitb1_dsnv6.torchscript'
+            self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/dJ5zkLCIfkEf4yO/download')
+        elif seg_model_name == 'baseline':
+            self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/dJ5zkLCIfkEf4yO/download')
         elif seg_model_name == 'tracking':
-            self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/qevIZ5iHMRZrGL2/download')
+            self.seg_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/axfYtbvX32TawJn/download')
         else:
             raise Exception("Unexpected Segmentation Model Name")    
         
         if key_model_name == 'latest':
-            # self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/7OwuVJO6igaew9g/download')
-            self.key_model_path = '/projects/leaf-toolkit/src/leaf/yolov8m_dsnv6.pt'
+            self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/JsQPaGCvgRWyAPW/download')
+        elif key_model_name == 'baseline':
+            self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/JsQPaGCvgRWyAPW/download')
         elif key_model_name == 'tracking':
-            self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/JOcECeAwlo9SkhE/download')
+            self.key_model_path = self.download_file('https://polybox.ethz.ch/index.php/s/3PNTzQXMUKPTlCl/download')
         else:
             raise Exception("Unexpected Keypoint Detection Model Name")    
 
         if use_gpu:
             # Check if GPU is available
             if not torch.cuda.is_available():
-                raise Exception("GPU requested but torch cannot utilize it, please check your torch and cuda installation.")
+                raise Exception("GPU requested a GPU but torch cannot utilize it, please check your torch and cuda installation.")
 
             self.key_model = YOLO(self.key_model_path)
             self.key_model.model.to(self.cuda_device)
@@ -84,8 +94,6 @@ class Leafnet:
             num_threads = psutil.cpu_count(logical=True)
             torch.set_num_threads(num_threads) 
         
-        self.export_path = Path(export_path)
-
         self.img_sz = img_sz
         
         # Currently the only supported stride is the input size
@@ -104,29 +112,36 @@ class Leafnet:
             self.predict_folder(src_path)
 
     def predict_folder(self, src: Path):
-        files = list(src.rglob('*.*'))
+
+        files = list(src.rglob(self.search_pattern))
         
         for file in tqdm(files):
-            
+
             if not check_file(str(file)):
                 continue
             
             self.predict_image(file)
 
-    def predict_image(self, src: Path) -> np.array:
+    def predict_image(self, src: Path):
         
+        logging.error("Processing File: {}".format(str(src)))
+
         if self.debug:
             start_time = time.time()
 
         image = cv2.imread(str(src))
         if image is None:
-            raise Exception("Reading in the image: {} was unsucessful".format(str(src)))
+            logging.error("Reading in the image: {} was unsucessful".format(str(src)))
+            return
         
         # Convert from cv2 BGR to RGB
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         # subdivide input
         patches = self.subdivide_image(image, src)
+        if patches is None:
+            logging.info(f"Skipping image: {str(src)}")
+            return
 
         # allocate space for results
         segmentations = np.zeros((patches.shape[:-1]))
@@ -140,37 +155,55 @@ class Leafnet:
 
         result = self.merge_patches(segmentations)
         if self.debug:
-            print("execution time: {}".format(time.time()-start_time))
+            logging.info("execution time: {}".format(time.time()-start_time))
 
         if self.debug:
             pass
     
         else:
+            # Compose appropriate Export path 
+            if type(self.export_pattern_pred) == str:
+                predictions_path = Path(self.export_pattern_pred) / src.name
+            elif type(self.export_pattern_pred) == tuple:
+                predictions_path = Path(str(src).replace(*self.export_pattern_pred))
+            else:
+                raise Exception("Unexpected path pattern")
+   
             # save predictions
-            predictions_path = self.export_path / 'predictions' / src.name
             predictions_path.parents[0].mkdir(parents=True, exist_ok=True)
             cv2.imwrite(str(predictions_path.with_suffix('.png')),result.astype(np.uint8))
-           
-        self.visualize_predictions(src, result)
-        gc.collect()
+
+        if self.visualize:  
+            self.visualize_predictions(src, result)
+            gc.collect()
 
     def subdivide_image(self, image, src: Path) -> np.array:
-        if image.shape[0] < self.img_sz or image.shape[1] < self.img_sz:
-            raise Exception("Image: {} is smaller then required size".format(str(src)))
+        if type(self.img_sz) == int:
+            imgsz  = (self.img_sz, self.img_sz)
+        elif type(self.img_sz) == tuple:
+            imgsz = self.img_sz
+        else:
+            logging.error("Unexpected image size format: {}".format(self.img_sz))
+            return None
+
+        if image.shape[0] < imgsz[0] or image.shape[1] < imgsz[1]:
+            logging.error("Image: {} is smaller then required size".format(str(src)))
+            return None
 
         # check if image should be subdivided because it is too large
-        if image.shape[0] != self.img_sz or image.shape[1] != self.img_sz:
-            patches = self.split_into_patches(image)  # n x img_sz x img_sz x 3
+        if image.shape[0] != imgsz[0] or image.shape[1] != imgsz[1]:
+            patches = self.split_into_patches(image, imgsz)  # n x img_sz x img_sz x 3
         # exactly one pass
-        elif image.shape[0] == self.img_sz and image.shape[1] == self.img_sz:
+        elif image.shape[0] == imgsz[0] and image.shape[1] == imgsz[1]:
             patches = np.expand_dims(image, axis=(0,1))
         else:
-            raise Exception("Unexpected size: {}".format(str(src)))
+            logging.error("Unexpected size: {}".format(str(src)))
+            return None
         
         return patches
     
-    def split_into_patches(self, image):
-        patches = view_as_blocks(image, (self.img_sz,self.img_sz,3))
+    def split_into_patches(self, image, imgsz):
+        patches = view_as_blocks(image, (*imgsz,3))
         patches = np.squeeze(patches, axis=2)  # remove the RGB axis which is just 1 entry
 
         return patches
@@ -217,7 +250,7 @@ class Leafnet:
             # keypoints
             # Keypoint model only needs input scaled to [0,1] no normalization is required
             res = self.key_model.predict(torch.from_numpy(input_array), conf=self.keypoints_thresh, max_det=self.max_det_patch,
-                                         imgsz=self.img_sz, iou=0.6)
+                                         imgsz=self.img_sz, iou=0.6, verbose=False)
 
             # segmentations 
             segmentation_preds = self.seg_model(model_input)
@@ -296,7 +329,16 @@ class Leafnet:
             cv2.imshow("output", image_bgr)                       # Show image
             cv2.waitKey(0)               
         else:
-            save_path = self.export_path / 'visualization' / image_src.name
+            # compose appropriate export path 
+            if type(self.export_pattern_vis) == str:
+                save_path = Path(self.export_pattern_vis) / image_src.name
+            elif type(self.export_pattern_vis) == tuple:
+                save_path = Path(str(image_src).replace(*self.export_pattern_vis))
+            else:
+                raise Exception("Unexpected path pattern")
+            save_path = save_path.with_suffix('.jpg')  # Save as jpg to save some storage through lossy compression
+   
+            # Save the visualizations
             save_path.parents[0].mkdir(parents=True, exist_ok=True)
             cv2.imwrite(str(save_path), image_bgr)
 
@@ -311,9 +353,9 @@ class Leafnet:
 
         if not file_path.exists():
             urllib.request.urlretrieve(url, file_path)
-            print(f"File downloaded successfully: {file_path}")
+            logging.info(f"File downloaded successfully: {file_path}")
         else:
-            print(f"File already exists: {file_path}")
+            logging.info(f"File already exists: {file_path}")
 
         return filename
 
@@ -323,14 +365,20 @@ class Leafnet:
 
 
 if __name__=='__main__':
-    # leafnet = Leafnet(debug=False, img_sz=1024, use_gpu=False, keypoints_thresh=0.15, export_path='/projects/leaf-toolkit/data/images_exp')
-    # # leafnet.test()
-    # leafnet.predict('/projects/leaf-toolkit/data/images')
 
-    # leafnet = Leafnet(debug=False, img_sz=1024, use_gpu=True, keypoints_thresh=0.15, export_path='/projects/leaf-toolkit/src/leaf/test_export')
-    # leafnet.predict('/projects/leaf-toolkit/src/leaf/test_data')
+    fh = logging.FileHandler('leafnet.log')
+    fh.setLevel(logging.DEBUG) # or any level you want
+    logger = logging.getLogger()
+    logger.addHandler(fh)
 
-    leafnet = Leafnet(seg_model_name='tracking', key_model_name='tracking', debug=False, img_sz=1024, use_gpu=True, keypoints_thresh=0.1, export_path='/projects/leaf-toolkit/data/predictions_Luzia')
-    leafnet.predict('/projects/leaf-toolkit/data/export_Luzia')
+    leafnet = Leafnet(seg_model_name='baseline', 
+                      key_model_name='baseline', 
+                      debug=False, img_sz=(1024, 1024), 
+                      use_gpu=False, keypoints_thresh=0.195,
+                      export_pattern_pred=('export/predictions'), 
+                      export_pattern_vis=('export/visualization')
+                      )
+    
+    leafnet.test()
 
 

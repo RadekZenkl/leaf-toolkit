@@ -96,9 +96,5 @@ def pycndia_count(segmentations: np.array, pycnidia_id: int = 5) -> int:
 
 
 if __name__=="__main__":
-    # evaluator = Evaluator('results.csv', debug=True)
-    # evaluator.predict('export/predictions/test.png')
-
-    evaluator = Evaluator('luzia_results.csv', debug=True)
-    evaluator.predict('/projects/leaf-toolkit/data/predictions_Luzia/predictions')
-
+    evaluator = Evaluator('results.csv', debug=True)
+    evaluator.predict('export/predictions/test.png')
