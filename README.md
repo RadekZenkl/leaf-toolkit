@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11352470.svg)](https://doi.org/10.5281/zenodo.11352470)
+
 # leaf-toolkit
 
 This package is for testing and evaluating the Leaf Evaluation and Analysis Framework (LEAF). Please note that especially the GPU version is not runtime optimized. The goal is rather to provide an easy to use tool.
