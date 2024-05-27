@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "leaf-toolkit"
+version: 0.3.0
+doi: 10.5281/zenodo.11352470
+date-released: 2024-05-27
+authors:
+  - family-names: Zenkl
+    given-names: Radek
+    orcid: https://orcid.org/0009-0000-4099-1361
+  - family-names: Anderegg
+    given-names: Jonas
+    orcid: https://orcid.org/0000-0002-3345-4696
+  - family-names: McDonald
+    given-names: Bruce
+    orcid: https://orcid.org/0000-0002-5332-2172
+references:
+  - type: article
+    authors:
+      - family-names: Zenkl
+        given-names: Radek
+      - family-names: McDonald
+        given-names: Bruce A.
+      - family-names: Walter
+        given-names: Achim      
+      - family-names: Anderegg
+        given-names: Jonas
+    title: "Towards high throughput in-field detection and quantification of wheat foliar diseases with deep learning"
+    journal: "bioRxiv"
+    year: 2024
+    pages: "2024--05"
+    doi: 10.1101/2024.05.10.593608 
