@@ -29,6 +29,7 @@ from leaf.generate_sheets import generate_sheets
 
 generate_sheets()
 ```
+This will create a `.tex` file which can will be used to create a `.pdf` with the QR codes. If you encounter issues with the creation of the `.pdf` files once the `.tex` file has been created, you can use other tools like overleaf to create the `.pdf`
 
 ### Preparing Data for inference
 
@@ -76,9 +77,11 @@ net.predict('<image path or folder path>')
 
 You can set the `debug=True` to preview all the results without saving them. The output will be saved in `export` folder unless specified otherwise. The code saves the segmentation masks in `export/predictions` and visualized predictions in `export/visualization`. The predictions maks save the classes `background`, `leaf`, `lesion`, `pycndia`, `rust pustule` with the integer values of `0,1,2,3,4` respectively. Thus, the predictions appear pitch black to the naked eye. 
 
+Depending on your usecase, you might need to adjust the image size (for example `img_sz=(1024, 1024)` for images of 1024x1024px), allow for using gpu by setting `use_gpu=True` and selecting the appropriate device such as `cuda:0`
+
 ### Evaluating Diseases
 
-If you want to evaulate the semented images for disease metrics you can use the following code:
+If you want to evaulate the segmented images for disease metrics you can use the following code:
 
 ```
 from leaf.metrics import Evaluator
@@ -92,18 +95,25 @@ This will iterate through the images in the target folder and write the results 
 - Number of pycnidia
 - Leaf Area in 1e6 pixels
 
-## Issues
-
-when compiling the `.tex` file from `generate_sheets.py` does not work, you can easily compile it in e.g. overleaf. Typically it has to do with the installation of `pdflatex` on your computer.
+## Further Information 
+For more details on how to use the code, please feel free to browse the code as the major parts of the code contain also a main function which shows a potential use. 
 
 ## Citation
-
 @software{Leaf-Toolkit,
 author = {Zenkl, Radek and Anderegg, Jonas and McDonald, Bruce},
 license = {GPLv3},
 month = sep,
 title = {{leaf-toolkit}},
 url = {https://github.com/RadekZenkl/leaf-toolkit},
-version = {0.2.0},
+version = {0.3.0},
 year = {2023}
+}
+
+@article{zenkl2024towards,
+  title={Towards high throughput in-field detection and quantification of wheat foliar diseases with deep learning},
+  author={Zenkl, Radek and McDonald, Bruce A and Walter, Achim and Anderegg, Jonas},
+  journal={bioRxiv},
+  pages={2024--05},
+  year={2024},
+  publisher={Cold Spring Harbor Laboratory}
 }

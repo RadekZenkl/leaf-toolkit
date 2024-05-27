@@ -9,15 +9,78 @@ import time
 from tqdm import tqdm
 from typing import List, Dict, Tuple
 import numpy as np
-Offending key for IP in /home/radek/.ssh/known_hosts:4
+import logging
+from pyzbar.pyzbar import ZBarSymbol
 
 
-CROPPING_SIZE: Tuple[int, int] = (1024, 8192)
-SCALE_FACTOR: float = 1/4
 N_QR_CODES: int = 8
 
 
-def prepare_folder(folder_path: str, export_path: str, error_logs_path: str, manual_correction: bool = False, debug: bool = False) -> None:
+def determine_parameters(img: np.array) -> dict[str: int]:
+    # Determine QR code and cropping parameters based on the image shape
+
+    # This corresponds to A4 scanned at 1200dpi
+    if np.abs(img.shape[0] - 17_600) < 2000 and np.abs(img.shape[1] - 12_250) < 2000:
+        params = {
+            'cropping_size': (1024, 6144),
+            'scale_factor': 1/4,
+            'qr_offset_x': 2000,
+            'qr_offset_y': 600,
+        }
+    # This corresponds to A4 scanned at 600dpi
+    elif np.abs(img.shape[0] - 7000) < 1000 and np.abs(img.shape[1] - 5000) < 1000:
+        params = {
+            'cropping_size': (512, 3072),
+            'scale_factor': 1/3,
+            'qr_offset_x': 800,
+            'qr_offset_y': 275,
+        }
+    # If the options from above do not cover your usecase, implement a new option here
+    else:
+        raise Exception("The provided image has a resolution of {} x {} px. No fitting cropping profile found. Please check your data or update the cropping profiles.")
+
+    return params
+
+def is_hidden_file(file_path: str) -> bool: 
+    # Unix systems
+    if Path(file_path).name.startswith('.'):
+        return True
+    
+    # windows
+    try:
+        attrs = Path(file_path).stat().st_file_attributes
+        # Check if the hidden attribute is set (bitwise AND with 2)
+        if attrs & 2 != 0:
+            return True
+    except AttributeError:
+        pass
+
+    return False
+
+
+def check_file(file_path: str) -> bool:
+    # This is true when file is ok and false when there are some issues
+
+    # Check if file is a folder
+    if not Path(file_path).is_file():
+        logging.warning("Path: {} is not a file.  Skipping".format(str(file_path)))
+        return False
+
+    # check if file is a hidden file
+    if is_hidden_file(file_path):
+        logging.warning("File: {} seems to be hidden. Skipping".format(file_path))
+        return False
+
+    # check if file can be read by opencv
+    if cv2.imread(file_path) is None:
+        logging.warning("File: {} seems not to be an image, or is corrupted. Skipping".format(file_path))
+        return False
+
+    # return boolean
+    return True
+
+
+def prepare_folder(folder_path: str, export_path: str, error_logs_path: str, manual_correction: bool = False, debug: bool = False, correction_export_path: str = None) -> None:
     # convert strings to pathlib paths
     folder_path = Path(folder_path)
     export_path = Path(export_path)
@@ -27,8 +90,12 @@ def prepare_folder(folder_path: str, export_path: str, error_logs_path: str, man
     # List all images in the folder
     paths: List[Path] = [i for i in folder_path.rglob("*")]
     for path in tqdm(paths):
+        # check if file is relevant and can be processed
+        if not check_file(str(path)):
+            continue
+
         # Iterate image per image
-        qr_codes_info: List[Dict[str, object]] = find_qr_codes(str(path), SCALE_FACTOR, debug)
+        qr_codes_info: List[Dict[str, object]] = find_qr_codes(str(path), debug)
         crop_qr_code_patches(str(path), qr_codes_info, export_path, debug)
 
         # Check if all QR codes have been detected in the image
@@ -36,17 +103,19 @@ def prepare_folder(folder_path: str, export_path: str, error_logs_path: str, man
             errors.append(str(path))
 
     # Log images which have not all QR codes detected
-    print("In {} image, not all QR codes have been detected".format(len(errors)))
+    logging.warning("In {} images, not all QR codes have been detected".format(len(errors)))
     with open(str(error_logs_path), 'w') as fp:
         for error in errors:
             fp.write(error+'\n')
 
     if manual_correction:
         # Correct all the missing QR codes and select the cropping location
-        correction(error_logs_path)
+        if correction_export_path is None:
+            raise Exception("Please provide a path for exporting manual corrections")
+        correction(error_logs_path, Path(correction_export_path))
 
 
-def correction(error_logs_path: Path) -> None:
+def correction(error_logs_path: Path, correction_export_path: Path) -> None:
     errorfiles: List[str] = []
     with open(str(error_logs_path), 'r') as fp:
         errorfiles = fp.readlines()
@@ -58,27 +127,32 @@ def correction(error_logs_path: Path) -> None:
             # Remove potential new lines
             image_path = str(image_path).strip()
 
+            image: np.ndarray = cv2.imread(image_path)
+            cropping_params = determine_parameters(image)
+
             # Have an interactive session in matplotlib to set the bounding box
 
             # Find QR codes in the image
-            qr_codes: List[Dict[str, object]] = find_qr_codes(image_path, SCALE_FACTOR)
+            qr_codes: List[Dict[str, object]] = find_qr_codes(image_path)
             # Plot the image with BoundingBoxSelector
-            bb_selector: BoundingBoxSelector = BoundingBoxSelector(image_path, qr_codes, CROPPING_SIZE, SCALE_FACTOR, Path('export'))
+            bb_selector: BoundingBoxSelector = BoundingBoxSelector(image_path, qr_codes, cropping_params['cropping_size'], cropping_params['scale_factor'], correction_export_path)
 
             for qr_code in qr_codes:
                 (x, y, w, h) = qr_code['coordinates']
-                box: Rectangle = Rectangle((int(x * SCALE_FACTOR), int(y * SCALE_FACTOR)),
-                                int(w * SCALE_FACTOR),
-                                int(h * SCALE_FACTOR),
+                box: Rectangle = Rectangle((int(x * cropping_params['scale_factor']), int(y * cropping_params['scale_factor'])),
+                                int(w * cropping_params['scale_factor']),
+                                int(h * cropping_params['scale_factor']),
                                 linewidth=2, edgecolor='b', facecolor='none')
                 bb_selector.ax.add_patch(box)
 
             bb_selector.show()
 
 
-def find_qr_codes(image_path: str, scale_factor: float, debug: bool = False) -> List[Dict[str, object]]:
+def find_qr_codes(image_path: str, debug: bool = False) -> List[Dict[str, object]]:
     # Load the original image
     image: np.ndarray = cv2.imread(image_path)
+    cropping_params = determine_parameters(image)
+    scale_factor = cropping_params['scale_factor']
 
     # Calculate the downscaled size based on the scale factor
     downscaled_size: Tuple[int, int] = (int(image.shape[1] * scale_factor), int(image.shape[0] * scale_factor))
@@ -90,7 +164,7 @@ def find_qr_codes(image_path: str, scale_factor: float, debug: bool = False) -> 
     gray: np.ndarray = cv2.cvtColor(downscaled_image, cv2.COLOR_BGR2GRAY)
 
     # Find QR codes in the downscaled image
-    qr_codes: List[pyzbar.ZBarSymbol] = pyzbar.decode(gray)
+    qr_codes: List[pyzbar.ZBarSymbol] = pyzbar.decode(gray, symbols=[ZBarSymbol.QRCODE])
 
     # List to store QR code coordinates and values
     qr_code_info: List[Dict[str, object]] = []
@@ -140,6 +214,8 @@ def crop_qr_code_patches(image_path: str, qr_codes_info: List[Dict[str, object]]
     # Load the original image
     image: np.ndarray = cv2.imread(image_path)
 
+    cropping_params = determine_parameters(image)
+
     # Process each QR code
     for qr_code in qr_codes_info:
         # Extract the QR code value
@@ -149,10 +225,11 @@ def crop_qr_code_patches(image_path: str, qr_codes_info: List[Dict[str, object]]
         (x, y, w, h) = qr_code['coordinates']
 
         # Apply the offset to adjust the patch size
-        x = 750
-        y += 600
-        w = CROPPING_SIZE[1]
-        h = CROPPING_SIZE[0]
+        x = cropping_params['qr_offset_x']
+        y += cropping_params['qr_offset_y']
+
+        w = cropping_params['cropping_size'][1]
+        h = cropping_params['cropping_size'][0]
 
         # Crop the image patch around the QR code
         qr_patch: np.ndarray = image[y:y + h, x:x + w]
@@ -167,7 +244,7 @@ def crop_qr_code_patches(image_path: str, qr_codes_info: List[Dict[str, object]]
         # Save the image patch as a PNG file
         if not debug:
             cv2.imwrite(filename, qr_patch)
-            print(f"QR Code: {qr_value}, Patch saved as: {filename}")
+            logging.info(f"QR Code: {qr_value}, Patch saved as: {filename}")
         if debug:
             plt.imshow(cv2.cvtColor(qr_patch, cv2.COLOR_BGR2RGB))
             plt.axis('off')
@@ -208,7 +285,7 @@ class BoundingBoxSelector:
         self.confirm_button = Button(plt.axes([0.75, 0.20, 0.1, 0.04]), 'Confirm', color='g', hovercolor='0.975')
         self.confirm_button.on_clicked(self.confirm)
 
-        self.done_button = Button(plt.axes([0.75, 0.25, 0.1, 0.04]), 'Done', color='g', hovercolor='0.975')
+        self.done_button = Button(plt.axes([0.75, 0.25, 0.1, 0.04]), 'Done / Next image', color='g', hovercolor='0.975')
         self.done_button.on_clicked(self.done)
 
         initial_text = "placeholder.png"
@@ -252,7 +329,7 @@ class BoundingBoxSelector:
                                           self.user_boxes[1]:self.user_boxes[1]+self.orig_box_size[1]]
         image_path = self.export_dir / self.filename
 
-        print("Saving Patch: {}".format(self.filename))
+        logging.info("Saving Patch: {}".format(self.filename))
         time.sleep(0.5)
 
         # Check if writing successful
@@ -274,6 +351,6 @@ class BoundingBoxSelector:
 
 if __name__ == "__main__":
     src_path = 'data/images'
-    export_path = 'export/individual_samples'
+    export_path = 'export/samples'
     error_logs_path = 'err_log.txt'
     prepare_folder(src_path, export_path, error_logs_path, manual_correction=True)

@@ -89,7 +89,7 @@ def placl(segmentations: np.array, lesion_id: int = 2) -> float:
     
     return lesion /  leaf
 
-def pycndia_count(segmentations: np.array, pycnidia_id: int = 3) -> int:
+def pycndia_count(segmentations: np.array, pycnidia_id: int = 5) -> int:
 
     
     return np.sum(segmentations == pycnidia_id)
@@ -98,4 +98,3 @@ def pycndia_count(segmentations: np.array, pycnidia_id: int = 3) -> int:
 if __name__=="__main__":
     evaluator = Evaluator('results.csv', debug=True)
     evaluator.predict('export/predictions/test.png')
-
