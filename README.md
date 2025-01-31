@@ -98,6 +98,9 @@ This will iterate through the images in the target folder and write the results 
 ## Further Information 
 For more details on how to use the code, please feel free to browse the code as the major parts of the code contain also a main function which shows a potential use. 
 
+## Data Availability
+The training dataset can be downloaded here: https://www.research-collection.ethz.ch/handle/20.500.11850/719891
+
 ## Citation
 @software{Leaf-Toolkit,
 author = {Zenkl, Radek and Anderegg, Jonas and McDonald, Bruce},
