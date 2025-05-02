@@ -17,6 +17,23 @@ N_QR_CODES: int = 8
 
 
 def determine_parameters(img: np.array) -> dict[str: int]:
+    """
+    Determine cropping parameters based on image resolution.
+
+    Supports A4 scanned at 600dpi and 1200dpi. Raises an error if the resolution
+    is unsupported.
+
+    Args:
+        img (np.array): Input image as a NumPy array.
+
+    Returns:
+        dict[str, int]: Dictionary with keys 'cropping_size', 'scale_factor',
+        'qr_offset_x', and 'qr_offset_y'.
+
+    Raises:
+        Exception: If image resolution does not match predefined formats.
+    """
+
     # Determine QR code and cropping parameters based on the image shape
 
     # This corresponds to A4 scanned at 1200dpi
@@ -27,6 +44,17 @@ def determine_parameters(img: np.array) -> dict[str: int]:
             'qr_offset_x': 2000,
             'qr_offset_y': 600,
         }
+
+    # TODO have a look at what this is
+    # This corresponds to A4 scanned at 1200dpi
+    if np.abs(img.shape[0] - 17_600) < 4000 and np.abs(img.shape[1] - 12_250) < 4000:
+        params = {
+            'cropping_size': (1024, 6144),
+            'scale_factor': 1/4,
+            'qr_offset_x': 2000,
+            'qr_offset_y': 500,
+        }
+
     # This corresponds to A4 scanned at 600dpi
     elif np.abs(img.shape[0] - 7000) < 1000 and np.abs(img.shape[1] - 5000) < 1000:
         params = {
@@ -41,7 +69,17 @@ def determine_parameters(img: np.array) -> dict[str: int]:
 
     return params
 
-def is_hidden_file(file_path: str) -> bool: 
+def is_hidden_file(file_path: str) -> bool:
+    """
+    Check if a file is hidden (Unix-style or Windows).
+
+    Args:
+        file_path (str): Full path to the file.
+
+    Returns:
+        bool: True if the file is hidden, False otherwise.
+    """
+
     # Unix systems
     if Path(file_path).name.startswith('.'):
         return True
@@ -59,6 +97,15 @@ def is_hidden_file(file_path: str) -> bool:
 
 
 def check_file(file_path: str) -> bool:
+    """
+    Validate if the file exists, is not hidden, and is a readable image.
+
+    Args:
+        file_path (str): Full path to the file.
+
+    Returns:
+        bool: True if valid, False otherwise.
+    """
     # This is true when file is ok and false when there are some issues
 
     # Check if file is a folder
@@ -76,11 +123,23 @@ def check_file(file_path: str) -> bool:
         logging.warning("File: {} seems not to be an image, or is corrupted. Skipping".format(file_path))
         return False
 
-    # return boolean
     return True
 
 
 def prepare_folder(folder_path: str, export_path: str, error_logs_path: str, manual_correction: bool = False, debug: bool = False, correction_export_path: str = None) -> None:
+    """
+    Process a folder of images for QR detection and cropping.
+
+    Optionally allows manual correction of failed detections.
+
+    Args:
+        folder_path (str): Path to the folder containing input images.
+        export_path (str): Path to export cropped image patches.
+        error_logs_path (str): Path to write error logs.
+        manual_correction (bool, optional): If True, enables manual correction. Defaults to False.
+        debug (bool, optional): If True, enables debug output. Defaults to False.
+        correction_export_path (str, optional): Path for corrected exports if manual correction is enabled.
+    """
     # convert strings to pathlib paths
     folder_path = Path(folder_path)
     export_path = Path(export_path)
@@ -116,6 +175,13 @@ def prepare_folder(folder_path: str, export_path: str, error_logs_path: str, man
 
 
 def correction(error_logs_path: Path, correction_export_path: Path) -> None:
+    """
+    Launch an interactive tool for manual correction of image crops.
+
+    Args:
+        error_logs_path (Path): Path to the file listing failed detections.
+        correction_export_path (Path): Path to export manually cropped patches.
+    """
     errorfiles: List[str] = []
     with open(str(error_logs_path), 'r') as fp:
         errorfiles = fp.readlines()
@@ -149,8 +215,19 @@ def correction(error_logs_path: Path, correction_export_path: Path) -> None:
 
 
 def find_qr_codes(image_path: str, debug: bool = False) -> List[Dict[str, object]]:
+    """
+    Detect QR codes in an image and return their info.
+
+    Args:
+        image_path (str): Path to the image file.
+        debug (bool, optional): If True, shows debug visualization. Defaults to False.
+
+    Returns:
+        List[Dict[str, object]]: List of QR code dictionaries with 'coordinates' and 'value'.
+    """
     # Load the original image
     image: np.ndarray = cv2.imread(image_path)
+
     cropping_params = determine_parameters(image)
     scale_factor = cropping_params['scale_factor']
 
@@ -208,6 +285,15 @@ def find_qr_codes(image_path: str, debug: bool = False) -> List[Dict[str, object
 
 
 def crop_qr_code_patches(image_path: str, qr_codes_info: List[Dict[str, object]], save_dir: Path, debug: bool = False) -> None:
+    """
+    Crop patches around detected QR codes and save them.
+
+    Args:
+        image_path (str): Path to the input image.
+        qr_codes_info (List[Dict[str, object]]): List of QR code metadata with coordinates and values.
+        save_dir (Path): Directory to save cropped patches.
+        debug (bool, optional): If True, shows cropped patches. Defaults to False.
+    """
     # Create a directory to save the cropped patches
     save_dir.mkdir(parents=True, exist_ok=True)
 
@@ -255,8 +341,20 @@ def crop_qr_code_patches(image_path: str, qr_codes_info: List[Dict[str, object]]
 
 
 class BoundingBoxSelector:
+    """
+    GUI tool for manually selecting and exporting image patches based on bounding boxes.
+    """
     def __init__(self, image_path: str, qr_codes: List[Dict[str, object]], box_size: Tuple[int, int], scale_factor: float, export_dir: Path):
+        """
+        Initialize the bounding box selector.
 
+        Args:
+            image_path (str): Path to the image being processed.
+            qr_codes (List[Dict[str, object]]): List of detected QR codes.
+            box_size (Tuple[int, int]): Width and height of the crop box.
+            scale_factor (float): Scale factor for display.
+            export_dir (Path): Directory to export cropped patches.
+        """
         self.original_image: np.ndarray = cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB)
 
         downscaled_size: Tuple[int, int] = (int(self.original_image.shape[1] * scale_factor), int(self.original_image.shape[0] * scale_factor))
@@ -294,6 +392,9 @@ class BoundingBoxSelector:
         self.filename = None
 
     def on_press(self, event):
+        """
+        Handle mouse click event to define a bounding box.
+        """
         if event.inaxes != self.ax:
             return
 
@@ -310,15 +411,24 @@ class BoundingBoxSelector:
         self.fig.canvas.draw()
 
     def show(self):
+        """
+        Display the interactive selector interface.
+        """
         mplcursors.cursor(self.ax, hover=False)
         plt.show()
 
     def reset(self, event):
+        """
+        Clear the currently drawn bounding box.
+        """
         if self.selected_box is not None:
             self.selected_box.remove()
             self.selected_box = None
 
     def confirm(self, event):
+        """
+        Confirm the bounding box and trigger patch save.
+        """
 
         if self.user_boxes is None:
             raise Exception("No coordinates present")
@@ -343,14 +453,16 @@ class BoundingBoxSelector:
         self.ax.add_patch(confirmed_box)
 
     def done(self, event):
+        """
+        Close the interface after completion.
+        """
         plt.close(self.fig)
 
     def submit(self, text):
+        """
+        Handle filename input for saved patch.
+
+        Args:
+            text (str): Filename to save the cropped patch as.
+        """
         self.filename = text
-
-
-if __name__ == "__main__":
-    src_path = 'data/images'
-    export_path = 'export/samples'
-    error_logs_path = 'err_log.txt'
-    prepare_folder(src_path, export_path, error_logs_path, manual_correction=True)
