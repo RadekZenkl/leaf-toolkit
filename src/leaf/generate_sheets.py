@@ -1,16 +1,54 @@
-#!/usr/bin/env python3
-
-
-# This is a modified version of https://apsjournals.apsnet.org/doi/suppl/10.1094/PHYTO-01-16-0018-R/suppl_file/PHYTO-01-16-0018-R.sf2.txt
-# from: 
-# An Improved Method for Measuring Quantitative 
-# Resistance to the Wheat Pathogen Zymoseptoria tritici 
-# Using High-Throughput Automated Image Analysis
-
 from string import Template
 import os
 
 def generate_sheets():
+    """
+    Generates a LaTeX file and corresponding PDF containing QR-coded sample labels.
+
+    This function prompts the user for an input text file containing sample names and an output filename. 
+    It then creates a LaTeX document formatted to print pages with QR codes and corresponding names. 
+    Each page contains up to 8 labels, and all pages are compiled into a single PDF using `pdflatex`.
+
+    The LaTeX document includes:
+        - A bordered layout with visual guides
+        - QR codes for each sample
+        - Sample names (formatted for LaTeX)
+
+    User interactions include:
+        - Prompt for input filename (expects a `.txt` file, one sample name per line)
+        - Preview and confirmation of file content
+        - Prompt for output filename (a `.tex` file)
+
+    The function will:
+        - Validate the existence of the input file
+        - Process and display its contents for confirmation
+        - Format the content into a LaTeX document using predefined templates
+        - Write the LaTeX code to a file
+        - Compile the LaTeX file to PDF using `pdflatex` with `-shell-escape`
+
+    Raises:
+        SystemExit: If the input file is not found or if user indicates the input content is incorrect.
+
+    Side Effects:
+        - Writes a LaTeX `.tex` file to the current working directory
+        - Executes a system call to `pdflatex` to generate the final PDF
+
+    Note:
+        This is a modified version of the method originally provided in the supplementary materials of:
+        
+        Stewart, E. L., Hagerty, C. H., Mikaberidze, A., Mundt, C. C., Zhong, Z., & McDonald, B. A. (2016). 
+        An Improved Method for Measuring Quantitative Resistance to the Wheat Pathogen *Zymoseptoria tritici* 
+        Using High-Throughput Automated Image Analysis. *Phytopathology*, 106(7), 782–788. 
+        https://doi.org/10.1094/PHYTO-01-16-0018-R
+
+        Original LaTeX file: https://apsjournals.apsnet.org/doi/suppl/10.1094/PHYTO-01-16-0018-R/suppl_file/PHYTO-01-16-0018-R.sf2.txt
+
+    Requirements:
+        A LaTeX distribution with support for:
+            - `pdflatex` and shell-escape enabled
+            - `auto-pst-pdf` and `pst-barcode` packages
+    """
+
     begin_block = '''
     \\documentclass[a4paper]{minimal}
     \\usepackage[margin=0cm]{geometry}
@@ -111,3 +149,6 @@ def generate_sheets():
 
     # Run pdflatex to generate the PDF
     os.system(f'pdflatex -shell-escape {output_file}')
+
+if __name__ == '__main__':
+    generate_sheets()

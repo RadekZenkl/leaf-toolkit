@@ -1,0 +1,35 @@
+_target_: leaf.inference.Predictor
+
+# This defines which module will be run 
+module_params:
+  symptoms_det: True
+  symptoms_seg: True
+  organs: True
+  focus: True
+
+# This defines paramters for symptoms detection
+symptoms_det_params:
+  patch_sz: [4096, 6144]
+  keypoints_thresh: 0.212
+  use_gpu: True
+  model_name: 'latest'
+
+# This defines paramters for symptoms segmentation
+symptoms_seg_params:
+  patch_sz: [4096, 6144]
+  input_scaling: 0.5
+  use_gpu: True
+  model_name: 'latest'
+
+# This defines paramters for organ segmentation
+organs_params:
+  patch_sz: [4096, 6144]
+  use_gpu: True
+  model_name: 'latest'
+
+# This defines paramters for focus estimation
+focus_params:
+  patch_sz: [4096, 6144]
+  input_scaling: 0.25
+  use_gpu: True
+  model_name: 'latest'
