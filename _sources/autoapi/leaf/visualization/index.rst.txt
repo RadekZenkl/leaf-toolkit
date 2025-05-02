@@ -1,0 +1,820 @@
+leaf.visualization
+==================
+
+.. py:module:: leaf.visualization
+
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: BaseVisMap
+
+   Base class for visualization mapping.
+   Defines placeholders for name, accepted/rejected IDs and their associated colors.
+
+
+   .. py:attribute:: NAME
+      :value: 'name_placeholder'
+
+
+
+   .. py:attribute:: ACCEPTED_ID
+      :value: None
+
+
+
+   .. py:attribute:: ACCEPTED_COLOR
+      :value: [None, None, None, None]
+
+
+
+   .. py:attribute:: REJECTED_ID
+      :value: None
+
+
+
+   .. py:attribute:: REJECTED_COLOR
+      :value: [None, None, None, None]
+
+
+
+.. py:class:: VisualizationMapping
+
+   .. py:class:: Symptoms_det
+
+      .. py:class:: Pycnidia
+
+         Bases: :py:obj:`BaseVisMap`
+
+
+         Base class for visualization mapping.
+         Defines placeholders for name, accepted/rejected IDs and their associated colors.
+
+
+         .. py:attribute:: NAME
+            :value: 'pycnidia'
+
+
+
+         .. py:attribute:: ACCEPTED_ID
+            :value: 1
+
+
+
+         .. py:attribute:: ACCEPTED_COLOR
+            :value: [255, 246, 0]
+
+
+
+         .. py:attribute:: REJECTED_ID
+            :value: 254
+
+
+
+         .. py:attribute:: REJECTED_COLOR
+            :value: [0, 4, 255]
+
+
+
+
+      .. py:class:: Rust
+
+         Bases: :py:obj:`BaseVisMap`
+
+
+         Base class for visualization mapping.
+         Defines placeholders for name, accepted/rejected IDs and their associated colors.
+
+
+         .. py:attribute:: NAME
+            :value: 'rust'
+
+
+
+         .. py:attribute:: ACCEPTED_ID
+            :value: 2
+
+
+
+         .. py:attribute:: ACCEPTED_COLOR
+            :value: [255, 132, 0]
+
+
+
+         .. py:attribute:: REJECTED_ID
+            :value: 253
+
+
+
+         .. py:attribute:: REJECTED_COLOR
+            :value: [0, 112, 255]
+
+
+
+
+
+   .. py:class:: Symptoms_seg
+
+      .. py:class:: LeafDamage
+
+         Bases: :py:obj:`BaseVisMap`
+
+
+         Base class for visualization mapping.
+         Defines placeholders for name, accepted/rejected IDs and their associated colors.
+
+
+         .. py:attribute:: NAME
+            :value: 'necrosis'
+
+
+
+         .. py:attribute:: ACCEPTED_ID
+            :value: 2
+
+
+
+         .. py:attribute:: ACCEPTED_COLOR
+            :value: [255, 0, 88]
+
+
+
+         .. py:attribute:: REJECTED_ID
+            :value: 253
+
+
+
+         .. py:attribute:: REJECTED_COLOR
+            :value: [0, 255, 173]
+
+
+
+
+      .. py:class:: InsectDamage
+
+         Bases: :py:obj:`BaseVisMap`
+
+
+         Base class for visualization mapping.
+         Defines placeholders for name, accepted/rejected IDs and their associated colors.
+
+
+         .. py:attribute:: NAME
+            :value: 'insect_damage'
+
+
+
+         .. py:attribute:: ACCEPTED_ID
+            :value: 3
+
+
+
+         .. py:attribute:: ACCEPTED_COLOR
+            :value: [255, 0, 0]
+
+
+
+         .. py:attribute:: REJECTED_ID
+            :value: 252
+
+
+
+         .. py:attribute:: REJECTED_COLOR
+            :value: [0, 255, 250]
+
+
+
+
+      .. py:class:: PowderyMildew
+
+         Bases: :py:obj:`BaseVisMap`
+
+
+         Base class for visualization mapping.
+         Defines placeholders for name, accepted/rejected IDs and their associated colors.
+
+
+         .. py:attribute:: NAME
+            :value: 'powdery_mildew'
+
+
+
+         .. py:attribute:: ACCEPTED_ID
+            :value: 4
+
+
+
+         .. py:attribute:: ACCEPTED_COLOR
+            :value: [151, 255, 0]
+
+
+
+         .. py:attribute:: REJECTED_ID
+            :value: 251
+
+
+
+         .. py:attribute:: REJECTED_COLOR
+            :value: [113, 0, 255]
+
+
+
+
+      .. py:class:: Background
+
+         Bases: :py:obj:`BaseVisMap`
+
+
+         Base class for visualization mapping.
+         Defines placeholders for name, accepted/rejected IDs and their associated colors.
+
+
+         .. py:attribute:: NAME
+            :value: 'background'
+
+
+
+         .. py:attribute:: ACCEPTED_ID
+            :value: 0
+
+
+
+         .. py:attribute:: ACCEPTED_COLOR
+            :value: [60, 20, 200]
+
+
+
+         .. py:attribute:: REJECTED_ID
+            :value: 255
+
+
+
+         .. py:attribute:: REJECTED_COLOR
+            :value: [80, 127, 255]
+
+
+
+
+
+   .. py:class:: Focus
+
+      .. py:class:: Sharp
+
+         Bases: :py:obj:`BaseVisMap`
+
+
+         Base class for visualization mapping.
+         Defines placeholders for name, accepted/rejected IDs and their associated colors.
+
+
+         .. py:attribute:: NAME
+            :value: 'sharp'
+
+
+
+         .. py:attribute:: ACCEPTED_ID
+            :value: 1
+
+
+
+         .. py:attribute:: ACCEPTED_COLOR
+            :value: None
+
+
+
+
+      .. py:class:: Blurry
+
+         Bases: :py:obj:`BaseVisMap`
+
+
+         Base class for visualization mapping.
+         Defines placeholders for name, accepted/rejected IDs and their associated colors.
+
+
+         .. py:attribute:: NAME
+            :value: 'blurry'
+
+
+
+         .. py:attribute:: ACCEPTED_ID
+            :value: 0
+
+
+
+         .. py:attribute:: ACCEPTED_COLOR
+            :value: [105, 105, 105]
+
+
+
+
+
+   .. py:class:: Organs
+
+      .. py:class:: Head
+
+         Bases: :py:obj:`BaseVisMap`
+
+
+         Base class for visualization mapping.
+         Defines placeholders for name, accepted/rejected IDs and their associated colors.
+
+
+         .. py:attribute:: NAME
+            :value: 'wheat_head'
+
+
+
+         .. py:attribute:: ACCEPTED_ID
+            :value: 1
+
+
+
+         .. py:attribute:: ACCEPTED_COLOR
+            :value: [154, 255, 0]
+
+
+
+         .. py:attribute:: REJECTED_ID
+            :value: 254
+
+
+
+         .. py:attribute:: REJECTED_COLOR
+            :value: [60, 20, 220]
+
+
+
+
+      .. py:class:: Stem
+
+         Bases: :py:obj:`BaseVisMap`
+
+
+         Base class for visualization mapping.
+         Defines placeholders for name, accepted/rejected IDs and their associated colors.
+
+
+         .. py:attribute:: NAME
+            :value: 'stem'
+
+
+
+         .. py:attribute:: ACCEPTED_ID
+            :value: 2
+
+
+
+         .. py:attribute:: ACCEPTED_COLOR
+            :value: [255, 191, 0]
+
+
+
+         .. py:attribute:: REJECTED_ID
+            :value: 253
+
+
+
+         .. py:attribute:: REJECTED_COLOR
+            :value: [96, 164, 244]
+
+
+
+
+
+.. py:class:: Visualizer(vis_all: bool = True, vis_symptoms: bool = True, visualize_acceptance: bool = True, vis_organs: bool = True, vis_focus: bool = True, vis_symptoms_det: bool = True, vis_symptoms_seg: bool = True, vis_background: bool = False, src_root: str = 'export', rgb_root: str = 'images', export_root: str = 'export/visualizations', organs_subfolder: str = 'organs/pred', focus_subfolder: str = 'focus/pred', symptoms_det_subfolder: str = 'symptoms_det/pred', symptoms_seg_subfolder: str = 'symptoms_seg/pred')
+
+   General Visualization class capable of collecting and visualizing various predictions
+
+   Initializes the visualizer with paths and flags to control what types of data are visualized.
+
+   :param vis_all: If True, visualize all available predictions.
+   :type vis_all: bool
+   :param vis_symptoms: If True, symptom segmentation and symptom detection will be combined.
+   :type vis_symptoms: bool
+   :param visualize_acceptance: Whether to distinguish between accepted and rejected predictions.
+   :type visualize_acceptance: bool
+   :param vis_organs: Visualize organ segmentation predictions.
+   :type vis_organs: bool
+   :param vis_focus: Visualize image focus predictions.
+   :type vis_focus: bool
+   :param vis_symptoms_det: Visualize detected symptoms.
+   :type vis_symptoms_det: bool
+   :param vis_symptoms_seg: Visualize segmented symptoms.
+   :type vis_symptoms_seg: bool
+   :param vis_background: Visualize segmented symptom background.
+   :type vis_background: bool
+   :param src_root: Root directory containing prediction outputs.
+   :type src_root: str
+   :param rgb_root: Directory containing original RGB images.
+   :type rgb_root: str
+   :param export_root: Directory where visualizations will be saved.
+   :type export_root: str
+   :param organs_subfolder: Path to organ predictions.
+   :type organs_subfolder: str
+   :param focus_subfolder: Path to focus predictions.
+   :type focus_subfolder: str
+   :param symptoms_det_subfolder: Path to symptom detection predictions.
+   :type symptoms_det_subfolder: str
+   :param symptoms_seg_subfolder: Path to symptom segmentation predictions.
+   :type symptoms_seg_subfolder: str
+
+
+   .. py:attribute:: vis_all
+      :value: True
+
+
+
+   .. py:attribute:: vis_symptoms
+      :value: True
+
+
+
+   .. py:attribute:: visualize_acceptance
+      :value: True
+
+
+
+   .. py:attribute:: vis_organs
+      :value: True
+
+
+
+   .. py:attribute:: vis_focus
+      :value: True
+
+
+
+   .. py:attribute:: vis_symptoms_det
+      :value: True
+
+
+
+   .. py:attribute:: vis_symptoms_seg
+      :value: True
+
+
+
+   .. py:attribute:: visualize_background
+      :value: False
+
+
+
+   .. py:attribute:: src_root
+      :value: 'export'
+
+
+
+   .. py:attribute:: rgb_root
+      :value: 'images'
+
+
+
+   .. py:attribute:: export_root
+      :value: 'export/visualizations'
+
+
+
+   .. py:attribute:: organs_subfolder
+      :value: 'organs/pred'
+
+
+
+   .. py:attribute:: focus_subfolder
+      :value: 'focus/pred'
+
+
+
+   .. py:attribute:: symptoms_det_subfolder
+      :value: 'symptoms_det/pred'
+
+
+
+   .. py:attribute:: symptoms_seg_subfolder
+      :value: 'symptoms_seg/pred'
+
+
+
+   .. py:method:: map_data() -> list[dict]
+
+      Maps prediction files and RGB images to a structured dictionary.
+
+      :returns: A list of dictionaries where each dictionary contains paths to relevant data types for one image.
+      :rtype: list[dict]
+
+      :raises Exception: If there's a mismatch in file counts or insufficient inputs.
+
+
+
+   .. py:method:: find_images(search_root: str, img_extensions: list = ['*.jpg', '*.jpeg', '*.JPG', '*.png']) -> list[pathlib.Path]
+
+      Recursively finds images under the specified root directory.
+
+      :param search_root: Directory to search.
+      :type search_root: str
+      :param img_extensions: List of file extensions to include.
+      :type img_extensions: list
+
+      :returns: Sorted list of found image paths.
+      :rtype: list[pathlib.Path]
+
+
+
+   .. py:method:: visualize() -> None
+
+      Main method that triggers visualization of all enabled types.
+
+
+
+   .. py:method:: visualize_all(data_set: dict) -> None
+
+      Creates a composite visualization with all predictions.
+
+      :param data_set: A dictionary of file paths to predictions and RGB image.
+      :type data_set: dict
+
+
+
+   .. py:method:: visualize_symptoms(data_set: dict) -> None
+
+      Creates a composite visualization of symptoms detections and symptoms segmentation.
+
+      :param data_set: A dictionary of file paths to predictions and RGB image.
+      :type data_set: dict
+
+
+
+   .. py:method:: read_image(path: str, grayscale: bool = False, bgr: bool = True) -> numpy.array
+
+      Loads an image from the given path.
+
+      :param path: Path to the image file.
+      :type path: str
+      :param grayscale: Load in grayscale if True.
+      :type grayscale: bool
+      :param bgr: Return in BGR (default OpenCV) if True, otherwise convert to RGB.
+      :type bgr: bool
+
+      :returns: Loaded image.
+      :rtype: np.array
+
+      :raises FileNotFoundError: If the image could not be loaded.
+
+
+
+   .. py:method:: combine_predictions(data: dict) -> dict
+
+      Combines predictions with logic to mark accepted/rejected predictions.
+
+      :param data: Dictionary containing segmentation and detection arrays.
+      :type data: dict
+
+      :returns: Modified dictionary with adjusted labels based on acceptance rules.
+      :rtype: dict
+
+
+
+   .. py:method:: visualize_focus(predictions: numpy.array, img_bgr: numpy.array, reference_img: numpy.array = None) -> numpy.array
+
+      Overlays focus predictions on the RGB image.
+
+      :param predictions: Focus prediction mask.
+      :type predictions: np.array
+      :param img_bgr: BGR image to overlay predictions on.
+      :type img_bgr: np.array
+      :param reference_img: Reference image for grayscale fallback.
+      :type reference_img: np.array
+
+      :returns: Modified BGR image with focus overlay.
+      :rtype: np.array
+
+
+
+   .. py:method:: visualize_organs(predictions: numpy.array, img_bgr: numpy.array) -> numpy.array
+
+      Visualizes organ segmentation predictions.
+
+      :param predictions: Organ prediction mask.
+      :type predictions: np.array
+      :param img_bgr: BGR image to overlay predictions on.
+      :type img_bgr: np.array
+
+      :returns: Image with organ overlay.
+      :rtype: np.array
+
+
+
+   .. py:method:: visualize_symptoms_det(predictions: numpy.array, img_bgr: numpy.array) -> numpy.array
+
+      Visualizes detected symptoms.
+
+      :param predictions: Detection mask.
+      :type predictions: np.array
+      :param img_bgr: Base image to draw detections on.
+      :type img_bgr: np.array
+
+      :returns: Image with symptom detections.
+      :rtype: np.array
+
+
+
+   .. py:method:: visualize_symptoms_seg(predictions: numpy.array, img_bgr: numpy.array) -> numpy.array
+
+      Visualizes segmented symptoms.
+
+      :param predictions: Segmentation mask.
+      :type predictions: np.array
+      :param img_bgr: Image to draw segmentations on.
+      :type img_bgr: np.array
+
+      :returns: Image with symptom segmentation.
+      :rtype: np.array
+
+
+
+   .. py:method:: visualize_detections(img_bgr: numpy.array, detections: numpy.array, color_mapping: dict, radius: int = 5, add_id: bool = False) -> numpy.array
+
+      Draws detection circles on the image.
+
+      :param img_bgr: Image to draw on.
+      :type img_bgr: np.array
+      :param detections: Detection mask.
+      :type detections: np.array
+      :param color_mapping: Mapping from class ID to color.
+      :type color_mapping: dict
+      :param radius: Radius of circles to draw.
+      :type radius: int
+      :param add_id: Whether to annotate detections with IDs.
+      :type add_id: bool
+
+      :returns: Annotated image.
+      :rtype: np.array
+
+
+
+   .. py:method:: visualize_segmentations(img_bgr: numpy.array, segmentations: numpy.array, color_mapping: dict, alpha: float = 0.65) -> numpy.array
+
+      Overlays segmentation masks with transparency.
+
+      :param img_bgr: Base image.
+      :type img_bgr: np.array
+      :param segmentations: Segmentation mask.
+      :type segmentations: np.array
+      :param color_mapping: Mapping of class IDs to colors.
+      :type color_mapping: dict
+      :param alpha: Blending factor.
+      :type alpha: float
+
+      :returns: Image with overlaid segmentations.
+      :rtype: np.array
+
+
+
+   .. py:method:: save_visualization(filename: str, image: numpy.array, visualization_category: str) -> None
+
+      Saves a visualization image to disk.
+
+      :param filename: Output filename (without extension).
+      :type filename: str
+      :param image: Image to save.
+      :type image: np.array
+      :param visualization_category: Folder name under export_root for saving.
+      :type visualization_category: str
+
+
+
+.. py:class:: CanopyVisualizer(vis_all: bool = True, vis_symptoms: bool = True, visualize_acceptance: bool = True, vis_organs: bool = True, vis_focus: bool = True, vis_symptoms_det: bool = True, vis_symptoms_seg: bool = True, vis_background: bool = False, src_root: str = 'export', rgb_root: str = 'images', export_root: str = 'export/visualizations', organs_subfolder: str = 'organs/pred', focus_subfolder: str = 'focus/pred', symptoms_det_subfolder: str = 'symptoms_det/pred', symptoms_seg_subfolder: str = 'symptoms_seg/pred')
+
+   Bases: :py:obj:`Visualizer`
+
+
+   A derived visualizer class overloading some default values to simplify the visualization of typical canopy scenario.
+
+   Initializes the visualizer with paths and flags to control what types of data are visualized. Default values
+   are adjusted to cover the canopy visualization use case.
+
+   :param vis_all: If True, visualize all available predictions.
+   :type vis_all: bool
+   :param vis_symptoms: If True, symptom segmentation and symptom detection will be combined.
+   :type vis_symptoms: bool
+   :param visualize_acceptance: Whether to distinguish between accepted and rejected predictions.
+   :type visualize_acceptance: bool
+   :param vis_organs: Visualize organ segmentation predictions.
+   :type vis_organs: bool
+   :param vis_focus: Visualize image focus predictions.
+   :type vis_focus: bool
+   :param vis_symptoms_det: Visualize detected symptoms.
+   :type vis_symptoms_det: bool
+   :param vis_symptoms_seg: Visualize segmented symptoms.
+   :type vis_symptoms_seg: bool
+   :param src_root: Root directory containing prediction outputs.
+   :type src_root: str
+   :param rgb_root: Directory containing original RGB images.
+   :type rgb_root: str
+   :param export_root: Directory where visualizations will be saved.
+   :type export_root: str
+   :param organs_subfolder: Path to organ predictions.
+   :type organs_subfolder: str
+   :param focus_subfolder: Path to focus predictions.
+   :type focus_subfolder: str
+   :param symptoms_det_subfolder: Path to symptom detection predictions.
+   :type symptoms_det_subfolder: str
+   :param symptoms_seg_subfolder: Path to symptom segmentation predictions.
+   :type symptoms_seg_subfolder: str
+
+
+.. py:class:: FlattenedVisualizer(vis_all: bool = False, vis_symptoms: bool = True, visualize_acceptance: bool = False, vis_organs: bool = False, vis_focus: bool = False, vis_symptoms_det: bool = True, vis_symptoms_seg: bool = True, vis_background: bool = True, src_root: str = 'export', rgb_root: str = 'images', export_root: str = 'export/visualizations', organs_subfolder: str = 'organs/pred', focus_subfolder: str = 'focus/pred', symptoms_det_subfolder: str = 'symptoms_det/pred', symptoms_seg_subfolder: str = 'symptoms_seg/pred')
+
+   Bases: :py:obj:`Visualizer`
+
+
+   A derived visualizer class overloading some default values to simplify the visualization of typical flattened leaves scenario.
+
+   Initializes the visualizer with paths and flags to control what types of data are visualized. Default values
+   are adjusted to cover the canopy visualization use case.
+
+   :param vis_all: If True, visualize all available predictions.
+   :type vis_all: bool
+   :param vis_symptoms: If True, symptom segmentation and symptom detection will be combined.
+   :type vis_symptoms: bool
+   :param visualize_acceptance: Whether to distinguish between accepted and rejected predictions.
+   :type visualize_acceptance: bool
+   :param vis_organs: Visualize organ segmentation predictions.
+   :type vis_organs: bool
+   :param vis_focus: Visualize image focus predictions.
+   :type vis_focus: bool
+   :param vis_symptoms_det: Visualize detected symptoms.
+   :type vis_symptoms_det: bool
+   :param vis_symptoms_seg: Visualize segmented symptoms.
+   :type vis_symptoms_seg: bool
+   :param src_root: Root directory containing prediction outputs.
+   :type src_root: str
+   :param rgb_root: Directory containing original RGB images.
+   :type rgb_root: str
+   :param export_root: Directory where visualizations will be saved.
+   :type export_root: str
+   :param organs_subfolder: Path to organ predictions.
+   :type organs_subfolder: str
+   :param focus_subfolder: Path to focus predictions.
+   :type focus_subfolder: str
+   :param symptoms_det_subfolder: Path to symptom detection predictions.
+   :type symptoms_det_subfolder: str
+   :param symptoms_seg_subfolder: Path to symptom segmentation predictions.
+   :type symptoms_seg_subfolder: str
+
+
+.. py:function:: save_image(path: str, image: numpy.array, color_convert: int = None) -> None
+
+   Saves an image to disk with optional color conversion.
+
+   :param path: Destination file path.
+   :type path: str
+   :param image: Image tensor (usually from torch) to save.
+   :type image: np.array
+   :param color_convert: Optional OpenCV color conversion flag.
+   :type color_convert: int
+
+
+.. py:function:: save_depth_overlay(normalized_image: numpy.array, mask: numpy.array, output_path: str) -> None
+
+   Creates an overlay of a binary mask on a normalized depth image and saves it.
+
+   :param normalized_image: Normalized depth image.
+   :type normalized_image: np.array
+   :param mask: Binary mask (1 = keep, 0 = mask).
+   :type mask: np.array
+   :param output_path: Path to save the overlay.
+   :type output_path: str
+
+
+.. py:function:: save_histogram(data: numpy.array, mean_d: float, std_d: float, initial_mean: float, initial_std: float, output_path: str, highlight_line: float = None) -> None
+
+   Plots and saves a histogram with statistical highlights.
+
+   :param data: Input data for histogram.
+   :type data: np.array
+   :param mean_d: Mean of the filtered data.
+   :type mean_d: float
+   :param std_d: Std dev of the filtered data.
+   :type std_d: float
+   :param initial_mean: Original dataset mean.
+   :type initial_mean: float
+   :param initial_std: Original dataset std dev.
+   :type initial_std: float
+   :param output_path: Output path for the histogram image.
+   :type output_path: str
+   :param highlight_line: Vertical line to highlight a value.
+   :type highlight_line: float, optional
+
+
+.. py:function:: test()
+
+   This function runs a dry run of the complete visualization to validate your installation.
+   It produces visualizations in newly created `test/visualization` folder.
+   It requires predictions of the models.test() to create the desired output.
+
+

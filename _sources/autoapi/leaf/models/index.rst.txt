@@ -1,0 +1,833 @@
+leaf.models
+===========
+
+.. py:module:: leaf.models
+
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: BaseModel(export_pattern_pred: Union[str, Tuple[str, str]], patch_sz: Union[int, Tuple[int, int]], input_scaling: Union[float, Tuple[float, float]], classes_dict: dict, debug: bool = False, model_name: str = 'latest', use_gpu: bool = True, cuda_device: str = 'cuda:0', search_pattern: str = ['*.jpg', '*.JPG', '*.jpeg', '*.png', '*.PNG'])
+
+   A base class to use for implementing new models to the pipeline. It defines most of the utilities required with respect
+   to initialization, handling images, predicting and saving results.
+
+   This is a constructor placeholder, which needs to be overriden when used, otherwise
+   it raises a NotImplementedError.
+
+   :param export_pattern_pred: This argument controls how the results are saved.
+                               You can provide a single path string which defines where the images are saved. This then takes the
+                               filename and the provided path to create the path for the predictions. This means that the source folder
+                               structure is flattened. If you want to keep the source folder structure you can provide a tuple of two
+                               strings. This is then used with the str.replace() method and allows for specifying which part of the
+                               file path of the image is replaced with what.
+   :type export_pattern_pred: Union[str, Tuple[str, str]]
+   :param patch_sz: Size of patches cropped to use for inference. The patchsize needs to be chosen so
+                    that it recreates the whole image i.e., image is dividided without rests and overlaps. (e.g. 4096x4096 can
+                    use 2048x2048 patches but not 2000x2000)
+   :type patch_sz: Union[int, Tuple[int, int]]
+   :param input_scaling: If one number is provide, the scaling is done symmetrically.
+                         It denotes a scaling factor applied before inference. The results are scaled back to the original resolution
+                         before saving.
+   :type input_scaling: Union[float, Tuple[float, float]]
+   :param classes_dict: This denotes a mapping between class names and their integer id.
+   :type classes_dict: dict
+   :param debug: When run in debug mode the models do not save predictions and some models provide additional
+                 insights. Defaults to False.
+   :type debug: bool, optional
+   :param model_name: Which model should be used. For this refer to model zoo. Defaults to 'latest'.
+   :type model_name: str
+   :param use_gpu: When true the inference is run on a GPU. Defaults to True.
+   :type use_gpu: bool, optional
+   :param cuda_device: which cuda device to use. Not recommended to use. Rather use the
+                       environment variable export CUDA_VISIBLE_DEVICES = ... . Defaults to 'cuda:0'.
+   :type cuda_device: str, optional
+   :param search_pattern: List of image extensions used to search for images.
+                          Defaults to ['*.jpg', '*.JPG', '*.jpeg', '*.png', '*.PNG'].
+   :type search_pattern: str, optional
+
+   :raises NotImplementedError: Error to notify that this method is meant to be implemented in the inherited class.
+
+
+   .. py:attribute:: classes_dict
+      :value: None
+
+
+
+   .. py:attribute:: debug
+      :value: None
+
+
+
+   .. py:attribute:: export_pattern_pred
+      :value: None
+
+
+
+   .. py:attribute:: patch_sz
+      :value: None
+
+
+
+   .. py:attribute:: input_scaling
+      :value: (None,)
+
+
+
+   .. py:attribute:: use_gpu
+      :value: None
+
+
+
+   .. py:attribute:: cuda_device
+      :value: None
+
+
+
+   .. py:attribute:: model_path
+      :value: None
+
+
+
+   .. py:attribute:: patch_stride
+      :value: None
+
+
+
+   .. py:attribute:: search_pattern
+      :value: None
+
+
+
+   .. py:attribute:: current_input_name
+      :value: None
+
+
+
+   .. py:method:: predict(src: str) -> None
+
+      Predicts on a folder or file. Uses pathlib Path internally
+
+      :param src: Path to a specific file or folder
+      :type src: str
+
+
+
+   .. py:method:: predict_folder(src: pathlib.Path) -> None
+
+      This function predicts a folder. It uses recursive file search with extensions defined in the search_pattern
+          attribute.
+
+      :param src: Pathlib Path pointing to a folder.
+      :type src: pathlib.Path
+
+
+
+   .. py:method:: predict_image(src: pathlib.Path) -> None
+
+      Tests if a file is read successfully. Then it subdivides an image to patches according to the specified patch size.
+      Then it conducts the inference and merges the results from individual patches and saves the results, if not in
+      debug mode.
+
+      :param src: Pathlib Path to the image to be predicted.
+      :type src: pathlib.Path
+
+
+
+   .. py:method:: subdivide_image(image: numpy.array, src: pathlib.Path) -> numpy.array
+
+      This function subdivides an image according to the patch_sz attribute and returns a array of patches in form of
+      n x patch_sz[0] x patch_sz[1] x 3 . Currently it only allows for subdivision that mathches the image size exactly.
+
+      :param image: Image array
+      :type image: np.array
+      :param src: Path to the corresponding image
+      :type src: pathllib.Path
+
+      :returns: Batched image patches
+      :rtype: np.array
+
+
+
+   .. py:method:: split_into_patches(image: numpy.array, patchsz: Union[tuple, list]) -> numpy.array
+
+      Splits the image into patches according the patchsz and returns batched patches array.
+
+      :param image: numpy array with the image
+      :type image: np.array
+      :param patchsz: patchsize denoting the x and y size
+      :type patchsz: Union[tuple, list]
+
+      :returns: batched patches array
+      :rtype: np.array
+
+
+
+   .. py:method:: merge_patches(patches: numpy.array) -> numpy.array
+
+      Merge patches back to recreate the original image/pattern. It can only handle a stride which is equal to the
+      patch size.
+
+      :param patches: Batched array of patches
+      :type patches: np.array
+
+      :raises NotImplementedError: Throw and exception regarding differing stride not implemented.
+
+      :returns: merged output with the dimensions of the riginal image
+      :rtype: np.array
+
+
+
+   .. py:method:: infer_image(model_input: torch.tensor) -> numpy.array
+      :abstractmethod:
+
+
+      A placeholder for downstream models inference. Needs to be implemented
+
+      :param model_input: model_input tensor
+      :type model_input: torch.tensor
+
+      :raises NotImplementedError: Error denoting, it is not implemented.
+
+      :returns: model output mask
+      :rtype: np.array
+
+
+
+   .. py:method:: rgb_image2input(image: numpy.array) -> torch.tensor
+      :abstractmethod:
+
+
+      A placeholder for model specific preparation of the input for inference. Needs to be implemented in
+      inherited classes.
+
+      :param image: image array
+      :type image: np.array
+
+      :raises NotImplementedError: Error denoting, it is not implemented.
+
+      :returns: torch tensor ready to be processed by the model
+      :rtype: torch.tensor
+
+
+
+   .. py:method:: test() -> None
+
+      A test method to see if inference can be done sucessfully. It downloads a sample image to test/images and
+      predicts on it
+
+
+
+   .. py:method:: download_file(url: str, root: str = 'models') -> str
+
+      Download file at a given url to a specified directory if it does not already exists and keep the name of
+      the file same as on the server.
+
+      :param url: url to what to download
+      :type url: str
+      :param root: directory where to download to. Defaults to 'models'.
+      :type root: str, optional
+
+      :returns: path to the downloaded file
+      :rtype: str
+
+
+
+   .. py:method:: parse_name_from_header(header_value: str) -> Tuple[str, dict[str, str]]
+
+      Parses the Content-Disposition header value and extracts the disposition type and parameters.
+
+      :param header_value: The raw header string, e.g., 'form-data; name="file"; filename="example.txt"'.
+      :type header_value: str
+
+      :returns: A tuple where the first element is the disposition type (e.g., 'form-data'),
+                and the second is a dictionary of parameter key-value pairs (e.g., {'name': 'file', 'filename': 'example.txt'}).
+      :rtype: Tuple[str, Dict[str, str]]
+
+
+
+   .. py:method:: save_predictions(image_path: str, predictions: numpy.array) -> None
+
+      This function determines the save path based on the source image name and export_pattern_pred attribute.
+      Then it saves the predictions on a specified location.
+
+      :param image_path: image path of the original image
+      :type image_path: str
+      :param predictions: predictions array
+      :type predictions: np.array
+
+      :raises Exception: Error when the export path cannot be determined
+
+
+
+   .. py:method:: get_model(model_name: str)
+      :abstractmethod:
+
+
+      Download if not already existing and use a desired model.
+
+      :param model_name: Model Name. Refer to Model Zoo
+      :type model_name: str
+
+      :raises NotImplementedError: Error that it is not implemented
+
+
+
+.. py:class:: TorchscriptTransformer(export_pattern_pred: Union[str, Tuple[str, str]], patch_sz: Union[int, Tuple[int, int]], input_scaling: Union[float, Tuple[float, float]], classes_dict: dict, debug: bool = False, model_name: str = 'latest', use_gpu: bool = True, cuda_device: str = 'cuda:0', search_pattern: str = ['*.jpg', '*.JPG', '*.jpeg', '*.png', '*.PNG'])
+
+   Bases: :py:obj:`BaseModel`
+
+
+   Extension of the BaseModel class which implements further model specifics to torscript exported transformer model.
+
+   Constructor of this class
+
+   :param export_pattern_pred: This argument controls how the results are saved.
+                               You can provide a single path string which defines where the images are saved. This then takes the
+                               filename and the provided path to create the path for the predictions. This means that the source folder
+                               structure is flattened. If you want to keep the source folder structure you can provide a tuple of two
+                               strings. This is then used with the str.replace() method and allows for specifying which part of the
+                               file path of the image is replaced with what.
+   :type export_pattern_pred: Union[str, Tuple[str, str]]
+   :param patch_sz: Size of patches cropped to use for inference. The patchsize needs to be chosen so
+                    that it recreates the whole image i.e., image is dividided without rests and overlaps. (e.g. 4096x4096 can
+                    use 2048x2048 patches but not 2000x2000)
+   :type patch_sz: Union[int, Tuple[int, int]]
+   :param input_scaling: If one number is provide, the scaling is done symmetrically.
+                         It denotes a scaling factor applied before inference. The results are scaled back to the original resolution
+                         before saving.
+   :type input_scaling: Union[float, Tuple[float, float]]
+   :param classes_dict: This denotes a mapping between class names and their integer id.
+   :type classes_dict: dict
+   :param debug: When run in debug mode the models do not save predictions and some models provide additional
+                 insights. Defaults to False.
+   :type debug: bool, optional
+   :param model_name: Which model should be used. For this refer to model zoo. Defaults to 'latest'.
+   :type model_name: str
+   :param use_gpu: When true the inference is run on a GPU. Defaults to True.
+   :type use_gpu: bool, optional
+   :param cuda_device: which cuda device to use. Not recommended to use. Rather use the
+                       environment variable export CUDA_VISIBLE_DEVICES = ... . Defaults to 'cuda:0'.
+   :type cuda_device: str, optional
+   :param search_pattern: List of image extensions used to search for images.
+                          Defaults to ['*.jpg', '*.JPG', '*.jpeg', '*.png', '*.PNG'].
+   :type search_pattern: str, optional
+
+   :raises Exception: Error when GPU is requested but cannot be utilized.
+
+
+   .. py:attribute:: classes_dict
+
+
+   .. py:attribute:: debug
+      :value: False
+
+
+
+   .. py:attribute:: export_pattern_pred
+
+
+   .. py:attribute:: patch_sz
+
+
+   .. py:attribute:: input_scaling
+
+
+   .. py:attribute:: use_gpu
+      :value: True
+
+
+
+   .. py:attribute:: cuda_device
+      :value: 'cuda:0'
+
+
+
+   .. py:attribute:: model_path
+      :value: None
+
+
+
+   .. py:attribute:: patch_stride
+
+
+   .. py:attribute:: search_pattern
+      :value: ['*.jpg', '*.JPG', '*.jpeg', '*.png', '*.PNG']
+
+
+
+   .. py:method:: infer_image(model_input: torch.tensor) -> numpy.array
+
+      Torchscript Transformer specific implementation of inference using a preprossed input.
+
+      :param model_input: prepared tensor for inference
+      :type model_input: torch.tensor
+
+      :returns: results encoded as a mask
+      :rtype: np.array
+
+
+
+   .. py:method:: rgb_image2input(image: numpy.array) -> torch.tensor
+
+      Prepare an image for inference with pytorch. This is specific for torchscript transformer.
+
+      :param image: array with the image
+      :type image: np.array
+
+      :returns: model input tensor ready for inference
+      :rtype: torch.tensor
+
+
+
+.. py:class:: SymptomsSegmentation(classes_dict: dict = {1: 'leaf', 2: 'necrosis', 3: 'insect_damage', 4: 'powdery_mildew'}, export_pattern_pred: Union[str, Tuple[str, str]] = 'export/symptoms_seg/pred', input_scaling: Union[float, Tuple[float, float]] = 0.5, patch_sz: Union[int, Tuple[int, int]] = 2048, *args, **kwargs)
+
+   Bases: :py:obj:`TorchscriptTransformer`
+
+
+   Implementation of the symptoms segmentation bulding block.
+
+   Constructor of symptoms segmentation. It provides the correct default values for various parameters.
+
+   :param classes_dict: This denotes a mapping between class names and their integer id.
+                        Defaults to {1: 'leaf', 2: 'necrosis', 3: 'insect_damage', 4: 'powdery_mildew', }.
+   :type classes_dict: dict, optional
+   :param export_pattern_pred: This argument controls how the results are saved.
+                               You can provide a single path string which defines where the images are saved. This then takes the
+                               filename and the provided path to create the path for the predictions. This means that the source folder
+                               structure is flattened. If you want to keep the source folder structure you can provide a tuple of two
+                               strings. This is then used with the str.replace() method and allows for specifying which part of the
+                               file path of the image is replaced with what. Defaults to 'export/symptoms_seg/pred'.
+   :type export_pattern_pred: Union[str, Tuple[str, str]], optional
+   :param input_scaling: If one number is provide, the scaling is done symmetrically.
+                         It denotes a scaling factor applied before inference. The results are scaled back to the original resolution
+                         before saving. Defaults to 0.5.
+   :type input_scaling: Union[float, Tuple[float, float]], optional
+   :param patch_sz: Size of patches cropped to use for inference. The patchsize needs to be chosen so
+                    that it recreates the whole image i.e., image is dividided without rests and overlaps. (e.g. 4096x4096 can
+                    use 2048x2048 patches but not 2000x2000). Defaults to 2048.
+   :type patch_sz: Union[int, Tuple[int, int]], optional
+
+
+   .. py:method:: get_model(model_name: str)
+
+      Download if not already existing and use a desired model. A specific implementation for symptoms segmentation.
+
+      :param model_name: Model Name
+      :type model_name: str
+
+      :raises Exception: Error when model not found
+
+
+
+.. py:class:: OrgansSegmentation(classes_dict: dict = {1: 'stem', 2: 'head'}, export_pattern_pred: Union[str, Tuple[str, str]] = 'export/organs/pred', input_scaling: Union[float, Tuple[float, float]] = 0.25, patch_sz: Union[int, Tuple[int, int]] = 4096, *args, **kwargs)
+
+   Bases: :py:obj:`TorchscriptTransformer`
+
+
+   Implementation of the organ segmentation bulding block.
+
+   Constructor of organ segmentation. It provides the correct default values for various parameters.
+
+   :param classes_dict: This denotes a mapping between class names and their integer id.
+                        Defaults to {1: 'stem', 2: 'head'}.
+   :type classes_dict: dict, optional
+   :param export_pattern_pred: This argument controls how the results are saved.
+                               You can provide a single path string which defines where the images are saved. This then takes the
+                               filename and the provided path to create the path for the predictions. This means that the source folder
+                               structure is flattened. If you want to keep the source folder structure you can provide a tuple of two
+                               strings. This is then used with the str.replace() method and allows for specifying which part of the
+                               file path of the image is replaced with what. Defaults to 'export/organs/pred'.
+   :type export_pattern_pred: Union[str, Tuple[str, str]], optional
+   :param input_scaling: If one number is provide, the scaling is done symmetrically.
+                         It denotes a scaling factor applied before inference. The results are scaled back to the original resolution
+                         before saving. Defaults to 0.25.
+   :type input_scaling: Union[float, Tuple[float, float]], optional
+   :param patch_sz: Size of patches cropped to use for inference. The patchsize needs to be chosen so
+                    that it recreates the whole image i.e., image is dividided without rests and overlaps. (e.g. 4096x4096 can
+                    use 2048x2048 patches but not 2000x2000). Defaults to 4096.
+   :type patch_sz: Union[int, Tuple[int, int]], optional
+
+
+   .. py:method:: get_model(model_name: str)
+
+      Download if not already existing and use a desired model. A specific implementation for organ segmentation.
+
+      :param model_name: Model Name
+      :type model_name: str
+
+      :raises Exception: Error when model not found
+
+
+
+.. py:class:: SymptomsDetection(export_pattern_pred: Union[str, Tuple[str, str]] = 'export/symptoms_det/pred', patch_sz: Union[int, Tuple[int, int]] = 1024, input_scaling: Union[float, Tuple[float, float]] = 1.0, classes_dict: dict = {1: 'pycnidia', 2: 'rust'}, debug: bool = False, model_name: str = 'latest', use_gpu: bool = True, cuda_device: str = 'cuda:0', keypoints_thresh: float = 0.212, max_det: int = 100000, search_pattern: str = ['*.jpg', '*.JPG', '*.jpeg', '*.png', '*.PNG'])
+
+   Bases: :py:obj:`BaseModel`
+
+
+   Implementation of the symptoms detection building block
+
+   Constructor of symptoms detection. It provides the correct default values for various parameters.
+
+   :param export_pattern_pred: This argument controls how the results are saved.
+                               You can provide a single path string which defines where the images are saved. This then takes the
+                               filename and the provided path to create the path for the predictions. This means that the source folder
+                               structure is flattened. If you want to keep the source folder structure you can provide a tuple of two
+                               strings. This is then used with the str.replace() method and allows for specifying which part of the
+                               file path of the image is replaced with what. Defaults to 'export/symptoms_det/pred'.
+   :type export_pattern_pred: Union[str, Tuple[str, str]], optional
+   :param input_scaling: If one number is provide, the scaling is done symmetrically.
+                         It denotes a scaling factor applied before inference. The results are scaled back to the original resolution
+                         before saving. Defaults to 1.0.
+   :type input_scaling: Union[float, Tuple[float, float]], optional
+   :param classes_dict: This denotes a mapping between class names and their integer id. Defaults to {1: 'pycnidia', 2: 'rust'}.
+   :type classes_dict: dict, optional
+   :param debug: When run in debug mode the models do not save predictions and some models provide additional
+                 insights. Defaults to False.
+   :type debug: bool, optional
+   :param model_name: Which model should be used. For this refer to model zoo. Defaults to 'latest'.
+   :type model_name: str, optional
+   :param use_gpu: When true the inference is run on a GPU. Defaults to True.
+   :type use_gpu: bool, optional
+   :param cuda_device: which cuda device to use. Not recommended to use. Rather use the
+                       environment variable export CUDA_VISIBLE_DEVICES = ... . For the current version of ultralytics only 'cuda:0' works
+                       as pointed out in https://github.com/ultralytics/ultralytics/issues/5801 . Defaults to 'cuda:0'.
+   :type cuda_device: str, optional
+   :param keypoints_thresh: Confidence threshold for acceptance of predictions. Typically try to use
+                            a value that optimizes the f1 score during training. Defaults to 0.212.
+   :type keypoints_thresh: float, optional
+   :param search_pattern: List of image extensions used to search for images.
+                          Defaults to ['*.jpg', '*.JPG', '*.jpeg', '*.png', '*.PNG'].
+   :type search_pattern: str, optional
+
+   :raises Exception: Error when GPU is requested but cannot be utilized.
+
+
+   .. py:attribute:: classes_dict
+
+
+   .. py:attribute:: debug
+      :value: False
+
+
+
+   .. py:attribute:: export_pattern_pred
+      :value: 'export/symptoms_det/pred'
+
+
+
+   .. py:attribute:: patch_sz
+      :value: 1024
+
+
+
+   .. py:attribute:: input_scaling
+      :value: 1.0
+
+
+
+   .. py:attribute:: use_gpu
+      :value: True
+
+
+
+   .. py:attribute:: cuda_device
+      :value: 'cuda:0'
+
+
+
+   .. py:attribute:: model_path
+      :value: None
+
+
+
+   .. py:attribute:: keypoints_thresh
+      :value: 0.212
+
+
+
+   .. py:attribute:: max_det
+      :value: 100000
+
+
+
+   .. py:attribute:: patch_stride
+      :value: 1024
+
+
+
+   .. py:attribute:: search_pattern
+      :value: ['*.jpg', '*.JPG', '*.jpeg', '*.png', '*.PNG']
+
+
+
+   .. py:method:: get_model(model_name: str)
+
+      Download if not already existing and use a desired model. A specific implementation for symptoms detection.
+
+      :param model_name: Model Name
+      :type model_name: str
+
+      :raises Exception: Error when model not found
+
+
+
+   .. py:method:: infer_image(model_input: torch.tensor) -> numpy.array
+
+      Symptoms detection specific implementation of inference using a preprossed input.
+
+      :param model_input: prepared tensor for inference
+      :type model_input: torch.tensor
+
+      :returns: results encoded as a mask
+      :rtype: np.array
+
+
+
+   .. py:method:: rgb_image2input(image: numpy.array) -> torch.tensor
+
+      Prepare an image for inference with pytorch. This is specific for symptoms detection.
+
+      :param image: array with the image
+      :type image: np.array
+
+      :returns: model input tensor ready for inference
+      :rtype: torch.tensor
+
+
+
+.. py:class:: Resize(width, height, resize_target=True, keep_aspect_ratio=False, ensure_multiple_of=1, resize_method='lower_bound', image_interpolation_method=cv2.INTER_AREA)
+
+   Bases: :py:obj:`object`
+
+
+   Resize sample to given size (width, height).
+
+
+   Init.
+
+   :param width: desired output width
+   :type width: int
+   :param height: desired output height
+   :type height: int
+   :param resize_target: True: Resize the full sample (image, mask, target).
+                         False: Resize image only.
+                         Defaults to True.
+   :type resize_target: bool, optional
+   :param keep_aspect_ratio: True: Keep the aspect ratio of the input sample.
+                             Output sample might not have the given width and height, and
+                             resize behaviour depends on the parameter 'resize_method'.
+                             Defaults to False.
+   :type keep_aspect_ratio: bool, optional
+   :param ensure_multiple_of: Output width and height is constrained to be multiple of this parameter.
+                              Defaults to 1.
+   :type ensure_multiple_of: int, optional
+   :param resize_method: "lower_bound": Output will be at least as large as the given size.
+                         "upper_bound": Output will be at max as large as the given size. (Output size might be smaller than given size.)
+                         "minimal": Scale as least as possible.  (Output size might be smaller than given size.)
+                         Defaults to "lower_bound".
+   :type resize_method: str, optional
+
+
+   .. py:method:: constrain_to_multiple_of(x, min_val=0, max_val=None)
+
+
+   .. py:method:: get_size(width, height)
+
+
+   .. py:method:: __call__(sample)
+
+
+.. py:class:: NormalizeImage(mean, std)
+
+   Bases: :py:obj:`object`
+
+
+   Normlize image by given mean and std.
+
+
+
+   .. py:method:: __call__(sample)
+
+
+.. py:class:: PrepareForNet
+
+   Bases: :py:obj:`object`
+
+
+   Prepare sample for usage as network input.
+
+
+
+   .. py:method:: __call__(sample)
+
+
+.. py:class:: FocusSegmentation(export_pattern_pred: Union[str, Tuple[str, str]] = 'export/focus/pred', patch_sz: Union[int, Tuple[int, int]] = 4096, classes_dict: dict = {1: 'out_of_focus'}, debug: bool = False, model_name: str = 'latest', use_gpu: bool = True, cuda_device: str = 'cuda:0', input_scaling: Union[float, Tuple[float, float]] = 0.25, search_pattern: str = ['*.jpg', '*.JPG', '*.jpeg', '*.png', '*.PNG'], buffer_scaling: float = 1.0)
+
+   Bases: :py:obj:`BaseModel`
+
+
+   Implementation of the focus segmentation building block
+
+   Constructor of focus segmentation. It provides the correct default values for various parameters.
+
+   :param export_pattern_pred: This argument controls how the results are saved.
+                               You can provide a single path string which defines where the images are saved. This then takes the
+                               filename and the provided path to create the path for the predictions. This means that the source folder
+                               structure is flattened. If you want to keep the source folder structure you can provide a tuple of two
+                               strings. This is then used with the str.replace() method and allows for specifying which part of the
+                               file path of the image is replaced with what.. Defaults to 'export/focus/pred'.
+   :type export_pattern_pred: Union[str, Tuple[str, str]], optional
+   :param classes_dict: This denotes a mapping between class names and their integer id.. Defaults to {1: 'out_of_focus'}.
+   :type classes_dict: dict, optional
+   :param debug: When run in debug mode the models do not save predictions and some models provide additional
+                 insights.. Defaults to False.
+   :type debug: bool, optional
+   :param model_name: Which model should be used. For this refer to model zoo. Defaults to 'latest'.
+   :type model_name: str, optional
+   :param use_gpu: When true the inference is run on a GPU. Defaults to True.
+   :type use_gpu: bool, optional
+   :param cuda_device: which cuda device to use. Not recommended to use. Rather use the
+                       environment variable export CUDA_VISIBLE_DEVICES = ... . Defaults to 'cuda:0'.
+   :type cuda_device: str, optional
+   :param input_scaling: If one number is provide, the scaling is done symmetrically.
+                         It denotes a scaling factor applied before inference. The results are scaled back to the original resolution
+                         before saving. Defaults to 0.25.
+   :type input_scaling: Union[float, Tuple[float, float]], optional
+   :param search_pattern: List of image extensions used to search for images.
+                          Defaults to ['*.jpg', '*.JPG', '*.jpeg', '*.png', '*.PNG'].
+   :type search_pattern: str, optional
+   :param buffer_scaling: Paramer of the focus acceptance buffer. Lower values make the focus estimation
+                          more aggressive. Defaults to 1.0.
+   :type buffer_scaling: float, optional
+
+   :raises Exception: _description_
+
+
+   .. py:attribute:: classes_dict
+
+
+   .. py:attribute:: debug
+      :value: False
+
+
+
+   .. py:attribute:: export_pattern_pred
+      :value: 'export/focus/pred'
+
+
+
+   .. py:attribute:: patch_sz
+      :value: 4096
+
+
+
+   .. py:attribute:: input_scaling
+      :value: 0.25
+
+
+
+   .. py:attribute:: use_gpu
+      :value: True
+
+
+
+   .. py:attribute:: cuda_device
+      :value: 'cuda:0'
+
+
+
+   .. py:attribute:: model_path
+      :value: None
+
+
+
+   .. py:attribute:: buffer_scaling
+      :value: 1.0
+
+
+
+   .. py:attribute:: patch_stride
+      :value: 4096
+
+
+
+   .. py:attribute:: search_pattern
+      :value: ['*.jpg', '*.JPG', '*.jpeg', '*.png', '*.PNG']
+
+
+
+   .. py:method:: get_model(model_name: str)
+
+      Download if not already existing and use a desired model. A specific implementation for focus segmentation.
+
+      :param model_name: Model Name
+      :type model_name: str
+
+      :raises Exception: Error when model not found
+
+
+
+   .. py:method:: infer_image(model_input: torch.tensor) -> numpy.array
+
+      Focus segmentation specific implementation of inference using a preprossed input.
+
+      :param model_input: prepared tensor for inference
+      :type model_input: torch.tensor
+
+      :returns: results encoded as a mask
+      :rtype: np.array
+
+
+
+   .. py:method:: rgb_image2input(image: numpy.array) -> torch.tensor
+
+      Prepare an image for inference with pytorch. This is specific for focus segmentation.
+
+      :param image: array with the image
+      :type image: np.array
+
+      :returns: model input tensor ready for inference
+      :rtype: torch.tensor
+
+
+
+   .. py:method:: image2tensor(raw_image: numpy.array, input_size_w: int, input_size_h: int) -> torch.tensor
+
+      Focus segmentation specific implementation of converting the image to a tensor for inference.
+
+      :param raw_image: image to be processed
+      :type raw_image: np.array
+      :param input_size_w: width shape of the image
+      :type input_size_w: int
+      :param input_size_h: heigth shape of the image
+      :type input_size_h: int
+
+      :returns: tensor ready for inference with DepthAnythingv2
+      :rtype: torch.tensor
+
+
+
+   .. py:method:: determine_focus(depth: numpy.array, image: numpy.array) -> numpy.array
+
+      Using the predicted depth map and original image, determine regions that are in focus.
+
+      :param depth: depth map
+      :type depth: np.array
+      :param image: original image
+      :type image: np.array
+
+      :returns: _description_
+      :rtype: np.array
+
+
+
+.. py:function:: test()
+
+   This function runs a dry run of the complete pipeline to validate your installation. It produces predictions in newly created `test` folder.
+
+

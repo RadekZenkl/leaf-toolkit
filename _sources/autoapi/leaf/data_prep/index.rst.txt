@@ -1,0 +1,228 @@
+leaf.data_prep
+==============
+
+.. py:module:: leaf.data_prep
+
+
+
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:data:: N_QR_CODES
+   :type:  int
+   :value: 8
+
+
+.. py:function:: determine_parameters(img: numpy.array) -> dict[str:int]
+
+   Determine cropping parameters based on image resolution.
+
+   Supports A4 scanned at 600dpi and 1200dpi. Raises an error if the resolution
+   is unsupported.
+
+   :param img: Input image as a NumPy array.
+   :type img: np.array
+
+   :returns: Dictionary with keys 'cropping_size', 'scale_factor',
+             'qr_offset_x', and 'qr_offset_y'.
+   :rtype: dict[str, int]
+
+   :raises Exception: If image resolution does not match predefined formats.
+
+
+.. py:function:: is_hidden_file(file_path: str) -> bool
+
+   Check if a file is hidden (Unix-style or Windows).
+
+   :param file_path: Full path to the file.
+   :type file_path: str
+
+   :returns: True if the file is hidden, False otherwise.
+   :rtype: bool
+
+
+.. py:function:: check_file(file_path: str) -> bool
+
+   Validate if the file exists, is not hidden, and is a readable image.
+
+   :param file_path: Full path to the file.
+   :type file_path: str
+
+   :returns: True if valid, False otherwise.
+   :rtype: bool
+
+
+.. py:function:: prepare_folder(folder_path: str, export_path: str, error_logs_path: str, manual_correction: bool = False, debug: bool = False, correction_export_path: str = None) -> None
+
+   Process a folder of images for QR detection and cropping.
+
+   Optionally allows manual correction of failed detections.
+
+   :param folder_path: Path to the folder containing input images.
+   :type folder_path: str
+   :param export_path: Path to export cropped image patches.
+   :type export_path: str
+   :param error_logs_path: Path to write error logs.
+   :type error_logs_path: str
+   :param manual_correction: If True, enables manual correction. Defaults to False.
+   :type manual_correction: bool, optional
+   :param debug: If True, enables debug output. Defaults to False.
+   :type debug: bool, optional
+   :param correction_export_path: Path for corrected exports if manual correction is enabled.
+   :type correction_export_path: str, optional
+
+
+.. py:function:: correction(error_logs_path: pathlib.Path, correction_export_path: pathlib.Path) -> None
+
+   Launch an interactive tool for manual correction of image crops.
+
+   :param error_logs_path: Path to the file listing failed detections.
+   :type error_logs_path: Path
+   :param correction_export_path: Path to export manually cropped patches.
+   :type correction_export_path: Path
+
+
+.. py:function:: find_qr_codes(image_path: str, debug: bool = False) -> List[Dict[str, object]]
+
+   Detect QR codes in an image and return their info.
+
+   :param image_path: Path to the image file.
+   :type image_path: str
+   :param debug: If True, shows debug visualization. Defaults to False.
+   :type debug: bool, optional
+
+   :returns: List of QR code dictionaries with 'coordinates' and 'value'.
+   :rtype: List[Dict[str, object]]
+
+
+.. py:function:: crop_qr_code_patches(image_path: str, qr_codes_info: List[Dict[str, object]], save_dir: pathlib.Path, debug: bool = False) -> None
+
+   Crop patches around detected QR codes and save them.
+
+   :param image_path: Path to the input image.
+   :type image_path: str
+   :param qr_codes_info: List of QR code metadata with coordinates and values.
+   :type qr_codes_info: List[Dict[str, object]]
+   :param save_dir: Directory to save cropped patches.
+   :type save_dir: Path
+   :param debug: If True, shows cropped patches. Defaults to False.
+   :type debug: bool, optional
+
+
+.. py:class:: BoundingBoxSelector(image_path: str, qr_codes: List[Dict[str, object]], box_size: Tuple[int, int], scale_factor: float, export_dir: pathlib.Path)
+
+   GUI tool for manually selecting and exporting image patches based on bounding boxes.
+
+   Initialize the bounding box selector.
+
+   :param image_path: Path to the image being processed.
+   :type image_path: str
+   :param qr_codes: List of detected QR codes.
+   :type qr_codes: List[Dict[str, object]]
+   :param box_size: Width and height of the crop box.
+   :type box_size: Tuple[int, int]
+   :param scale_factor: Scale factor for display.
+   :type scale_factor: float
+   :param export_dir: Directory to export cropped patches.
+   :type export_dir: Path
+
+
+   .. py:attribute:: original_image
+      :type:  numpy.ndarray
+
+
+   .. py:attribute:: image
+      :type:  numpy.ndarray
+
+
+   .. py:attribute:: orig_box_size
+      :type:  Tuple[int, int]
+
+
+   .. py:attribute:: box_size
+      :type:  Tuple[int, int]
+
+
+   .. py:attribute:: user_boxes
+      :value: None
+
+
+
+   .. py:attribute:: cid
+
+
+   .. py:attribute:: qr_codes
+
+
+   .. py:attribute:: scale_factor
+
+
+   .. py:attribute:: selected_box
+      :value: None
+
+
+
+   .. py:attribute:: export_dir
+
+
+   .. py:attribute:: reset_button
+
+
+   .. py:attribute:: confirm_button
+
+
+   .. py:attribute:: done_button
+
+
+   .. py:attribute:: text_box
+
+
+   .. py:attribute:: filename
+      :value: None
+
+
+
+   .. py:method:: on_press(event)
+
+      Handle mouse click event to define a bounding box.
+
+
+
+   .. py:method:: show()
+
+      Display the interactive selector interface.
+
+
+
+   .. py:method:: reset(event)
+
+      Clear the currently drawn bounding box.
+
+
+
+   .. py:method:: confirm(event)
+
+      Confirm the bounding box and trigger patch save.
+
+
+
+   .. py:method:: done(event)
+
+      Close the interface after completion.
+
+
+
+   .. py:method:: submit(text)
+
+      Handle filename input for saved patch.
+
+      :param text: Filename to save the cropped patch as.
+      :type text: str
+
+
+

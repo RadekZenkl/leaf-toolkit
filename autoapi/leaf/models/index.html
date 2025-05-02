@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" data-content_root="../../../">
+<head>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>leaf.models &mdash; Leaf Toolkit  documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/dist/fontawesome.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/dist/theme.css?v=310cf088" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+            <link rel="index" title="Index" href="../../../genindex.html" />
+            <link rel="search" title="Search" href="../../../search.html" />
+            <link rel="top" title="Leaf Toolkit  documentation" href="#" />
+            <link rel="up" title="leaf" href="../index.html" />
+            <link rel="next" title="leaf.visualization" href="../visualization/index.html" />
+            <link rel="prev" title="leaf.metrics" href="../metrics/index.html" />
+    </head>
+<body>
+    <script type="text/javascript" src="../../../_static/dist/blocking.js"></script>
+    <header class="container-fluid bg-primary">
+        <a class="btn btn-sm btn-light skip-to-content-link" href="#main">Skip to content</a>
+        <div class="container-fluid">
+            <div class="navbar navbar-expand-lg navbar-dark font-weight-bold">
+                    <a href="home.html"
+                        
+                        class="logo navbar-brand"
+                    >
+                        <img src="../../../_static/img/logo_placeholder.png" width="5" height="5"
+                            class="logo-img"
+                        />
+                        Leaf Toolkit
+                    </a>
+                
+                
+                <button class="navbar-toggler btn btn-primary d-lg-none" type="button" data-toggle="collapse" data-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="sr-only">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-12 col-lg-3 sidebar-container">
+                <div id="collapseSidebar" class="collapse sticky-top d-lg-block pt-5 pr-lg-4">
+<div id="searchbox" class="searchbox mb-6 px-1" role="search">
+    <form id="search-form" action="../../../search.html" autocomplete="off" method="get" role="search">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text border-right-0 bg-white py-3 pl-3 pr-2"><span class="fas fa-search"></span></div>
+            </div>
+            <input class="form-control py-3 pr-3 pl-1 h-100 border-left-0" type="search" name="q" placeholder="Search documentation" aria-label="Search documentation" id="searchinput" />
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div><div class="site-toc">
+    <nav class="toc mt-3" aria-label="Main menu">
+        <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../home.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/canopy_images.html">Canopy Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/flattened_leaves.html">Flattened Leaves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/flatbed.html">Flatbed Scanners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">Models</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">leaf</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../config/index.html">leaf.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_prep/index.html">leaf.data_prep</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generate_sheets/index.html">leaf.generate_sheets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../inference/index.html">leaf.inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../metrics/index.html">leaf.metrics</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">leaf.models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visualization/index.html">leaf.visualization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </nav>
+    <template data-toggle-item-template>
+        <button class="btn btn-sm btn-link toctree-expand" type="button">
+            <span class="sr-only">Toggle menu contents</span>
+        </button>
+    </template>
+</div>
+                    <div class="d-lg-none border-bottom">
+                        
+                    </div>
+                </div>
+            </aside>
+            <div class="col-12 col-lg-9 pt-5">
+                <header class="row align-items-baseline">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-0 p-0 bg-transparent">
+        <li class="breadcrumb-item"><a href="../../../index.html">Docs</a></li>
+            <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+            <li class="breadcrumb-item"><a href="../index.html">leaf</a></li>
+        <li class="breadcrumb-item active" aria-current="page">leaf.models</li>
+    </ol>
+</nav>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto mt-3 mt-lg-3">
+                        <noscript>
+                            <p>JavaScript is required to toggle light/dark mode..</p>
+                        </noscript>
+                        <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
+                            <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
+                            <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
+                        </button>
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/RadekZenkl/leaf-toolkit/blob/main/docs/autoapi/leaf/models/index.rst" rel="nofollow">
+        <span class="btn-icon"><span class="fab fa-github"></span></span>
+        <span class="btn-text">Edit on GitHub</span>
+    </a>
+    <a class="btn btn-sm btn-light text-decoration-none" href="../../../_sources/autoapi/leaf/models/index.rst.txt" rel="nofollow">
+        <span class="btn-icon"><span class="fas fa-code"></span></span>
+        <span class="btn-text">View source</span>
+    </a>
+                        
+                    </div>
+                </header>
+                <div class="row" >
+                    <div class="col-12">
+                        <hr class="w-100 my-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
+                        <main role="main" id="main">
+    <section id="module-leaf.models">
+<span id="leaf-models"></span><h1>leaf.models<a class="headerlink" href="#module-leaf.models" title="Link to this heading">¶</a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.models.BaseModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.models.</span></span><span class="sig-name descname"><span class="pre">BaseModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">export_pattern_pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_sz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_scaling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'latest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuda_device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cuda:0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">['*.jpg',</span> <span class="pre">'*.JPG',</span> <span class="pre">'*.jpeg',</span> <span class="pre">'*.png',</span> <span class="pre">'*.PNG']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.BaseModel" title="Link to this definition">¶</a></dt>
+<dd><p>A base class to use for implementing new models to the pipeline. It defines most of the utilities required with respect
+to initialization, handling images, predicting and saving results.</p>
+<p>This is a constructor placeholder, which needs to be overriden when used, otherwise
+it raises a NotImplementedError.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>export_pattern_pred</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>) – This argument controls how the results are saved.
+You can provide a single path string which defines where the images are saved. This then takes the
+filename and the provided path to create the path for the predictions. This means that the source folder
+structure is flattened. If you want to keep the source folder structure you can provide a tuple of two
+strings. This is then used with the str.replace() method and allows for specifying which part of the
+file path of the image is replaced with what.</p></li>
+<li><p><strong>patch_sz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em>) – Size of patches cropped to use for inference. The patchsize needs to be chosen so
+that it recreates the whole image i.e., image is dividided without rests and overlaps. (e.g. 4096x4096 can
+use 2048x2048 patches but not 2000x2000)</p></li>
+<li><p><strong>input_scaling</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>) – If one number is provide, the scaling is done symmetrically.
+It denotes a scaling factor applied before inference. The results are scaled back to the original resolution
+before saving.</p></li>
+<li><p><strong>classes_dict</strong> (<em>dict</em>) – This denotes a mapping between class names and their integer id.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em><em>, </em><em>optional</em>) – When run in debug mode the models do not save predictions and some models provide additional
+insights. Defaults to False.</p></li>
+<li><p><strong>model_name</strong> (<em>str</em>) – Which model should be used. For this refer to model zoo. Defaults to ‘latest’.</p></li>
+<li><p><strong>use_gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – When true the inference is run on a GPU. Defaults to True.</p></li>
+<li><p><strong>cuda_device</strong> (<em>str</em><em>, </em><em>optional</em>) – which cuda device to use. Not recommended to use. Rather use the
+environment variable export CUDA_VISIBLE_DEVICES = … . Defaults to ‘cuda:0’.</p></li>
+<li><p><strong>search_pattern</strong> (<em>str</em><em>, </em><em>optional</em>) – List of image extensions used to search for images.
+Defaults to [’<em>.jpg’, ‘</em>.JPG’, ‘<em>.jpeg’, ‘</em>.png’, ‘<a href="#id1"><span class="problematic" id="id2">*</span></a>.PNG’].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – Error to notify that this method is meant to be implemented in the inherited class.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.classes_dict">
+<span class="sig-name descname"><span class="pre">classes_dict</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.BaseModel.classes_dict" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.BaseModel.debug" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.export_pattern_pred">
+<span class="sig-name descname"><span class="pre">export_pattern_pred</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.BaseModel.export_pattern_pred" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.patch_sz">
+<span class="sig-name descname"><span class="pre">patch_sz</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.BaseModel.patch_sz" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.input_scaling">
+<span class="sig-name descname"><span class="pre">input_scaling</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(None,)</span></em><a class="headerlink" href="#leaf.models.BaseModel.input_scaling" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.use_gpu">
+<span class="sig-name descname"><span class="pre">use_gpu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.BaseModel.use_gpu" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.cuda_device">
+<span class="sig-name descname"><span class="pre">cuda_device</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.BaseModel.cuda_device" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.model_path">
+<span class="sig-name descname"><span class="pre">model_path</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.BaseModel.model_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.patch_stride">
+<span class="sig-name descname"><span class="pre">patch_stride</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.BaseModel.patch_stride" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.search_pattern">
+<span class="sig-name descname"><span class="pre">search_pattern</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.BaseModel.search_pattern" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.current_input_name">
+<span class="sig-name descname"><span class="pre">current_input_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.BaseModel.current_input_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#leaf.models.BaseModel.predict" title="Link to this definition">¶</a></dt>
+<dd><p>Predicts on a folder or file. Uses pathlib Path internally</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>src</strong> (<em>str</em>) – Path to a specific file or folder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.predict_folder">
+<span class="sig-name descname"><span class="pre">predict_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#leaf.models.BaseModel.predict_folder" title="Link to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>This function predicts a folder. It uses recursive file search with extensions defined in the search_pattern</dt><dd><p>attribute.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>src</strong> (<em>pathlib.Path</em>) – Pathlib Path pointing to a folder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.predict_image">
+<span class="sig-name descname"><span class="pre">predict_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#leaf.models.BaseModel.predict_image" title="Link to this definition">¶</a></dt>
+<dd><p>Tests if a file is read successfully. Then it subdivides an image to patches according to the specified patch size.
+Then it conducts the inference and merges the results from individual patches and saves the results, if not in
+debug mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>src</strong> (<em>pathlib.Path</em>) – Pathlib Path to the image to be predicted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.subdivide_image">
+<span class="sig-name descname"><span class="pre">subdivide_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.array</span></span></span><a class="headerlink" href="#leaf.models.BaseModel.subdivide_image" title="Link to this definition">¶</a></dt>
+<dd><p>This function subdivides an image according to the patch_sz attribute and returns a array of patches in form of
+n x patch_sz[0] x patch_sz[1] x 3 . Currently it only allows for subdivision that mathches the image size exactly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>np.array</em>) – Image array</p></li>
+<li><p><strong>src</strong> (<em>pathllib.Path</em>) – Path to the corresponding image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Batched image patches</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.split_into_patches">
+<span class="sig-name descname"><span class="pre">split_into_patches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patchsz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.array</span></span></span><a class="headerlink" href="#leaf.models.BaseModel.split_into_patches" title="Link to this definition">¶</a></dt>
+<dd><p>Splits the image into patches according the patchsz and returns batched patches array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>np.array</em>) – numpy array with the image</p></li>
+<li><p><strong>patchsz</strong> (<em>Union</em><em>[</em><em>tuple</em><em>, </em><em>list</em><em>]</em>) – patchsize denoting the x and y size</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>batched patches array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.merge_patches">
+<span class="sig-name descname"><span class="pre">merge_patches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.array</span></span></span><a class="headerlink" href="#leaf.models.BaseModel.merge_patches" title="Link to this definition">¶</a></dt>
+<dd><p>Merge patches back to recreate the original image/pattern. It can only handle a stride which is equal to the
+patch size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>patches</strong> (<em>np.array</em>) – Batched array of patches</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – Throw and exception regarding differing stride not implemented.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>merged output with the dimensions of the riginal image</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.infer_image">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">infer_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.array</span></span></span><a class="headerlink" href="#leaf.models.BaseModel.infer_image" title="Link to this definition">¶</a></dt>
+<dd><p>A placeholder for downstream models inference. Needs to be implemented</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_input</strong> (<em>torch.tensor</em>) – model_input tensor</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – Error denoting, it is not implemented.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>model output mask</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.rgb_image2input">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rgb_image2input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.tensor</span></span></span><a class="headerlink" href="#leaf.models.BaseModel.rgb_image2input" title="Link to this definition">¶</a></dt>
+<dd><p>A placeholder for model specific preparation of the input for inference. Needs to be implemented in
+inherited classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>np.array</em>) – image array</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – Error denoting, it is not implemented.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch tensor ready to be processed by the model</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.test">
+<span class="sig-name descname"><span class="pre">test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#leaf.models.BaseModel.test" title="Link to this definition">¶</a></dt>
+<dd><p>A test method to see if inference can be done sucessfully. It downloads a sample image to test/images and
+predicts on it</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.download_file">
+<span class="sig-name descname"><span class="pre">download_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'models'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#leaf.models.BaseModel.download_file" title="Link to this definition">¶</a></dt>
+<dd><p>Download file at a given url to a specified directory if it does not already exists and keep the name of
+the file same as on the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) – url to what to download</p></li>
+<li><p><strong>root</strong> (<em>str</em><em>, </em><em>optional</em>) – directory where to download to. Defaults to ‘models’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>path to the downloaded file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.parse_name_from_header">
+<span class="sig-name descname"><span class="pre">parse_name_from_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#leaf.models.BaseModel.parse_name_from_header" title="Link to this definition">¶</a></dt>
+<dd><p>Parses the Content-Disposition header value and extracts the disposition type and parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>header_value</strong> (<em>str</em>) – The raw header string, e.g., ‘form-data; name=”file”; filename=”example.txt”’.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple where the first element is the disposition type (e.g., ‘form-data’),
+and the second is a dictionary of parameter key-value pairs (e.g., {‘name’: ‘file’, ‘filename’: ‘example.txt’}).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[str, Dict[str, str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.save_predictions">
+<span class="sig-name descname"><span class="pre">save_predictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#leaf.models.BaseModel.save_predictions" title="Link to this definition">¶</a></dt>
+<dd><p>This function determines the save path based on the source image name and export_pattern_pred attribute.
+Then it saves the predictions on a specified location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> (<em>str</em>) – image path of the original image</p></li>
+<li><p><strong>predictions</strong> (<em>np.array</em>) – predictions array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Error when the export path cannot be determined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.BaseModel.get_model">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.BaseModel.get_model" title="Link to this definition">¶</a></dt>
+<dd><p>Download if not already existing and use a desired model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_name</strong> (<em>str</em>) – Model Name. Refer to Model Zoo</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – Error that it is not implemented</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.models.</span></span><span class="sig-name descname"><span class="pre">TorchscriptTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">export_pattern_pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_sz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_scaling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'latest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuda_device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cuda:0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">['*.jpg',</span> <span class="pre">'*.JPG',</span> <span class="pre">'*.jpeg',</span> <span class="pre">'*.png',</span> <span class="pre">'*.PNG']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.TorchscriptTransformer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#leaf.models.BaseModel" title="leaf.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>Extension of the BaseModel class which implements further model specifics to torscript exported transformer model.</p>
+<p>Constructor of this class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>export_pattern_pred</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>) – This argument controls how the results are saved.
+You can provide a single path string which defines where the images are saved. This then takes the
+filename and the provided path to create the path for the predictions. This means that the source folder
+structure is flattened. If you want to keep the source folder structure you can provide a tuple of two
+strings. This is then used with the str.replace() method and allows for specifying which part of the
+file path of the image is replaced with what.</p></li>
+<li><p><strong>patch_sz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em>) – Size of patches cropped to use for inference. The patchsize needs to be chosen so
+that it recreates the whole image i.e., image is dividided without rests and overlaps. (e.g. 4096x4096 can
+use 2048x2048 patches but not 2000x2000)</p></li>
+<li><p><strong>input_scaling</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>) – If one number is provide, the scaling is done symmetrically.
+It denotes a scaling factor applied before inference. The results are scaled back to the original resolution
+before saving.</p></li>
+<li><p><strong>classes_dict</strong> (<em>dict</em>) – This denotes a mapping between class names and their integer id.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em><em>, </em><em>optional</em>) – When run in debug mode the models do not save predictions and some models provide additional
+insights. Defaults to False.</p></li>
+<li><p><strong>model_name</strong> (<em>str</em>) – Which model should be used. For this refer to model zoo. Defaults to ‘latest’.</p></li>
+<li><p><strong>use_gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – When true the inference is run on a GPU. Defaults to True.</p></li>
+<li><p><strong>cuda_device</strong> (<em>str</em><em>, </em><em>optional</em>) – which cuda device to use. Not recommended to use. Rather use the
+environment variable export CUDA_VISIBLE_DEVICES = … . Defaults to ‘cuda:0’.</p></li>
+<li><p><strong>search_pattern</strong> (<em>str</em><em>, </em><em>optional</em>) – List of image extensions used to search for images.
+Defaults to [’<em>.jpg’, ‘</em>.JPG’, ‘<em>.jpeg’, ‘</em>.png’, ‘<a href="#id3"><span class="problematic" id="id4">*</span></a>.PNG’].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Error when GPU is requested but cannot be utilized.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer.classes_dict">
+<span class="sig-name descname"><span class="pre">classes_dict</span></span><a class="headerlink" href="#leaf.models.TorchscriptTransformer.classes_dict" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#leaf.models.TorchscriptTransformer.debug" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer.export_pattern_pred">
+<span class="sig-name descname"><span class="pre">export_pattern_pred</span></span><a class="headerlink" href="#leaf.models.TorchscriptTransformer.export_pattern_pred" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer.patch_sz">
+<span class="sig-name descname"><span class="pre">patch_sz</span></span><a class="headerlink" href="#leaf.models.TorchscriptTransformer.patch_sz" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer.input_scaling">
+<span class="sig-name descname"><span class="pre">input_scaling</span></span><a class="headerlink" href="#leaf.models.TorchscriptTransformer.input_scaling" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer.use_gpu">
+<span class="sig-name descname"><span class="pre">use_gpu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#leaf.models.TorchscriptTransformer.use_gpu" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer.cuda_device">
+<span class="sig-name descname"><span class="pre">cuda_device</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cuda:0'</span></em><a class="headerlink" href="#leaf.models.TorchscriptTransformer.cuda_device" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer.model_path">
+<span class="sig-name descname"><span class="pre">model_path</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.TorchscriptTransformer.model_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer.patch_stride">
+<span class="sig-name descname"><span class="pre">patch_stride</span></span><a class="headerlink" href="#leaf.models.TorchscriptTransformer.patch_stride" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer.search_pattern">
+<span class="sig-name descname"><span class="pre">search_pattern</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['*.jpg',</span> <span class="pre">'*.JPG',</span> <span class="pre">'*.jpeg',</span> <span class="pre">'*.png',</span> <span class="pre">'*.PNG']</span></em><a class="headerlink" href="#leaf.models.TorchscriptTransformer.search_pattern" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer.infer_image">
+<span class="sig-name descname"><span class="pre">infer_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.array</span></span></span><a class="headerlink" href="#leaf.models.TorchscriptTransformer.infer_image" title="Link to this definition">¶</a></dt>
+<dd><p>Torchscript Transformer specific implementation of inference using a preprossed input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_input</strong> (<em>torch.tensor</em>) – prepared tensor for inference</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>results encoded as a mask</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.TorchscriptTransformer.rgb_image2input">
+<span class="sig-name descname"><span class="pre">rgb_image2input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.tensor</span></span></span><a class="headerlink" href="#leaf.models.TorchscriptTransformer.rgb_image2input" title="Link to this definition">¶</a></dt>
+<dd><p>Prepare an image for inference with pytorch. This is specific for torchscript transformer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>np.array</em>) – array with the image</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>model input tensor ready for inference</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.models.SymptomsSegmentation">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.models.</span></span><span class="sig-name descname"><span class="pre">SymptomsSegmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classes_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{1:</span> <span class="pre">'leaf',</span> <span class="pre">2:</span> <span class="pre">'necrosis',</span> <span class="pre">3:</span> <span class="pre">'insect_damage',</span> <span class="pre">4:</span> <span class="pre">'powdery_mildew'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_pattern_pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'export/symptoms_seg/pred'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_scaling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_sz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.SymptomsSegmentation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#leaf.models.TorchscriptTransformer" title="leaf.models.TorchscriptTransformer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchscriptTransformer</span></code></a></p>
+<p>Implementation of the symptoms segmentation bulding block.</p>
+<p>Constructor of symptoms segmentation. It provides the correct default values for various parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>classes_dict</strong> (<em>dict</em><em>, </em><em>optional</em>) – This denotes a mapping between class names and their integer id.
+Defaults to {1: ‘leaf’, 2: ‘necrosis’, 3: ‘insect_damage’, 4: ‘powdery_mildew’, }.</p></li>
+<li><p><strong>export_pattern_pred</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – This argument controls how the results are saved.
+You can provide a single path string which defines where the images are saved. This then takes the
+filename and the provided path to create the path for the predictions. This means that the source folder
+structure is flattened. If you want to keep the source folder structure you can provide a tuple of two
+strings. This is then used with the str.replace() method and allows for specifying which part of the
+file path of the image is replaced with what. Defaults to ‘export/symptoms_seg/pred’.</p></li>
+<li><p><strong>input_scaling</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If one number is provide, the scaling is done symmetrically.
+It denotes a scaling factor applied before inference. The results are scaled back to the original resolution
+before saving. Defaults to 0.5.</p></li>
+<li><p><strong>patch_sz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Size of patches cropped to use for inference. The patchsize needs to be chosen so
+that it recreates the whole image i.e., image is dividided without rests and overlaps. (e.g. 4096x4096 can
+use 2048x2048 patches but not 2000x2000). Defaults to 2048.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.SymptomsSegmentation.get_model">
+<span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.SymptomsSegmentation.get_model" title="Link to this definition">¶</a></dt>
+<dd><p>Download if not already existing and use a desired model. A specific implementation for symptoms segmentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_name</strong> (<em>str</em>) – Model Name</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Error when model not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.models.OrgansSegmentation">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.models.</span></span><span class="sig-name descname"><span class="pre">OrgansSegmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classes_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{1:</span> <span class="pre">'stem',</span> <span class="pre">2:</span> <span class="pre">'head'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_pattern_pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'export/organs/pred'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_scaling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_sz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4096</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.OrgansSegmentation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#leaf.models.TorchscriptTransformer" title="leaf.models.TorchscriptTransformer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchscriptTransformer</span></code></a></p>
+<p>Implementation of the organ segmentation bulding block.</p>
+<p>Constructor of organ segmentation. It provides the correct default values for various parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>classes_dict</strong> (<em>dict</em><em>, </em><em>optional</em>) – This denotes a mapping between class names and their integer id.
+Defaults to {1: ‘stem’, 2: ‘head’}.</p></li>
+<li><p><strong>export_pattern_pred</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – This argument controls how the results are saved.
+You can provide a single path string which defines where the images are saved. This then takes the
+filename and the provided path to create the path for the predictions. This means that the source folder
+structure is flattened. If you want to keep the source folder structure you can provide a tuple of two
+strings. This is then used with the str.replace() method and allows for specifying which part of the
+file path of the image is replaced with what. Defaults to ‘export/organs/pred’.</p></li>
+<li><p><strong>input_scaling</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If one number is provide, the scaling is done symmetrically.
+It denotes a scaling factor applied before inference. The results are scaled back to the original resolution
+before saving. Defaults to 0.25.</p></li>
+<li><p><strong>patch_sz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Size of patches cropped to use for inference. The patchsize needs to be chosen so
+that it recreates the whole image i.e., image is dividided without rests and overlaps. (e.g. 4096x4096 can
+use 2048x2048 patches but not 2000x2000). Defaults to 4096.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.OrgansSegmentation.get_model">
+<span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.OrgansSegmentation.get_model" title="Link to this definition">¶</a></dt>
+<dd><p>Download if not already existing and use a desired model. A specific implementation for organ segmentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_name</strong> (<em>str</em>) – Model Name</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Error when model not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.models.</span></span><span class="sig-name descname"><span class="pre">SymptomsDetection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">export_pattern_pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'export/symptoms_det/pred'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_sz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_scaling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{1:</span> <span class="pre">'pycnidia',</span> <span class="pre">2:</span> <span class="pre">'rust'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'latest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuda_device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cuda:0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keypoints_thresh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.212</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_det</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">['*.jpg',</span> <span class="pre">'*.JPG',</span> <span class="pre">'*.jpeg',</span> <span class="pre">'*.png',</span> <span class="pre">'*.PNG']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.SymptomsDetection" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#leaf.models.BaseModel" title="leaf.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>Implementation of the symptoms detection building block</p>
+<p>Constructor of symptoms detection. It provides the correct default values for various parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>export_pattern_pred</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – This argument controls how the results are saved.
+You can provide a single path string which defines where the images are saved. This then takes the
+filename and the provided path to create the path for the predictions. This means that the source folder
+structure is flattened. If you want to keep the source folder structure you can provide a tuple of two
+strings. This is then used with the str.replace() method and allows for specifying which part of the
+file path of the image is replaced with what. Defaults to ‘export/symptoms_det/pred’.</p></li>
+<li><p><strong>input_scaling</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If one number is provide, the scaling is done symmetrically.
+It denotes a scaling factor applied before inference. The results are scaled back to the original resolution
+before saving. Defaults to 1.0.</p></li>
+<li><p><strong>classes_dict</strong> (<em>dict</em><em>, </em><em>optional</em>) – This denotes a mapping between class names and their integer id. Defaults to {1: ‘pycnidia’, 2: ‘rust’}.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em><em>, </em><em>optional</em>) – When run in debug mode the models do not save predictions and some models provide additional
+insights. Defaults to False.</p></li>
+<li><p><strong>model_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Which model should be used. For this refer to model zoo. Defaults to ‘latest’.</p></li>
+<li><p><strong>use_gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – When true the inference is run on a GPU. Defaults to True.</p></li>
+<li><p><strong>cuda_device</strong> (<em>str</em><em>, </em><em>optional</em>) – which cuda device to use. Not recommended to use. Rather use the
+environment variable export CUDA_VISIBLE_DEVICES = … . For the current version of ultralytics only ‘cuda:0’ works
+as pointed out in https://github.com/ultralytics/ultralytics/issues/5801 . Defaults to ‘cuda:0’.</p></li>
+<li><p><strong>keypoints_thresh</strong> (<em>float</em><em>, </em><em>optional</em>) – Confidence threshold for acceptance of predictions. Typically try to use
+a value that optimizes the f1 score during training. Defaults to 0.212.</p></li>
+<li><p><strong>search_pattern</strong> (<em>str</em><em>, </em><em>optional</em>) – List of image extensions used to search for images.
+Defaults to [’<em>.jpg’, ‘</em>.JPG’, ‘<em>.jpeg’, ‘</em>.png’, ‘<a href="#id5"><span class="problematic" id="id6">*</span></a>.PNG’].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Error when GPU is requested but cannot be utilized.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.classes_dict">
+<span class="sig-name descname"><span class="pre">classes_dict</span></span><a class="headerlink" href="#leaf.models.SymptomsDetection.classes_dict" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#leaf.models.SymptomsDetection.debug" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.export_pattern_pred">
+<span class="sig-name descname"><span class="pre">export_pattern_pred</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'export/symptoms_det/pred'</span></em><a class="headerlink" href="#leaf.models.SymptomsDetection.export_pattern_pred" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.patch_sz">
+<span class="sig-name descname"><span class="pre">patch_sz</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1024</span></em><a class="headerlink" href="#leaf.models.SymptomsDetection.patch_sz" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.input_scaling">
+<span class="sig-name descname"><span class="pre">input_scaling</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></em><a class="headerlink" href="#leaf.models.SymptomsDetection.input_scaling" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.use_gpu">
+<span class="sig-name descname"><span class="pre">use_gpu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#leaf.models.SymptomsDetection.use_gpu" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.cuda_device">
+<span class="sig-name descname"><span class="pre">cuda_device</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cuda:0'</span></em><a class="headerlink" href="#leaf.models.SymptomsDetection.cuda_device" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.model_path">
+<span class="sig-name descname"><span class="pre">model_path</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.SymptomsDetection.model_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.keypoints_thresh">
+<span class="sig-name descname"><span class="pre">keypoints_thresh</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.212</span></em><a class="headerlink" href="#leaf.models.SymptomsDetection.keypoints_thresh" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.max_det">
+<span class="sig-name descname"><span class="pre">max_det</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100000</span></em><a class="headerlink" href="#leaf.models.SymptomsDetection.max_det" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.patch_stride">
+<span class="sig-name descname"><span class="pre">patch_stride</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1024</span></em><a class="headerlink" href="#leaf.models.SymptomsDetection.patch_stride" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.search_pattern">
+<span class="sig-name descname"><span class="pre">search_pattern</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['*.jpg',</span> <span class="pre">'*.JPG',</span> <span class="pre">'*.jpeg',</span> <span class="pre">'*.png',</span> <span class="pre">'*.PNG']</span></em><a class="headerlink" href="#leaf.models.SymptomsDetection.search_pattern" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.get_model">
+<span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.SymptomsDetection.get_model" title="Link to this definition">¶</a></dt>
+<dd><p>Download if not already existing and use a desired model. A specific implementation for symptoms detection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_name</strong> (<em>str</em>) – Model Name</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Error when model not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.infer_image">
+<span class="sig-name descname"><span class="pre">infer_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.array</span></span></span><a class="headerlink" href="#leaf.models.SymptomsDetection.infer_image" title="Link to this definition">¶</a></dt>
+<dd><p>Symptoms detection specific implementation of inference using a preprossed input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_input</strong> (<em>torch.tensor</em>) – prepared tensor for inference</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>results encoded as a mask</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.SymptomsDetection.rgb_image2input">
+<span class="sig-name descname"><span class="pre">rgb_image2input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.tensor</span></span></span><a class="headerlink" href="#leaf.models.SymptomsDetection.rgb_image2input" title="Link to this definition">¶</a></dt>
+<dd><p>Prepare an image for inference with pytorch. This is specific for symptoms detection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>np.array</em>) – array with the image</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>model input tensor ready for inference</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.models.Resize">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.models.</span></span><span class="sig-name descname"><span class="pre">Resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resize_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_aspect_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure_multiple_of</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resize_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lower_bound'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_interpolation_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">cv2.INTER_AREA</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.Resize" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Resize sample to given size (width, height).</p>
+<p>Init.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>int</em>) – desired output width</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – desired output height</p></li>
+<li><p><strong>resize_target</strong> (<em>bool</em><em>, </em><em>optional</em>) – True: Resize the full sample (image, mask, target).
+False: Resize image only.
+Defaults to True.</p></li>
+<li><p><strong>keep_aspect_ratio</strong> (<em>bool</em><em>, </em><em>optional</em>) – True: Keep the aspect ratio of the input sample.
+Output sample might not have the given width and height, and
+resize behaviour depends on the parameter ‘resize_method’.
+Defaults to False.</p></li>
+<li><p><strong>ensure_multiple_of</strong> (<em>int</em><em>, </em><em>optional</em>) – Output width and height is constrained to be multiple of this parameter.
+Defaults to 1.</p></li>
+<li><p><strong>resize_method</strong> (<em>str</em><em>, </em><em>optional</em>) – “lower_bound”: Output will be at least as large as the given size.
+“upper_bound”: Output will be at max as large as the given size. (Output size might be smaller than given size.)
+“minimal”: Scale as least as possible.  (Output size might be smaller than given size.)
+Defaults to “lower_bound”.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.Resize.constrain_to_multiple_of">
+<span class="sig-name descname"><span class="pre">constrain_to_multiple_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.Resize.constrain_to_multiple_of" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.Resize.get_size">
+<span class="sig-name descname"><span class="pre">get_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.Resize.get_size" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.Resize.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.Resize.__call__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.models.NormalizeImage">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.models.</span></span><span class="sig-name descname"><span class="pre">NormalizeImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.NormalizeImage" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Normlize image by given mean and std.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.NormalizeImage.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.NormalizeImage.__call__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.models.PrepareForNet">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.models.</span></span><span class="sig-name descname"><span class="pre">PrepareForNet</span></span><a class="headerlink" href="#leaf.models.PrepareForNet" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Prepare sample for usage as network input.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.PrepareForNet.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.PrepareForNet.__call__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.models.</span></span><span class="sig-name descname"><span class="pre">FocusSegmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">export_pattern_pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'export/focus/pred'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_sz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4096</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{1:</span> <span class="pre">'out_of_focus'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'latest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuda_device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cuda:0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_scaling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">['*.jpg',</span> <span class="pre">'*.JPG',</span> <span class="pre">'*.jpeg',</span> <span class="pre">'*.png',</span> <span class="pre">'*.PNG']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_scaling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.FocusSegmentation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#leaf.models.BaseModel" title="leaf.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>Implementation of the focus segmentation building block</p>
+<p>Constructor of focus segmentation. It provides the correct default values for various parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>export_pattern_pred</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – This argument controls how the results are saved.
+You can provide a single path string which defines where the images are saved. This then takes the
+filename and the provided path to create the path for the predictions. This means that the source folder
+structure is flattened. If you want to keep the source folder structure you can provide a tuple of two
+strings. This is then used with the str.replace() method and allows for specifying which part of the
+file path of the image is replaced with what.. Defaults to ‘export/focus/pred’.</p></li>
+<li><p><strong>classes_dict</strong> (<em>dict</em><em>, </em><em>optional</em>) – This denotes a mapping between class names and their integer id.. Defaults to {1: ‘out_of_focus’}.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em><em>, </em><em>optional</em>) – When run in debug mode the models do not save predictions and some models provide additional
+insights.. Defaults to False.</p></li>
+<li><p><strong>model_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Which model should be used. For this refer to model zoo. Defaults to ‘latest’.</p></li>
+<li><p><strong>use_gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – When true the inference is run on a GPU. Defaults to True.</p></li>
+<li><p><strong>cuda_device</strong> (<em>str</em><em>, </em><em>optional</em>) – which cuda device to use. Not recommended to use. Rather use the
+environment variable export CUDA_VISIBLE_DEVICES = … . Defaults to ‘cuda:0’.</p></li>
+<li><p><strong>input_scaling</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If one number is provide, the scaling is done symmetrically.
+It denotes a scaling factor applied before inference. The results are scaled back to the original resolution
+before saving. Defaults to 0.25.</p></li>
+<li><p><strong>search_pattern</strong> (<em>str</em><em>, </em><em>optional</em>) – List of image extensions used to search for images.
+Defaults to [’<em>.jpg’, ‘</em>.JPG’, ‘<em>.jpeg’, ‘</em>.png’, ‘<a href="#id7"><span class="problematic" id="id8">*</span></a>.PNG’].</p></li>
+<li><p><strong>buffer_scaling</strong> (<em>float</em><em>, </em><em>optional</em>) – Paramer of the focus acceptance buffer. Lower values make the focus estimation
+more aggressive. Defaults to 1.0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – _description_</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.classes_dict">
+<span class="sig-name descname"><span class="pre">classes_dict</span></span><a class="headerlink" href="#leaf.models.FocusSegmentation.classes_dict" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#leaf.models.FocusSegmentation.debug" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.export_pattern_pred">
+<span class="sig-name descname"><span class="pre">export_pattern_pred</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'export/focus/pred'</span></em><a class="headerlink" href="#leaf.models.FocusSegmentation.export_pattern_pred" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.patch_sz">
+<span class="sig-name descname"><span class="pre">patch_sz</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4096</span></em><a class="headerlink" href="#leaf.models.FocusSegmentation.patch_sz" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.input_scaling">
+<span class="sig-name descname"><span class="pre">input_scaling</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.25</span></em><a class="headerlink" href="#leaf.models.FocusSegmentation.input_scaling" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.use_gpu">
+<span class="sig-name descname"><span class="pre">use_gpu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#leaf.models.FocusSegmentation.use_gpu" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.cuda_device">
+<span class="sig-name descname"><span class="pre">cuda_device</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cuda:0'</span></em><a class="headerlink" href="#leaf.models.FocusSegmentation.cuda_device" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.model_path">
+<span class="sig-name descname"><span class="pre">model_path</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.models.FocusSegmentation.model_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.buffer_scaling">
+<span class="sig-name descname"><span class="pre">buffer_scaling</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></em><a class="headerlink" href="#leaf.models.FocusSegmentation.buffer_scaling" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.patch_stride">
+<span class="sig-name descname"><span class="pre">patch_stride</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4096</span></em><a class="headerlink" href="#leaf.models.FocusSegmentation.patch_stride" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.search_pattern">
+<span class="sig-name descname"><span class="pre">search_pattern</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['*.jpg',</span> <span class="pre">'*.JPG',</span> <span class="pre">'*.jpeg',</span> <span class="pre">'*.png',</span> <span class="pre">'*.PNG']</span></em><a class="headerlink" href="#leaf.models.FocusSegmentation.search_pattern" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.get_model">
+<span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.FocusSegmentation.get_model" title="Link to this definition">¶</a></dt>
+<dd><p>Download if not already existing and use a desired model. A specific implementation for focus segmentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_name</strong> (<em>str</em>) – Model Name</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Error when model not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.infer_image">
+<span class="sig-name descname"><span class="pre">infer_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.array</span></span></span><a class="headerlink" href="#leaf.models.FocusSegmentation.infer_image" title="Link to this definition">¶</a></dt>
+<dd><p>Focus segmentation specific implementation of inference using a preprossed input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_input</strong> (<em>torch.tensor</em>) – prepared tensor for inference</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>results encoded as a mask</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.rgb_image2input">
+<span class="sig-name descname"><span class="pre">rgb_image2input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.tensor</span></span></span><a class="headerlink" href="#leaf.models.FocusSegmentation.rgb_image2input" title="Link to this definition">¶</a></dt>
+<dd><p>Prepare an image for inference with pytorch. This is specific for focus segmentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>np.array</em>) – array with the image</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>model input tensor ready for inference</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.image2tensor">
+<span class="sig-name descname"><span class="pre">image2tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_size_w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_size_h</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.tensor</span></span></span><a class="headerlink" href="#leaf.models.FocusSegmentation.image2tensor" title="Link to this definition">¶</a></dt>
+<dd><p>Focus segmentation specific implementation of converting the image to a tensor for inference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_image</strong> (<em>np.array</em>) – image to be processed</p></li>
+<li><p><strong>input_size_w</strong> (<em>int</em>) – width shape of the image</p></li>
+<li><p><strong>input_size_h</strong> (<em>int</em>) – heigth shape of the image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tensor ready for inference with DepthAnythingv2</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.models.FocusSegmentation.determine_focus">
+<span class="sig-name descname"><span class="pre">determine_focus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.array</span></span></span><a class="headerlink" href="#leaf.models.FocusSegmentation.determine_focus" title="Link to this definition">¶</a></dt>
+<dd><p>Using the predicted depth map and original image, determine regions that are in focus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<em>np.array</em>) – depth map</p></li>
+<li><p><strong>image</strong> (<em>np.array</em>) – original image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.models.test">
+<span class="sig-prename descclassname"><span class="pre">leaf.models.</span></span><span class="sig-name descname"><span class="pre">test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#leaf.models.test" title="Link to this definition">¶</a></dt>
+<dd><p>This function runs a dry run of the complete pipeline to validate your installation. It produces predictions in newly created <cite>test</cite> folder.</p>
+</dd></dl>
+
+</section>
+</section>
+
+</main>
+                        <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
+    <a class="float-left" href="../metrics/index.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>leaf.metrics
+    </a>
+    <a class="float-right" href="../visualization/index.html" title="Next">
+        leaf.visualization <span aria-hidden="true">&nbsp;→</span>
+    </a>
+</nav>
+                    </div>
+                    
+                    <nav class="col-12 col-lg-3 pb-4">
+                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
+                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
+                            <ul>
+<li><a class="reference internal" href="#">leaf.models</a><ul>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#leaf.models.BaseModel"><code class="docutils literal notranslate"><span class="pre">BaseModel</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.models.BaseModel.classes_dict"><code class="docutils literal notranslate"><span class="pre">BaseModel.classes_dict</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.debug"><code class="docutils literal notranslate"><span class="pre">BaseModel.debug</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.export_pattern_pred"><code class="docutils literal notranslate"><span class="pre">BaseModel.export_pattern_pred</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.patch_sz"><code class="docutils literal notranslate"><span class="pre">BaseModel.patch_sz</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.input_scaling"><code class="docutils literal notranslate"><span class="pre">BaseModel.input_scaling</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.use_gpu"><code class="docutils literal notranslate"><span class="pre">BaseModel.use_gpu</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.cuda_device"><code class="docutils literal notranslate"><span class="pre">BaseModel.cuda_device</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.model_path"><code class="docutils literal notranslate"><span class="pre">BaseModel.model_path</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.patch_stride"><code class="docutils literal notranslate"><span class="pre">BaseModel.patch_stride</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.search_pattern"><code class="docutils literal notranslate"><span class="pre">BaseModel.search_pattern</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.current_input_name"><code class="docutils literal notranslate"><span class="pre">BaseModel.current_input_name</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.predict"><code class="docutils literal notranslate"><span class="pre">BaseModel.predict()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.predict_folder"><code class="docutils literal notranslate"><span class="pre">BaseModel.predict_folder()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.predict_image"><code class="docutils literal notranslate"><span class="pre">BaseModel.predict_image()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.subdivide_image"><code class="docutils literal notranslate"><span class="pre">BaseModel.subdivide_image()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.split_into_patches"><code class="docutils literal notranslate"><span class="pre">BaseModel.split_into_patches()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.merge_patches"><code class="docutils literal notranslate"><span class="pre">BaseModel.merge_patches()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.infer_image"><code class="docutils literal notranslate"><span class="pre">BaseModel.infer_image()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.rgb_image2input"><code class="docutils literal notranslate"><span class="pre">BaseModel.rgb_image2input()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.test"><code class="docutils literal notranslate"><span class="pre">BaseModel.test()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.download_file"><code class="docutils literal notranslate"><span class="pre">BaseModel.download_file()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.parse_name_from_header"><code class="docutils literal notranslate"><span class="pre">BaseModel.parse_name_from_header()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.save_predictions"><code class="docutils literal notranslate"><span class="pre">BaseModel.save_predictions()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.BaseModel.get_model"><code class="docutils literal notranslate"><span class="pre">BaseModel.get_model()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer.classes_dict"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer.classes_dict</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer.debug"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer.debug</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer.export_pattern_pred"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer.export_pattern_pred</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer.patch_sz"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer.patch_sz</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer.input_scaling"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer.input_scaling</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer.use_gpu"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer.use_gpu</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer.cuda_device"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer.cuda_device</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer.model_path"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer.model_path</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer.patch_stride"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer.patch_stride</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer.search_pattern"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer.search_pattern</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer.infer_image"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer.infer_image()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.TorchscriptTransformer.rgb_image2input"><code class="docutils literal notranslate"><span class="pre">TorchscriptTransformer.rgb_image2input()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.models.SymptomsSegmentation"><code class="docutils literal notranslate"><span class="pre">SymptomsSegmentation</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.models.SymptomsSegmentation.get_model"><code class="docutils literal notranslate"><span class="pre">SymptomsSegmentation.get_model()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.models.OrgansSegmentation"><code class="docutils literal notranslate"><span class="pre">OrgansSegmentation</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.models.OrgansSegmentation.get_model"><code class="docutils literal notranslate"><span class="pre">OrgansSegmentation.get_model()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.classes_dict"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.classes_dict</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.debug"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.debug</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.export_pattern_pred"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.export_pattern_pred</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.patch_sz"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.patch_sz</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.input_scaling"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.input_scaling</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.use_gpu"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.use_gpu</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.cuda_device"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.cuda_device</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.model_path"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.model_path</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.keypoints_thresh"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.keypoints_thresh</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.max_det"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.max_det</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.patch_stride"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.patch_stride</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.search_pattern"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.search_pattern</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.get_model"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.get_model()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.infer_image"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.infer_image()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.SymptomsDetection.rgb_image2input"><code class="docutils literal notranslate"><span class="pre">SymptomsDetection.rgb_image2input()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.models.Resize"><code class="docutils literal notranslate"><span class="pre">Resize</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.models.Resize.constrain_to_multiple_of"><code class="docutils literal notranslate"><span class="pre">Resize.constrain_to_multiple_of()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.Resize.get_size"><code class="docutils literal notranslate"><span class="pre">Resize.get_size()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.Resize.__call__"><code class="docutils literal notranslate"><span class="pre">Resize.__call__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.models.NormalizeImage"><code class="docutils literal notranslate"><span class="pre">NormalizeImage</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.models.NormalizeImage.__call__"><code class="docutils literal notranslate"><span class="pre">NormalizeImage.__call__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.models.PrepareForNet"><code class="docutils literal notranslate"><span class="pre">PrepareForNet</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.models.PrepareForNet.__call__"><code class="docutils literal notranslate"><span class="pre">PrepareForNet.__call__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.classes_dict"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.classes_dict</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.debug"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.debug</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.export_pattern_pred"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.export_pattern_pred</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.patch_sz"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.patch_sz</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.input_scaling"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.input_scaling</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.use_gpu"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.use_gpu</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.cuda_device"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.cuda_device</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.model_path"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.model_path</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.buffer_scaling"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.buffer_scaling</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.patch_stride"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.patch_stride</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.search_pattern"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.search_pattern</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.get_model"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.get_model()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.infer_image"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.infer_image()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.rgb_image2input"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.rgb_image2input()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.image2tensor"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.image2tensor()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.models.FocusSegmentation.determine_focus"><code class="docutils literal notranslate"><span class="pre">FocusSegmentation.determine_focus()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.models.test"><code class="docutils literal notranslate"><span class="pre">test()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid bg-primary text-light">
+        <div class="container">
+            <div class="row">
+        <div class="col p-4">
+            
+            <div class="text-center">
+                    &copy; Copyright 2025, Radek Zenkl
+            </div>
+            <div class="text-center text-white-50 font-italic mt-3">
+                <small>
+                    Created using
+                    <a class="text-white" href="https://github.com/wagtail/sphinx_wagtail_theme" rel="nofollow" target="_blank">
+                        Sphinx Wagtail Theme 6.5.0
+                    </a>
+                    and
+                    <a class="text-white" href="https://www.sphinx-doc.org/" rel="nofollow" target="_blank">
+                        Sphinx 8.2.3
+                    </a>
+                </small>
+            </div>
+        </div>
+    </div>
+        </div>
+    </footer>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script type="text/javascript" src="../../../_static/dist/theme.js"></script>
+        <script type="text/javascript" src="../../../_static/dist/vendor.js"></script>
+        <script type="text/javascript" src="../../../_static/searchtools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() { Search.loadIndex("../../../searchindex.js"); });
+        </script>
+        <script type="text/javascript" id="searchindexloader"></script>
+    </body>
+</html>

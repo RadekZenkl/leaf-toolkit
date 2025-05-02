@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" data-content_root="../../../">
+<head>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>leaf.data_prep &mdash; Leaf Toolkit  documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/dist/fontawesome.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/dist/theme.css?v=310cf088" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+            <link rel="index" title="Index" href="../../../genindex.html" />
+            <link rel="search" title="Search" href="../../../search.html" />
+            <link rel="top" title="Leaf Toolkit  documentation" href="#" />
+            <link rel="up" title="leaf" href="../index.html" />
+            <link rel="next" title="leaf.generate_sheets" href="../generate_sheets/index.html" />
+            <link rel="prev" title="leaf.config" href="../config/index.html" />
+    </head>
+<body>
+    <script type="text/javascript" src="../../../_static/dist/blocking.js"></script>
+    <header class="container-fluid bg-primary">
+        <a class="btn btn-sm btn-light skip-to-content-link" href="#main">Skip to content</a>
+        <div class="container-fluid">
+            <div class="navbar navbar-expand-lg navbar-dark font-weight-bold">
+                    <a href="home.html"
+                        
+                        class="logo navbar-brand"
+                    >
+                        <img src="../../../_static/img/logo_placeholder.png" width="5" height="5"
+                            class="logo-img"
+                        />
+                        Leaf Toolkit
+                    </a>
+                
+                
+                <button class="navbar-toggler btn btn-primary d-lg-none" type="button" data-toggle="collapse" data-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="sr-only">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-12 col-lg-3 sidebar-container">
+                <div id="collapseSidebar" class="collapse sticky-top d-lg-block pt-5 pr-lg-4">
+<div id="searchbox" class="searchbox mb-6 px-1" role="search">
+    <form id="search-form" action="../../../search.html" autocomplete="off" method="get" role="search">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text border-right-0 bg-white py-3 pl-3 pr-2"><span class="fas fa-search"></span></div>
+            </div>
+            <input class="form-control py-3 pr-3 pl-1 h-100 border-left-0" type="search" name="q" placeholder="Search documentation" aria-label="Search documentation" id="searchinput" />
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div><div class="site-toc">
+    <nav class="toc mt-3" aria-label="Main menu">
+        <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../home.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/canopy_images.html">Canopy Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/flattened_leaves.html">Flattened Leaves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/flatbed.html">Flatbed Scanners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">Models</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">leaf</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../config/index.html">leaf.config</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">leaf.data_prep</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generate_sheets/index.html">leaf.generate_sheets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../inference/index.html">leaf.inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../metrics/index.html">leaf.metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../models/index.html">leaf.models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visualization/index.html">leaf.visualization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </nav>
+    <template data-toggle-item-template>
+        <button class="btn btn-sm btn-link toctree-expand" type="button">
+            <span class="sr-only">Toggle menu contents</span>
+        </button>
+    </template>
+</div>
+                    <div class="d-lg-none border-bottom">
+                        
+                    </div>
+                </div>
+            </aside>
+            <div class="col-12 col-lg-9 pt-5">
+                <header class="row align-items-baseline">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-0 p-0 bg-transparent">
+        <li class="breadcrumb-item"><a href="../../../index.html">Docs</a></li>
+            <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+            <li class="breadcrumb-item"><a href="../index.html">leaf</a></li>
+        <li class="breadcrumb-item active" aria-current="page">leaf.data_prep</li>
+    </ol>
+</nav>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto mt-3 mt-lg-3">
+                        <noscript>
+                            <p>JavaScript is required to toggle light/dark mode..</p>
+                        </noscript>
+                        <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
+                            <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
+                            <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
+                        </button>
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/RadekZenkl/leaf-toolkit/blob/main/docs/autoapi/leaf/data_prep/index.rst" rel="nofollow">
+        <span class="btn-icon"><span class="fab fa-github"></span></span>
+        <span class="btn-text">Edit on GitHub</span>
+    </a>
+    <a class="btn btn-sm btn-light text-decoration-none" href="../../../_sources/autoapi/leaf/data_prep/index.rst.txt" rel="nofollow">
+        <span class="btn-icon"><span class="fas fa-code"></span></span>
+        <span class="btn-text">View source</span>
+    </a>
+                        
+                    </div>
+                </header>
+                <div class="row" >
+                    <div class="col-12">
+                        <hr class="w-100 my-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
+                        <main role="main" id="main">
+    <section id="module-leaf.data_prep">
+<span id="leaf-data-prep"></span><h1>leaf.data_prep<a class="headerlink" href="#module-leaf.data_prep" title="Link to this heading">¶</a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="leaf.data_prep.N_QR_CODES">
+<span class="sig-prename descclassname"><span class="pre">leaf.data_prep.</span></span><span class="sig-name descname"><span class="pre">N_QR_CODES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#leaf.data_prep.N_QR_CODES" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.data_prep.determine_parameters">
+<span class="sig-prename descclassname"><span class="pre">leaf.data_prep.</span></span><span class="sig-name descname"><span class="pre">determine_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict[str:int]</span></span></span><a class="headerlink" href="#leaf.data_prep.determine_parameters" title="Link to this definition">¶</a></dt>
+<dd><p>Determine cropping parameters based on image resolution.</p>
+<p>Supports A4 scanned at 600dpi and 1200dpi. Raises an error if the resolution
+is unsupported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>np.array</em>) – Input image as a NumPy array.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with keys ‘cropping_size’, ‘scale_factor’,
+‘qr_offset_x’, and ‘qr_offset_y’.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, int]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If image resolution does not match predefined formats.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.data_prep.is_hidden_file">
+<span class="sig-prename descclassname"><span class="pre">leaf.data_prep.</span></span><span class="sig-name descname"><span class="pre">is_hidden_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#leaf.data_prep.is_hidden_file" title="Link to this definition">¶</a></dt>
+<dd><p>Check if a file is hidden (Unix-style or Windows).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – Full path to the file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the file is hidden, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.data_prep.check_file">
+<span class="sig-prename descclassname"><span class="pre">leaf.data_prep.</span></span><span class="sig-name descname"><span class="pre">check_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#leaf.data_prep.check_file" title="Link to this definition">¶</a></dt>
+<dd><p>Validate if the file exists, is not hidden, and is a readable image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – Full path to the file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if valid, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.data_prep.prepare_folder">
+<span class="sig-prename descclassname"><span class="pre">leaf.data_prep.</span></span><span class="sig-name descname"><span class="pre">prepare_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_logs_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manual_correction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction_export_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#leaf.data_prep.prepare_folder" title="Link to this definition">¶</a></dt>
+<dd><p>Process a folder of images for QR detection and cropping.</p>
+<p>Optionally allows manual correction of failed detections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder_path</strong> (<em>str</em>) – Path to the folder containing input images.</p></li>
+<li><p><strong>export_path</strong> (<em>str</em>) – Path to export cropped image patches.</p></li>
+<li><p><strong>error_logs_path</strong> (<em>str</em>) – Path to write error logs.</p></li>
+<li><p><strong>manual_correction</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, enables manual correction. Defaults to False.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, enables debug output. Defaults to False.</p></li>
+<li><p><strong>correction_export_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path for corrected exports if manual correction is enabled.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.data_prep.correction">
+<span class="sig-prename descclassname"><span class="pre">leaf.data_prep.</span></span><span class="sig-name descname"><span class="pre">correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_logs_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction_export_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#leaf.data_prep.correction" title="Link to this definition">¶</a></dt>
+<dd><p>Launch an interactive tool for manual correction of image crops.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>error_logs_path</strong> (<em>Path</em>) – Path to the file listing failed detections.</p></li>
+<li><p><strong>correction_export_path</strong> (<em>Path</em>) – Path to export manually cropped patches.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.data_prep.find_qr_codes">
+<span class="sig-prename descclassname"><span class="pre">leaf.data_prep.</span></span><span class="sig-name descname"><span class="pre">find_qr_codes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#leaf.data_prep.find_qr_codes" title="Link to this definition">¶</a></dt>
+<dd><p>Detect QR codes in an image and return their info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> (<em>str</em>) – Path to the image file.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, shows debug visualization. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of QR code dictionaries with ‘coordinates’ and ‘value’.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Dict[str, object]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.data_prep.crop_qr_code_patches">
+<span class="sig-prename descclassname"><span class="pre">leaf.data_prep.</span></span><span class="sig-name descname"><span class="pre">crop_qr_code_patches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qr_codes_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#leaf.data_prep.crop_qr_code_patches" title="Link to this definition">¶</a></dt>
+<dd><p>Crop patches around detected QR codes and save them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> (<em>str</em>) – Path to the input image.</p></li>
+<li><p><strong>qr_codes_info</strong> (<em>List</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>object</em><em>]</em><em>]</em>) – List of QR code metadata with coordinates and values.</p></li>
+<li><p><strong>save_dir</strong> (<em>Path</em>) – Directory to save cropped patches.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, shows cropped patches. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.data_prep.</span></span><span class="sig-name descname"><span class="pre">BoundingBoxSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qr_codes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector" title="Link to this definition">¶</a></dt>
+<dd><p>GUI tool for manually selecting and exporting image patches based on bounding boxes.</p>
+<p>Initialize the bounding box selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> (<em>str</em>) – Path to the image being processed.</p></li>
+<li><p><strong>qr_codes</strong> (<em>List</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>object</em><em>]</em><em>]</em>) – List of detected QR codes.</p></li>
+<li><p><strong>box_size</strong> (<em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) – Width and height of the crop box.</p></li>
+<li><p><strong>scale_factor</strong> (<em>float</em>) – Scale factor for display.</p></li>
+<li><p><strong>export_dir</strong> (<em>Path</em>) – Directory to export cropped patches.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.original_image">
+<span class="sig-name descname"><span class="pre">original_image</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.original_image" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.image">
+<span class="sig-name descname"><span class="pre">image</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.image" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.orig_box_size">
+<span class="sig-name descname"><span class="pre">orig_box_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.orig_box_size" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.box_size">
+<span class="sig-name descname"><span class="pre">box_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.box_size" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.user_boxes">
+<span class="sig-name descname"><span class="pre">user_boxes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.user_boxes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.cid">
+<span class="sig-name descname"><span class="pre">cid</span></span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.cid" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.qr_codes">
+<span class="sig-name descname"><span class="pre">qr_codes</span></span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.qr_codes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.scale_factor">
+<span class="sig-name descname"><span class="pre">scale_factor</span></span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.scale_factor" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.selected_box">
+<span class="sig-name descname"><span class="pre">selected_box</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.selected_box" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.export_dir">
+<span class="sig-name descname"><span class="pre">export_dir</span></span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.export_dir" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.reset_button">
+<span class="sig-name descname"><span class="pre">reset_button</span></span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.reset_button" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.confirm_button">
+<span class="sig-name descname"><span class="pre">confirm_button</span></span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.confirm_button" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.done_button">
+<span class="sig-name descname"><span class="pre">done_button</span></span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.done_button" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.text_box">
+<span class="sig-name descname"><span class="pre">text_box</span></span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.text_box" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.filename" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.on_press">
+<span class="sig-name descname"><span class="pre">on_press</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.on_press" title="Link to this definition">¶</a></dt>
+<dd><p>Handle mouse click event to define a bounding box.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.show" title="Link to this definition">¶</a></dt>
+<dd><p>Display the interactive selector interface.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Clear the currently drawn bounding box.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.confirm">
+<span class="sig-name descname"><span class="pre">confirm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.confirm" title="Link to this definition">¶</a></dt>
+<dd><p>Confirm the bounding box and trigger patch save.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.done">
+<span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.done" title="Link to this definition">¶</a></dt>
+<dd><p>Close the interface after completion.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.data_prep.BoundingBoxSelector.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.data_prep.BoundingBoxSelector.submit" title="Link to this definition">¶</a></dt>
+<dd><p>Handle filename input for saved patch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Filename to save the cropped patch as.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+</main>
+                        <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
+    <a class="float-left" href="../config/index.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>leaf.config
+    </a>
+    <a class="float-right" href="../generate_sheets/index.html" title="Next">
+        leaf.generate_sheets <span aria-hidden="true">&nbsp;→</span>
+    </a>
+</nav>
+                    </div>
+                    
+                    <nav class="col-12 col-lg-3 pb-4">
+                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
+                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
+                            <ul>
+<li><a class="reference internal" href="#">leaf.data_prep</a><ul>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#leaf.data_prep.N_QR_CODES"><code class="docutils literal notranslate"><span class="pre">N_QR_CODES</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.determine_parameters"><code class="docutils literal notranslate"><span class="pre">determine_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.is_hidden_file"><code class="docutils literal notranslate"><span class="pre">is_hidden_file()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.check_file"><code class="docutils literal notranslate"><span class="pre">check_file()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.prepare_folder"><code class="docutils literal notranslate"><span class="pre">prepare_folder()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.correction"><code class="docutils literal notranslate"><span class="pre">correction()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.find_qr_codes"><code class="docutils literal notranslate"><span class="pre">find_qr_codes()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.crop_qr_code_patches"><code class="docutils literal notranslate"><span class="pre">crop_qr_code_patches()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.original_image"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.original_image</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.image"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.image</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.orig_box_size"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.orig_box_size</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.box_size"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.box_size</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.user_boxes"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.user_boxes</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.cid"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.cid</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.qr_codes"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.qr_codes</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.scale_factor"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.scale_factor</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.selected_box"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.selected_box</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.export_dir"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.export_dir</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.reset_button"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.reset_button</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.confirm_button"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.confirm_button</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.done_button"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.done_button</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.text_box"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.text_box</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.filename"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.filename</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.on_press"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.on_press()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.show"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.show()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.reset"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.reset()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.confirm"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.confirm()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.done"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.done()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.data_prep.BoundingBoxSelector.submit"><code class="docutils literal notranslate"><span class="pre">BoundingBoxSelector.submit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid bg-primary text-light">
+        <div class="container">
+            <div class="row">
+        <div class="col p-4">
+            
+            <div class="text-center">
+                    &copy; Copyright 2025, Radek Zenkl
+            </div>
+            <div class="text-center text-white-50 font-italic mt-3">
+                <small>
+                    Created using
+                    <a class="text-white" href="https://github.com/wagtail/sphinx_wagtail_theme" rel="nofollow" target="_blank">
+                        Sphinx Wagtail Theme 6.5.0
+                    </a>
+                    and
+                    <a class="text-white" href="https://www.sphinx-doc.org/" rel="nofollow" target="_blank">
+                        Sphinx 8.2.3
+                    </a>
+                </small>
+            </div>
+        </div>
+    </div>
+        </div>
+    </footer>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script type="text/javascript" src="../../../_static/dist/theme.js"></script>
+        <script type="text/javascript" src="../../../_static/dist/vendor.js"></script>
+        <script type="text/javascript" src="../../../_static/searchtools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() { Search.loadIndex("../../../searchindex.js"); });
+        </script>
+        <script type="text/javascript" id="searchindexloader"></script>
+    </body>
+</html>

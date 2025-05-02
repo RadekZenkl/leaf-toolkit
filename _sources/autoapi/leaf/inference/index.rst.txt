@@ -1,0 +1,75 @@
+leaf.inference
+==============
+
+.. py:module:: leaf.inference
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: Predictor(config_path: str = 'config', config_name: str = 'canopy_portrait', symptoms_det_params: Union[dict, None] = None, symptoms_seg_params: Union[dict, None] = None, organs_params: Union[dict, None] = None, focus_params: Union[dict, None] = None, module_params: Union[dict, None] = None)
+
+   This class is used to unify the complete pipeline into a single object with a simple predict method.
+   It provides capability to use a yaml file configuration for repeatability. Furthermore, it allows for
+   passing all the arguments for cofigring the individual building blocks of the pipeline. If a new block
+
+   Constructor of the predictor object. For possible parameters to configure see either the individual
+   models directly or see the configuration yaml files in the config folder.
+
+   :param config_path: relative path from the location of this file to a config directory.
+                       Defaults to "config".
+   :type config_path: str, optional
+   :param config_name: name of a config within the config_path directory.
+                       New configurations can be added. Defaults to "canopy_portrait".
+   :type config_name: str, optional
+   :param symptoms_det_params: An optional dictionary which directly passes
+                               the contents as **kwargs to symptoms detection model. It overrides the parameters from the
+                               configuration file. Defaults to None.
+   :type symptoms_det_params: Union[dict, None], optional
+   :param symptoms_seg_params: An optional dictionary which directly passes
+                               the contents as **kwargs to symptoms segmentation model. It overrides the parameters from the
+                               configuration file. Defaults to None.
+   :type symptoms_seg_params: Union[dict, None], optional
+   :param organs_params: An optional dictionary which directly passes
+                         the contents as **kwargs to organs segmentation model. It overrides the parameters from the
+                         configuration file. Defaults to None.
+   :type organs_params: Union[dict, None], optional
+   :param focus_params: An optional dictionary which directly passes
+                        the contents as **kwargs to focus estimation model. It overrides the parameters from the
+                        configuration file. Defaults to None.
+   :type focus_params: Union[dict, None], optional
+   :param module_params: An optional dictionary which controls which parts
+                         of the pipeline are executed. It overrides the parameters from the configuration file.
+                         Defaults to None.
+   :type module_params: Union[dict, None], optional
+
+
+   .. py:attribute:: module_params
+
+
+   .. py:attribute:: symptoms_det_params
+
+
+   .. py:attribute:: symptoms_seg_params
+
+
+   .. py:attribute:: organs_params
+
+
+   .. py:attribute:: focus_params
+
+
+   .. py:method:: predict(images_src: str, export_dst: str) -> None
+
+      This method provides a simple interface to predict on images from a specified folder and
+      save the results to a specified location.
+
+      :param images_src: Path to location of images.
+      :type images_src: str
+      :param export_dst: Path where the results should be saved.
+      :type export_dst: str
+
+
+

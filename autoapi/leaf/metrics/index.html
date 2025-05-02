@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" data-content_root="../../../">
+<head>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>leaf.metrics &mdash; Leaf Toolkit  documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/dist/fontawesome.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/dist/theme.css?v=310cf088" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+            <link rel="index" title="Index" href="../../../genindex.html" />
+            <link rel="search" title="Search" href="../../../search.html" />
+            <link rel="top" title="Leaf Toolkit  documentation" href="#" />
+            <link rel="up" title="leaf" href="../index.html" />
+            <link rel="next" title="leaf.models" href="../models/index.html" />
+            <link rel="prev" title="leaf.inference" href="../inference/index.html" />
+    </head>
+<body>
+    <script type="text/javascript" src="../../../_static/dist/blocking.js"></script>
+    <header class="container-fluid bg-primary">
+        <a class="btn btn-sm btn-light skip-to-content-link" href="#main">Skip to content</a>
+        <div class="container-fluid">
+            <div class="navbar navbar-expand-lg navbar-dark font-weight-bold">
+                    <a href="home.html"
+                        
+                        class="logo navbar-brand"
+                    >
+                        <img src="../../../_static/img/logo_placeholder.png" width="5" height="5"
+                            class="logo-img"
+                        />
+                        Leaf Toolkit
+                    </a>
+                
+                
+                <button class="navbar-toggler btn btn-primary d-lg-none" type="button" data-toggle="collapse" data-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="sr-only">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-12 col-lg-3 sidebar-container">
+                <div id="collapseSidebar" class="collapse sticky-top d-lg-block pt-5 pr-lg-4">
+<div id="searchbox" class="searchbox mb-6 px-1" role="search">
+    <form id="search-form" action="../../../search.html" autocomplete="off" method="get" role="search">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text border-right-0 bg-white py-3 pl-3 pr-2"><span class="fas fa-search"></span></div>
+            </div>
+            <input class="form-control py-3 pr-3 pl-1 h-100 border-left-0" type="search" name="q" placeholder="Search documentation" aria-label="Search documentation" id="searchinput" />
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div><div class="site-toc">
+    <nav class="toc mt-3" aria-label="Main menu">
+        <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../home.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/canopy_images.html">Canopy Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/flattened_leaves.html">Flattened Leaves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/flatbed.html">Flatbed Scanners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">Models</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">leaf</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../config/index.html">leaf.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_prep/index.html">leaf.data_prep</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generate_sheets/index.html">leaf.generate_sheets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../inference/index.html">leaf.inference</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">leaf.metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../models/index.html">leaf.models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visualization/index.html">leaf.visualization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </nav>
+    <template data-toggle-item-template>
+        <button class="btn btn-sm btn-link toctree-expand" type="button">
+            <span class="sr-only">Toggle menu contents</span>
+        </button>
+    </template>
+</div>
+                    <div class="d-lg-none border-bottom">
+                        
+                    </div>
+                </div>
+            </aside>
+            <div class="col-12 col-lg-9 pt-5">
+                <header class="row align-items-baseline">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-0 p-0 bg-transparent">
+        <li class="breadcrumb-item"><a href="../../../index.html">Docs</a></li>
+            <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+            <li class="breadcrumb-item"><a href="../index.html">leaf</a></li>
+        <li class="breadcrumb-item active" aria-current="page">leaf.metrics</li>
+    </ol>
+</nav>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto mt-3 mt-lg-3">
+                        <noscript>
+                            <p>JavaScript is required to toggle light/dark mode..</p>
+                        </noscript>
+                        <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
+                            <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
+                            <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
+                        </button>
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/RadekZenkl/leaf-toolkit/blob/main/docs/autoapi/leaf/metrics/index.rst" rel="nofollow">
+        <span class="btn-icon"><span class="fab fa-github"></span></span>
+        <span class="btn-text">Edit on GitHub</span>
+    </a>
+    <a class="btn btn-sm btn-light text-decoration-none" href="../../../_sources/autoapi/leaf/metrics/index.rst.txt" rel="nofollow">
+        <span class="btn-icon"><span class="fas fa-code"></span></span>
+        <span class="btn-text">View source</span>
+    </a>
+                        
+                    </div>
+                </header>
+                <div class="row" >
+                    <div class="col-12">
+                        <hr class="w-100 my-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
+                        <main role="main" id="main">
+    <section id="module-leaf.metrics">
+<span id="leaf-metrics"></span><h1>leaf.metrics<a class="headerlink" href="#module-leaf.metrics" title="Link to this heading">¶</a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.metrics.NamingConstants">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">NamingConstants</span></span><a class="headerlink" href="#leaf.metrics.NamingConstants" title="Link to this definition">¶</a></dt>
+<dd><p>A collection of constant names used for organizing different types of
+image predictions and ground truths. These names refer to the folder
+structure of the results, respectively where to find what. If new
+block are introduced to the processing pipeline, extend it here.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.NamingConstants.SYMPTOMS_DET">
+<span class="sig-name descname"><span class="pre">SYMPTOMS_DET</span></span><a class="headerlink" href="#leaf.metrics.NamingConstants.SYMPTOMS_DET" title="Link to this definition">¶</a></dt>
+<dd><p>Identifier for symptom detection predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.NamingConstants.SYMPTOMS_SEG">
+<span class="sig-name descname"><span class="pre">SYMPTOMS_SEG</span></span><a class="headerlink" href="#leaf.metrics.NamingConstants.SYMPTOMS_SEG" title="Link to this definition">¶</a></dt>
+<dd><p>Identifier for symptom segmentation predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.NamingConstants.ORGANS">
+<span class="sig-name descname"><span class="pre">ORGANS</span></span><a class="headerlink" href="#leaf.metrics.NamingConstants.ORGANS" title="Link to this definition">¶</a></dt>
+<dd><p>Identifier for organ segmentation predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.NamingConstants.FOCUS">
+<span class="sig-name descname"><span class="pre">FOCUS</span></span><a class="headerlink" href="#leaf.metrics.NamingConstants.FOCUS" title="Link to this definition">¶</a></dt>
+<dd><p>Identifier for focus classification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.NamingConstants.GT_SYMPTOMS_DET">
+<span class="sig-name descname"><span class="pre">GT_SYMPTOMS_DET</span></span><a class="headerlink" href="#leaf.metrics.NamingConstants.GT_SYMPTOMS_DET" title="Link to this definition">¶</a></dt>
+<dd><p>Identifier for ground truth symptom detection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.NamingConstants.GT_SYMPTOMS_SEG">
+<span class="sig-name descname"><span class="pre">GT_SYMPTOMS_SEG</span></span><a class="headerlink" href="#leaf.metrics.NamingConstants.GT_SYMPTOMS_SEG" title="Link to this definition">¶</a></dt>
+<dd><p>Identifier for ground truth symptom segmentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.NamingConstants.GT_ORGANS">
+<span class="sig-name descname"><span class="pre">GT_ORGANS</span></span><a class="headerlink" href="#leaf.metrics.NamingConstants.GT_ORGANS" title="Link to this definition">¶</a></dt>
+<dd><p>Identifier for ground truth organ segmentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">SYMPTOMS_DET</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'symptoms_det'</span></em><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">SYMPTOMS_SEG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'symptoms_seg'</span></em><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">ORGANS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'organs'</span></em><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">FOCUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'focus'</span></em><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">GT_SYMPTOMS_DET</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'gt_symptoms_det'</span></em><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">GT_SYMPTOMS_SEG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'gt_symptoms_seg'</span></em><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">GT_ORGANS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'gt_organs'</span></em><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">PredictionIds</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds" title="Link to this definition">¶</a></dt>
+<dd><p>Integer ID mappings for different prediction classes used in segmentation
+and detection tasks for plant imagery. When new models can handle additional
+classes, their new respective ids should be added here</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds.LEAF_BACKGROUND">
+<span class="sig-name descname"><span class="pre">LEAF_BACKGROUND</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds.LEAF_BACKGROUND" title="Link to this definition">¶</a></dt>
+<dd><p>Background class in leaf segmentation (ID: 0).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds.LEAF">
+<span class="sig-name descname"><span class="pre">LEAF</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds.LEAF" title="Link to this definition">¶</a></dt>
+<dd><p>Leaf class in leaf segmentation (ID: 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds.LESION">
+<span class="sig-name descname"><span class="pre">LESION</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds.LESION" title="Link to this definition">¶</a></dt>
+<dd><p>Lesion symptom in segmentation (ID: 2).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds.INSECT_DAMAGE">
+<span class="sig-name descname"><span class="pre">INSECT_DAMAGE</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds.INSECT_DAMAGE" title="Link to this definition">¶</a></dt>
+<dd><p>Insect damage symptom in segmentation (ID: 3).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds.POWDERY_MILDEW">
+<span class="sig-name descname"><span class="pre">POWDERY_MILDEW</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds.POWDERY_MILDEW" title="Link to this definition">¶</a></dt>
+<dd><p>Powdery mildew symptom in segmentation (ID: 4).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds.PYCNIDIA">
+<span class="sig-name descname"><span class="pre">PYCNIDIA</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds.PYCNIDIA" title="Link to this definition">¶</a></dt>
+<dd><p>Pycnidia symptom in detection (ID: 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds.RUST">
+<span class="sig-name descname"><span class="pre">RUST</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds.RUST" title="Link to this definition">¶</a></dt>
+<dd><p>Rust symptom in detection (ID: 2).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds.OUT_OF_FOCUS">
+<span class="sig-name descname"><span class="pre">OUT_OF_FOCUS</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds.OUT_OF_FOCUS" title="Link to this definition">¶</a></dt>
+<dd><p>Class for out-of-focus regions (ID: 0).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds.IN_FOCUS">
+<span class="sig-name descname"><span class="pre">IN_FOCUS</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds.IN_FOCUS" title="Link to this definition">¶</a></dt>
+<dd><p>Class for in-focus regions (ID: 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds.ORGAN_BACKGROUND">
+<span class="sig-name descname"><span class="pre">ORGAN_BACKGROUND</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds.ORGAN_BACKGROUND" title="Link to this definition">¶</a></dt>
+<dd><p>Background class in organ segmentation (ID: 0).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds.HEAD">
+<span class="sig-name descname"><span class="pre">HEAD</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds.HEAD" title="Link to this definition">¶</a></dt>
+<dd><p>Head organ class in organ segmentation (ID: 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.PredictionIds.STEM">
+<span class="sig-name descname"><span class="pre">STEM</span></span><a class="headerlink" href="#leaf.metrics.PredictionIds.STEM" title="Link to this definition">¶</a></dt>
+<dd><p>Stem organ class in organ segmentation (ID: 2).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">LEAF_BACKGROUND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id7" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">LEAF</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#id8" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">LESION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#id9" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">INSECT_DAMAGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#id10" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id11">
+<span class="sig-name descname"><span class="pre">POWDERY_MILDEW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#id11" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id12">
+<span class="sig-name descname"><span class="pre">PYCNIDIA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#id12" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id13">
+<span class="sig-name descname"><span class="pre">RUST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#id13" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id14">
+<span class="sig-name descname"><span class="pre">OUT_OF_FOCUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id14" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id15">
+<span class="sig-name descname"><span class="pre">IN_FOCUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#id15" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id16">
+<span class="sig-name descname"><span class="pre">ORGAN_BACKGROUND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id16" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id17">
+<span class="sig-name descname"><span class="pre">HEAD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#id17" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id18">
+<span class="sig-name descname"><span class="pre">STEM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#id18" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">BasePredictionsMerger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></p>
+<p>Base class for merging prediction masks from multiple subfolders in a structured directory.</p>
+<p>This class is used to iterate through synchronized sets of prediction files
+(e.g., segmentation masks) located in multiple subfolders. It ensures that
+each set of files is present in all expected subfolders and prepares them
+for further processing.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.root_folder">
+<span class="sig-name descname"><span class="pre">root_folder</span></span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.root_folder" title="Link to this definition">¶</a></dt>
+<dd><p>Root directory containing prediction subfolders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.file_extension">
+<span class="sig-name descname"><span class="pre">file_extension</span></span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.file_extension" title="Link to this definition">¶</a></dt>
+<dd><p>File extension used to identify prediction files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.subfolder_filepaths">
+<span class="sig-name descname"><span class="pre">subfolder_filepaths</span></span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.subfolder_filepaths" title="Link to this definition">¶</a></dt>
+<dd><p>Mapping of subfolder names to their respective file paths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.max_count">
+<span class="sig-name descname"><span class="pre">max_count</span></span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.max_count" title="Link to this definition">¶</a></dt>
+<dd><p>Number of synchronized prediction sets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.current_id">
+<span class="sig-name descname"><span class="pre">current_id</span></span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.current_id" title="Link to this definition">¶</a></dt>
+<dd><p>Current index used for iteration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Initializes the BasePredictionsMerger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_folder</strong> (<em>str</em>) – Root directory containing prediction subfolders.</p></li>
+<li><p><strong>file_extension</strong> (<em>str</em>) – File extension to look for (e.g., ‘<a href="#id19"><span class="problematic" id="id20">*</span></a>.png’).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id21">
+<span class="sig-name descname"><span class="pre">root_folder</span></span><a class="headerlink" href="#id21" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id22">
+<span class="sig-name descname"><span class="pre">file_extension</span></span><a class="headerlink" href="#id22" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id23">
+<span class="sig-name descname"><span class="pre">subfolder_filepaths</span></span><a class="headerlink" href="#id23" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id24">
+<span class="sig-name descname"><span class="pre">max_count</span></span><a class="headerlink" href="#id24" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id25">
+<span class="sig-name descname"><span class="pre">current_id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id25" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.__len__" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the total number of prediction sets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Total number of file sets across subfolders.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.__iter__">
+<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.__iter__" title="Link to this definition">¶</a></dt>
+<dd><p>Resets the iterator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Iterator object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger" title="leaf.metrics.BasePredictionsMerger">BasePredictionsMerger</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the prediction stack for a given index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – Index of the prediction set.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Filepath and dictionary of masks for each subfolder.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.__next__">
+<span class="sig-name descname"><span class="pre">__next__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.__next__" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the next prediction stack in the iteration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Filepath and dictionary of masks for each subfolder.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>StopIteration</strong> – When all prediction sets have been iterated through.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.scan_predictions_root">
+<span class="sig-name descname"><span class="pre">scan_predictions_root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.scan_predictions_root" title="Link to this definition">¶</a></dt>
+<dd><p>Scans the root directory for prediction files and validates file consistency across subfolders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root_folder</strong> (<em>str</em>) – The root folder containing prediction subfolders.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of prediction sets found.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If subfolders have mismatched file counts or missing files.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.get_reference_subfolder">
+<span class="sig-name descname"><span class="pre">get_reference_subfolder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.get_reference_subfolder" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the reference subfolder used for consistency checks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Name of the first subfolder to use as reference.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.check_if_missing">
+<span class="sig-name descname"><span class="pre">check_if_missing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.check_if_missing" title="Link to this definition">¶</a></dt>
+<dd><p>Checks whether a given reference file is present in all other subfolders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – Path to the file in the reference subfolder.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If the corresponding file is missing in any subfolder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.BasePredictionsMerger.processing_step">
+<span class="sig-name descname"><span class="pre">processing_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple[str,</span> <span class="pre">dict[str:np.array]]</span></span></span><a class="headerlink" href="#leaf.metrics.BasePredictionsMerger.processing_step" title="Link to this definition">¶</a></dt>
+<dd><p>Loads prediction masks for a specific index from all subfolders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – Index of the prediction set.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>str: Filepath of the reference mask.
+dict: Dictionary mapping subfolder keys to their corresponding prediction masks (as tensors).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If the mask encoding is not supported.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.metrics.CanopyPredictionsMerger">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">CanopyPredictionsMerger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*.png'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_subfolders</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{NamingConstants.SYMPTOMS_DET:</span> <span class="pre">'symptoms_det/pred',</span> <span class="pre">NamingConstants.SYMPTOMS_SEG:</span> <span class="pre">'symptoms_seg/pred',</span> <span class="pre">NamingConstants.ORGANS:</span> <span class="pre">'organs/pred',</span> <span class="pre">NamingConstants.FOCUS:</span> <span class="pre">'focus/pred'}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.CanopyPredictionsMerger" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#leaf.metrics.BasePredictionsMerger" title="leaf.metrics.BasePredictionsMerger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BasePredictionsMerger</span></code></a></p>
+<p>Merges canopy prediction masks from predefined subfolders.</p>
+<p>Inherits from <cite>BasePredictionsMerger</cite> and specifies subfolders for canopy-related predictions:
+symptoms detection, segmentation, organs, and focus. This class handles merging of prediction
+masks for specific tasks within the canopy.</p>
+<p>Initializes the <cite>CanopyPredictionsMerger</cite> object with the specified prediction subfolders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_folder</strong> (<em>str</em>) – Root directory containing prediction subfolders.</p></li>
+<li><p><strong>file_extension</strong> (<em>str</em>) – File extension to look for (default: ‘<a href="#id26"><span class="problematic" id="id27">*</span></a>.png’).</p></li>
+<li><p><strong>prediction_subfolders</strong> (<em>dict</em>) – Mapping of prediction types to subfolder paths.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.CanopyPredictionsMerger.prediction_subfolders">
+<span class="sig-name descname"><span class="pre">prediction_subfolders</span></span><a class="headerlink" href="#leaf.metrics.CanopyPredictionsMerger.prediction_subfolders" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.metrics.CanopyBenchmarkMerger">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">CanopyBenchmarkMerger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*.png'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_subfolders</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{NamingConstants.SYMPTOMS_DET:</span> <span class="pre">'symptoms_det/pred',</span> <span class="pre">NamingConstants.SYMPTOMS_SEG:</span> <span class="pre">'symptoms_seg/pred',</span> <span class="pre">NamingConstants.ORGANS:</span> <span class="pre">'organs/pred',</span> <span class="pre">NamingConstants.FOCUS:</span> <span class="pre">'focus/pred',</span> <span class="pre">NamingConstants.GT_SYMPTOMS_DET:</span> <span class="pre">'symptoms_det/gt',</span> <span class="pre">NamingConstants.GT_SYMPTOMS_SEG:</span> <span class="pre">'symptoms_seg/gt',</span> <span class="pre">NamingConstants.GT_ORGANS:</span> <span class="pre">'organs/gt'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus_override</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.CanopyBenchmarkMerger" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#leaf.metrics.BasePredictionsMerger" title="leaf.metrics.BasePredictionsMerger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BasePredictionsMerger</span></code></a></p>
+<p>Merges benchmark prediction masks and ground truth from predefined subfolders.</p>
+<p>This class handles both predictions and corresponding ground truth masks for evaluation purposes.
+It inherits from <cite>BasePredictionsMerger</cite> and includes additional ground truth folders.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.CanopyBenchmarkMerger.prediction_subfolders">
+<span class="sig-name descname"><span class="pre">prediction_subfolders</span></span><a class="headerlink" href="#leaf.metrics.CanopyBenchmarkMerger.prediction_subfolders" title="Link to this definition">¶</a></dt>
+<dd><p>Mapping of prediction and ground truth types to subfolder paths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.CanopyBenchmarkMerger.focus_override">
+<span class="sig-name descname"><span class="pre">focus_override</span></span><a class="headerlink" href="#leaf.metrics.CanopyBenchmarkMerger.focus_override" title="Link to this definition">¶</a></dt>
+<dd><p>Custom path to override the default focus path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Initializes the <cite>CanopyBenchmarkMerger</cite> object with the specified prediction and ground truth subfolders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_folder</strong> (<em>str</em>) – Root directory containing prediction subfolders.</p></li>
+<li><p><strong>file_extension</strong> (<em>str</em>) – File extension to look for (default: ‘<a href="#id28"><span class="problematic" id="id29">*</span></a>.png’).</p></li>
+<li><p><strong>prediction_subfolders</strong> (<em>dict</em>) – Mapping of prediction and ground truth types to subfolder paths.</p></li>
+<li><p><strong>focus_override</strong> (<em>str</em><em>, </em><em>optional</em>) – Custom path to override the default focus path (default: None).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id30">
+<span class="sig-name descname"><span class="pre">prediction_subfolders</span></span><a class="headerlink" href="#id30" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.metrics.FlatLeavesPredictionsMerger">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">FlatLeavesPredictionsMerger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*.png'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_subfolders</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{NamingConstants.SYMPTOMS_DET:</span> <span class="pre">'symptoms_det/pred',</span> <span class="pre">NamingConstants.SYMPTOMS_SEG:</span> <span class="pre">'symptoms_seg/pred'}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.FlatLeavesPredictionsMerger" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#leaf.metrics.BasePredictionsMerger" title="leaf.metrics.BasePredictionsMerger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BasePredictionsMerger</span></code></a></p>
+<p>Merges flat leaf prediction masks from predefined subfolders.</p>
+<p>This class handles merging of prediction masks specific to flat leaf prediction tasks, including
+symptoms detection and segmentation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.FlatLeavesPredictionsMerger.prediction_subfolders">
+<span class="sig-name descname"><span class="pre">prediction_subfolders</span></span><a class="headerlink" href="#leaf.metrics.FlatLeavesPredictionsMerger.prediction_subfolders" title="Link to this definition">¶</a></dt>
+<dd><p>Mapping of prediction types to subfolder paths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Initializes the <cite>FlatLeavesPredictionsMerger</cite> object with the specified prediction subfolders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_folder</strong> (<em>str</em>) – Root directory containing prediction subfolders.</p></li>
+<li><p><strong>file_extension</strong> (<em>str</em>) – File extension to look for (default: ‘<a href="#id31"><span class="problematic" id="id32">*</span></a>.png’).</p></li>
+<li><p><strong>prediction_subfolders</strong> (<em>dict</em>) – Mapping of prediction types to subfolder paths.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id33">
+<span class="sig-name descname"><span class="pre">prediction_subfolders</span></span><a class="headerlink" href="#id33" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.metrics.BaseEvaluator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">BaseEvaluator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.BaseEvaluator" title="Link to this definition">¶</a></dt>
+<dd><p>Base class for evaluating prediction results and logging them to a CSV file.</p>
+<p>This class provides methods for evaluating prediction results, logging them to a CSV file, and
+computing evaluation metrics. It is intended to be subclassed, with the <cite>compute_metrics</cite> method
+implemented in subclasses to provide specific evaluation logic.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.BaseEvaluator.results_path">
+<span class="sig-name descname"><span class="pre">results_path</span></span><a class="headerlink" href="#leaf.metrics.BaseEvaluator.results_path" title="Link to this definition">¶</a></dt>
+<dd><p>Path to the CSV file for storing evaluation results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.BaseEvaluator.filename_key">
+<span class="sig-name descname"><span class="pre">filename_key</span></span><a class="headerlink" href="#leaf.metrics.BaseEvaluator.filename_key" title="Link to this definition">¶</a></dt>
+<dd><p>Column name for filenames in the results file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Initializes the evaluator and prepares the output CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>results_path</strong> (<em>str</em>) – Path to a .csv file or directory where the results will be saved.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the provided path does not end with ‘.csv’.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id34">
+<span class="sig-name descname"><span class="pre">results_path</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#id34" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id35">
+<span class="sig-name descname"><span class="pre">filename_key</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'filename'</span></em><a class="headerlink" href="#id35" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.BaseEvaluator.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_stack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str:np.array]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.BaseEvaluator.predict" title="Link to this definition">¶</a></dt>
+<dd><p>Method to predict and log results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filepath</strong> (<em>str</em>) – Path of the image or file.</p></li>
+<li><p><strong>(</strong><strong>dict</strong><strong>[</strong><strong>str</strong> (<em>prediction_stack</em>) – np.array]): Prediction results in a dictionary form.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.BaseEvaluator.log_results">
+<span class="sig-name descname"><span class="pre">log_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.BaseEvaluator.log_results" title="Link to this definition">¶</a></dt>
+<dd><p>Method to log the results into a CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filepath</strong> (<em>str</em>) – Path to the file.</p></li>
+<li><p><strong>results</strong> (<em>Dict</em>) – The results dictionary to be logged.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.BaseEvaluator.compute_metrics">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction_stack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str:np.array]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict[str:float]</span></span></span><a class="headerlink" href="#leaf.metrics.BaseEvaluator.compute_metrics" title="Link to this definition">¶</a></dt>
+<dd><p>Abstract method to compute evaluation metrics.
+This method should be implemented by subclasses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>dict</strong><strong>[</strong><strong>str</strong> (<em>prediction_stack</em>) – np.array]): Dictionary of predicted data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>float]: A dictionary of computed metrics.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.metrics.CanopyEvaluator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">CanopyEvaluator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.CanopyEvaluator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#leaf.metrics.BaseEvaluator" title="leaf.metrics.BaseEvaluator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseEvaluator</span></code></a></p>
+<p>A subclass of BaseEvaluator for evaluating canopy-related metrics.</p>
+<p>This evaluator focuses on metrics specific to canopy evaluation, such as leaf area,
+pycnidia density, rust density, and the fraction of damaged areas. It computes these metrics
+based on the prediction results for canopy symptoms and structures.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.CanopyEvaluator.resulting_keys">
+<span class="sig-name descname"><span class="pre">resulting_keys</span></span><a class="headerlink" href="#leaf.metrics.CanopyEvaluator.resulting_keys" title="Link to this definition">¶</a></dt>
+<dd><p>The list of keys for metrics related to canopy evaluation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Initializes the CanopyEvaluator and sets up the result keys for canopy evaluation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>results_path</strong> (<em>str</em>) – Path to a .csv file or directory where the results will be saved.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id36">
+<span class="sig-name descname"><span class="pre">resulting_keys</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['reference_leaf_1e6',</span> <span class="pre">'placl',</span> <span class="pre">'n_pycnidia',</span> <span class="pre">'pycnidia_density_1e-6',</span> <span class="pre">'n_rust',...</span></em><a class="headerlink" href="#id36" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.CanopyEvaluator.compute_metrics">
+<span class="sig-name descname"><span class="pre">compute_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction_stack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str:np.array]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict[str:float]</span></span></span><a class="headerlink" href="#leaf.metrics.CanopyEvaluator.compute_metrics" title="Link to this definition">¶</a></dt>
+<dd><p>Method to compute specific evaluation metrics for canopy evaluation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>dict</strong><strong>[</strong><strong>str</strong> (<em>prediction_stack</em>) – np.array]): Dictionary of predicted data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>float]: A dictionary containing computed metrics.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.metrics.CanopyBenchmarkEvaluator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">CanopyBenchmarkEvaluator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.CanopyBenchmarkEvaluator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#leaf.metrics.BaseEvaluator" title="leaf.metrics.BaseEvaluator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseEvaluator</span></code></a></p>
+<p>A subclass of BaseEvaluator for evaluating benchmark metrics for canopy predictions.</p>
+<p>This evaluator extends the base evaluator to include benchmark metrics,
+such as intersection-over-union (IoU), mean squared error (MSE), and mean absolute percentage error (MAPE)
+for various symptoms and lesions on the canopy. It compares predicted values against ground truth.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.CanopyBenchmarkEvaluator.resulting_keys">
+<span class="sig-name descname"><span class="pre">resulting_keys</span></span><a class="headerlink" href="#leaf.metrics.CanopyBenchmarkEvaluator.resulting_keys" title="Link to this definition">¶</a></dt>
+<dd><p>The list of keys for benchmark metrics for canopy evaluation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Initializes the CanopyBenchmarkEvaluator and sets up the result keys for benchmark evaluation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>results_path</strong> (<em>str</em>) – Path to a .csv file or directory where the results will be saved.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id37">
+<span class="sig-name descname"><span class="pre">resulting_keys</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['necrosis_iou',</span> <span class="pre">'pred_placl',</span> <span class="pre">'gt_placl',</span> <span class="pre">'placl_mse',</span> <span class="pre">'pred_n_pycndia',</span> <span class="pre">'gt_n_pycnidia',...</span></em><a class="headerlink" href="#id37" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.CanopyBenchmarkEvaluator.compute_metrics">
+<span class="sig-name descname"><span class="pre">compute_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction_stack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str:np.array]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict[str:float]</span></span></span><a class="headerlink" href="#leaf.metrics.CanopyBenchmarkEvaluator.compute_metrics" title="Link to this definition">¶</a></dt>
+<dd><p>Method to compute benchmark evaluation metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>dict</strong><strong>[</strong><strong>str</strong> (<em>prediction_stack</em>) – np.array]): Dictionary of predicted data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>float]: A dictionary containing computed metrics.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="leaf.metrics.FlatLeavesEvaluator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">FlatLeavesEvaluator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.FlatLeavesEvaluator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#leaf.metrics.BaseEvaluator" title="leaf.metrics.BaseEvaluator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseEvaluator</span></code></a></p>
+<p>A subclass of BaseEvaluator for evaluating leaf-related metrics for flat leaves.</p>
+<p>This evaluator focuses on metrics related to leaf symptoms, such as lesions and pycnidia,
+within flat leaves. It computes relevant metrics such as leaf area, lesion area, and pycnidia density.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="leaf.metrics.FlatLeavesEvaluator.resulting_keys">
+<span class="sig-name descname"><span class="pre">resulting_keys</span></span><a class="headerlink" href="#leaf.metrics.FlatLeavesEvaluator.resulting_keys" title="Link to this definition">¶</a></dt>
+<dd><p>The list of keys for metrics related to flat leaf evaluation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Initializes the FlatLeavesEvaluator and sets up the result keys for flat leaf evaluation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>results_path</strong> (<em>str</em>) – Path to a .csv file or directory where the results will be saved.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id38">
+<span class="sig-name descname"><span class="pre">resulting_keys</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['reference_leaf_1e6',</span> <span class="pre">'placl',</span> <span class="pre">'n_pycnidia',</span> <span class="pre">'pycnidia_density_1e-6',</span> <span class="pre">'n_rust',...</span></em><a class="headerlink" href="#id38" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leaf.metrics.FlatLeavesEvaluator.compute_metrics">
+<span class="sig-name descname"><span class="pre">compute_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction_stack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str:np.array]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict[str:float]</span></span></span><a class="headerlink" href="#leaf.metrics.FlatLeavesEvaluator.compute_metrics" title="Link to this definition">¶</a></dt>
+<dd><p>Method to compute specific evaluation metrics for flat leaves evaluation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>dict</strong><strong>[</strong><strong>str</strong> (<em>prediction_stack</em>) – np.array]): Dictionary of predicted data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>float]: A dictionary containing computed metrics.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.metrics.flat_leaves_predictions_iterator">
+<span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">flat_leaves_predictions_iterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.flat_leaves_predictions_iterator" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a DataLoader for iterating over flat leaves prediction data.</p>
+<p>This function prepares a DataLoader to iterate over flat leaves prediction data from the specified
+root folder. It utilizes a custom data-merging class (<cite>FlatLeavesPredictionsMerger</cite>) to load and
+process the data in parallel using multiple workers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_folder</strong> (<em>str</em>) – The path to the folder containing the flat leaves predictions data.</p></li>
+<li><p><strong>num_workers</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of workers to use for data loading. Default is 16.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataLoader object that loads the flat leaves prediction data in batches.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.metrics.canopy_predictions_iterator">
+<span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">canopy_predictions_iterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.canopy_predictions_iterator" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a DataLoader for iterating over canopy prediction data.</p>
+<p>This function prepares a DataLoader to iterate over canopy prediction data from the specified
+root folder, utilizing the <cite>CanopyPredictionsMerger</cite> class to handle data merging and loading.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_folder</strong> (<em>str</em>) – The path to the folder containing the canopy predictions data.</p></li>
+<li><p><strong>num_workers</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of workers to use for data loading. Default is 16.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataLoader object that loads the canopy prediction data in batches.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.metrics.canopy_benchmark_iterator">
+<span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">canopy_benchmark_iterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus_src_override</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.canopy_benchmark_iterator" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a DataLoader for iterating over canopy benchmark data.</p>
+<p>This function prepares a DataLoader to iterate over canopy benchmark data, leveraging the
+<cite>CanopyBenchmarkMerger</cite> class. It is used for tasks that involve benchmarking predictions against
+ground truth data. The optional <cite>focus_src_override</cite> argument allows overriding the focus data source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_folder</strong> (<em>str</em>) – The path to the folder containing the canopy benchmark data.</p></li>
+<li><p><strong>num_workers</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of workers to use for data loading. Default is 16.</p></li>
+<li><p><strong>focus_src_override</strong> (<em>str</em><em>, </em><em>optional</em>) – An optional path to override the focus data source.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataLoader object that loads the canopy benchmark data in batches.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.metrics.canopy_evaluation_wrapper">
+<span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">canopy_evaluation_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'export'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'canopy_results.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.canopy_evaluation_wrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Wrapper for evaluating canopy predictions and computing metrics.</p>
+<p>This function wraps the entire process of evaluating canopy predictions, including loading the
+prediction data, computing evaluation metrics using a <cite>CanopyEvaluator</cite>, and saving the results
+in a CSV file. The computation is parallelized using a thread pool to improve performance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_folder</strong> (<em>str</em><em>, </em><em>optional</em>) – The path to the folder containing the canopy prediction data.
+Default is ‘export’.</p></li>
+<li><p><strong>results_path</strong> (<em>str</em><em>, </em><em>optional</em>) – The path to the CSV file where results will be saved.
+Default is ‘canopy_results.csv’.</p></li>
+<li><p><strong>num_workers</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of workers to use for data loading. Default is 16.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.metrics.flat_leaves_evaluation_wrapper">
+<span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">flat_leaves_evaluation_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'export'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'flat_leaves_results.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.flat_leaves_evaluation_wrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Wrapper for evaluating flat leaves predictions and computing metrics.</p>
+<p>This function wraps the entire process of evaluating flat leaves predictions, including loading
+the prediction data, computing evaluation metrics using a <cite>FlatLeavesEvaluator</cite>, and saving the
+results in a CSV file. It also uses parallel computation for efficient processing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_folder</strong> (<em>str</em><em>, </em><em>optional</em>) – The path to the folder containing the flat leaves prediction data.
+Default is ‘export’.</p></li>
+<li><p><strong>results_path</strong> (<em>str</em><em>, </em><em>optional</em>) – The path to the CSV file where results will be saved.
+Default is ‘flat_leaves_results.csv’.</p></li>
+<li><p><strong>num_workers</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of workers to use for data loading. Default is 16.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.metrics.focus_evaluation_wrapper">
+<span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">focus_evaluation_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'benchmark'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'benchmark.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus_src_override</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leaf.metrics.focus_evaluation_wrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Wrapper for evaluating focus data in canopy benchmark tasks.</p>
+<p>This function wraps the process of evaluating focus-specific data by loading the data and
+computing metrics with the <cite>CanopyBenchmarkEvaluator</cite>. It then logs the results in the specified CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_folder</strong> (<em>str</em><em>, </em><em>optional</em>) – The path to the folder containing the benchmark focus data.
+Default is ‘benchmark’.</p></li>
+<li><p><strong>results_path</strong> (<em>str</em><em>, </em><em>optional</em>) – The path to the CSV file where results will be saved.
+Default is ‘benchmark.csv’.</p></li>
+<li><p><strong>focus_src_override</strong> (<em>str</em><em>, </em><em>optional</em>) – An optional path to override the focus data source.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaf.metrics.test">
+<span class="sig-prename descclassname"><span class="pre">leaf.metrics.</span></span><span class="sig-name descname"><span class="pre">test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#leaf.metrics.test" title="Link to this definition">¶</a></dt>
+<dd><p>Test function for running the canopy evaluation.</p>
+<p>This function configures logging and then triggers the canopy evaluation
+process on a specified dataset by calling the <cite>canopy_evaluation_wrapper</cite> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+</main>
+                        <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
+    <a class="float-left" href="../inference/index.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>leaf.inference
+    </a>
+    <a class="float-right" href="../models/index.html" title="Next">
+        leaf.models <span aria-hidden="true">&nbsp;→</span>
+    </a>
+</nav>
+                    </div>
+                    
+                    <nav class="col-12 col-lg-3 pb-4">
+                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
+                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
+                            <ul>
+<li><a class="reference internal" href="#">leaf.metrics</a><ul>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#leaf.metrics.NamingConstants"><code class="docutils literal notranslate"><span class="pre">NamingConstants</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.metrics.NamingConstants.SYMPTOMS_DET"><code class="docutils literal notranslate"><span class="pre">NamingConstants.SYMPTOMS_DET</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.NamingConstants.SYMPTOMS_SEG"><code class="docutils literal notranslate"><span class="pre">NamingConstants.SYMPTOMS_SEG</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.NamingConstants.ORGANS"><code class="docutils literal notranslate"><span class="pre">NamingConstants.ORGANS</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.NamingConstants.FOCUS"><code class="docutils literal notranslate"><span class="pre">NamingConstants.FOCUS</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.NamingConstants.GT_SYMPTOMS_DET"><code class="docutils literal notranslate"><span class="pre">NamingConstants.GT_SYMPTOMS_DET</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.NamingConstants.GT_SYMPTOMS_SEG"><code class="docutils literal notranslate"><span class="pre">NamingConstants.GT_SYMPTOMS_SEG</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.NamingConstants.GT_ORGANS"><code class="docutils literal notranslate"><span class="pre">NamingConstants.GT_ORGANS</span></code></a></li>
+<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">NamingConstants.SYMPTOMS_DET</span></code></a></li>
+<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">NamingConstants.SYMPTOMS_SEG</span></code></a></li>
+<li><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">NamingConstants.ORGANS</span></code></a></li>
+<li><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">NamingConstants.FOCUS</span></code></a></li>
+<li><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">NamingConstants.GT_SYMPTOMS_DET</span></code></a></li>
+<li><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">NamingConstants.GT_SYMPTOMS_SEG</span></code></a></li>
+<li><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">NamingConstants.GT_ORGANS</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds"><code class="docutils literal notranslate"><span class="pre">PredictionIds</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds.LEAF_BACKGROUND"><code class="docutils literal notranslate"><span class="pre">PredictionIds.LEAF_BACKGROUND</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds.LEAF"><code class="docutils literal notranslate"><span class="pre">PredictionIds.LEAF</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds.LESION"><code class="docutils literal notranslate"><span class="pre">PredictionIds.LESION</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds.INSECT_DAMAGE"><code class="docutils literal notranslate"><span class="pre">PredictionIds.INSECT_DAMAGE</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds.POWDERY_MILDEW"><code class="docutils literal notranslate"><span class="pre">PredictionIds.POWDERY_MILDEW</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds.PYCNIDIA"><code class="docutils literal notranslate"><span class="pre">PredictionIds.PYCNIDIA</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds.RUST"><code class="docutils literal notranslate"><span class="pre">PredictionIds.RUST</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds.OUT_OF_FOCUS"><code class="docutils literal notranslate"><span class="pre">PredictionIds.OUT_OF_FOCUS</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds.IN_FOCUS"><code class="docutils literal notranslate"><span class="pre">PredictionIds.IN_FOCUS</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds.ORGAN_BACKGROUND"><code class="docutils literal notranslate"><span class="pre">PredictionIds.ORGAN_BACKGROUND</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds.HEAD"><code class="docutils literal notranslate"><span class="pre">PredictionIds.HEAD</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.PredictionIds.STEM"><code class="docutils literal notranslate"><span class="pre">PredictionIds.STEM</span></code></a></li>
+<li><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">PredictionIds.LEAF_BACKGROUND</span></code></a></li>
+<li><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">PredictionIds.LEAF</span></code></a></li>
+<li><a class="reference internal" href="#id9"><code class="docutils literal notranslate"><span class="pre">PredictionIds.LESION</span></code></a></li>
+<li><a class="reference internal" href="#id10"><code class="docutils literal notranslate"><span class="pre">PredictionIds.INSECT_DAMAGE</span></code></a></li>
+<li><a class="reference internal" href="#id11"><code class="docutils literal notranslate"><span class="pre">PredictionIds.POWDERY_MILDEW</span></code></a></li>
+<li><a class="reference internal" href="#id12"><code class="docutils literal notranslate"><span class="pre">PredictionIds.PYCNIDIA</span></code></a></li>
+<li><a class="reference internal" href="#id13"><code class="docutils literal notranslate"><span class="pre">PredictionIds.RUST</span></code></a></li>
+<li><a class="reference internal" href="#id14"><code class="docutils literal notranslate"><span class="pre">PredictionIds.OUT_OF_FOCUS</span></code></a></li>
+<li><a class="reference internal" href="#id15"><code class="docutils literal notranslate"><span class="pre">PredictionIds.IN_FOCUS</span></code></a></li>
+<li><a class="reference internal" href="#id16"><code class="docutils literal notranslate"><span class="pre">PredictionIds.ORGAN_BACKGROUND</span></code></a></li>
+<li><a class="reference internal" href="#id17"><code class="docutils literal notranslate"><span class="pre">PredictionIds.HEAD</span></code></a></li>
+<li><a class="reference internal" href="#id18"><code class="docutils literal notranslate"><span class="pre">PredictionIds.STEM</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.root_folder"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.root_folder</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.file_extension"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.file_extension</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.subfolder_filepaths"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.subfolder_filepaths</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.max_count"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.max_count</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.current_id"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.current_id</span></code></a></li>
+<li><a class="reference internal" href="#id21"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.root_folder</span></code></a></li>
+<li><a class="reference internal" href="#id22"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.file_extension</span></code></a></li>
+<li><a class="reference internal" href="#id23"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.subfolder_filepaths</span></code></a></li>
+<li><a class="reference internal" href="#id24"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.max_count</span></code></a></li>
+<li><a class="reference internal" href="#id25"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.current_id</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.__len__"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.__len__()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.__iter__"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.__iter__()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.__getitem__"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.__next__"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.__next__()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.scan_predictions_root"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.scan_predictions_root()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.get_reference_subfolder"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.get_reference_subfolder()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.check_if_missing"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.check_if_missing()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BasePredictionsMerger.processing_step"><code class="docutils literal notranslate"><span class="pre">BasePredictionsMerger.processing_step()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.metrics.CanopyPredictionsMerger"><code class="docutils literal notranslate"><span class="pre">CanopyPredictionsMerger</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.metrics.CanopyPredictionsMerger.prediction_subfolders"><code class="docutils literal notranslate"><span class="pre">CanopyPredictionsMerger.prediction_subfolders</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.metrics.CanopyBenchmarkMerger"><code class="docutils literal notranslate"><span class="pre">CanopyBenchmarkMerger</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.metrics.CanopyBenchmarkMerger.prediction_subfolders"><code class="docutils literal notranslate"><span class="pre">CanopyBenchmarkMerger.prediction_subfolders</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.CanopyBenchmarkMerger.focus_override"><code class="docutils literal notranslate"><span class="pre">CanopyBenchmarkMerger.focus_override</span></code></a></li>
+<li><a class="reference internal" href="#id30"><code class="docutils literal notranslate"><span class="pre">CanopyBenchmarkMerger.prediction_subfolders</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.metrics.FlatLeavesPredictionsMerger"><code class="docutils literal notranslate"><span class="pre">FlatLeavesPredictionsMerger</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.metrics.FlatLeavesPredictionsMerger.prediction_subfolders"><code class="docutils literal notranslate"><span class="pre">FlatLeavesPredictionsMerger.prediction_subfolders</span></code></a></li>
+<li><a class="reference internal" href="#id33"><code class="docutils literal notranslate"><span class="pre">FlatLeavesPredictionsMerger.prediction_subfolders</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.metrics.BaseEvaluator"><code class="docutils literal notranslate"><span class="pre">BaseEvaluator</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.metrics.BaseEvaluator.results_path"><code class="docutils literal notranslate"><span class="pre">BaseEvaluator.results_path</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BaseEvaluator.filename_key"><code class="docutils literal notranslate"><span class="pre">BaseEvaluator.filename_key</span></code></a></li>
+<li><a class="reference internal" href="#id34"><code class="docutils literal notranslate"><span class="pre">BaseEvaluator.results_path</span></code></a></li>
+<li><a class="reference internal" href="#id35"><code class="docutils literal notranslate"><span class="pre">BaseEvaluator.filename_key</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BaseEvaluator.predict"><code class="docutils literal notranslate"><span class="pre">BaseEvaluator.predict()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BaseEvaluator.log_results"><code class="docutils literal notranslate"><span class="pre">BaseEvaluator.log_results()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.BaseEvaluator.compute_metrics"><code class="docutils literal notranslate"><span class="pre">BaseEvaluator.compute_metrics()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.metrics.CanopyEvaluator"><code class="docutils literal notranslate"><span class="pre">CanopyEvaluator</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.metrics.CanopyEvaluator.resulting_keys"><code class="docutils literal notranslate"><span class="pre">CanopyEvaluator.resulting_keys</span></code></a></li>
+<li><a class="reference internal" href="#id36"><code class="docutils literal notranslate"><span class="pre">CanopyEvaluator.resulting_keys</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.CanopyEvaluator.compute_metrics"><code class="docutils literal notranslate"><span class="pre">CanopyEvaluator.compute_metrics()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.metrics.CanopyBenchmarkEvaluator"><code class="docutils literal notranslate"><span class="pre">CanopyBenchmarkEvaluator</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.metrics.CanopyBenchmarkEvaluator.resulting_keys"><code class="docutils literal notranslate"><span class="pre">CanopyBenchmarkEvaluator.resulting_keys</span></code></a></li>
+<li><a class="reference internal" href="#id37"><code class="docutils literal notranslate"><span class="pre">CanopyBenchmarkEvaluator.resulting_keys</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.CanopyBenchmarkEvaluator.compute_metrics"><code class="docutils literal notranslate"><span class="pre">CanopyBenchmarkEvaluator.compute_metrics()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.metrics.FlatLeavesEvaluator"><code class="docutils literal notranslate"><span class="pre">FlatLeavesEvaluator</span></code></a><ul>
+<li><a class="reference internal" href="#leaf.metrics.FlatLeavesEvaluator.resulting_keys"><code class="docutils literal notranslate"><span class="pre">FlatLeavesEvaluator.resulting_keys</span></code></a></li>
+<li><a class="reference internal" href="#id38"><code class="docutils literal notranslate"><span class="pre">FlatLeavesEvaluator.resulting_keys</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.FlatLeavesEvaluator.compute_metrics"><code class="docutils literal notranslate"><span class="pre">FlatLeavesEvaluator.compute_metrics()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leaf.metrics.flat_leaves_predictions_iterator"><code class="docutils literal notranslate"><span class="pre">flat_leaves_predictions_iterator()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.canopy_predictions_iterator"><code class="docutils literal notranslate"><span class="pre">canopy_predictions_iterator()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.canopy_benchmark_iterator"><code class="docutils literal notranslate"><span class="pre">canopy_benchmark_iterator()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.canopy_evaluation_wrapper"><code class="docutils literal notranslate"><span class="pre">canopy_evaluation_wrapper()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.flat_leaves_evaluation_wrapper"><code class="docutils literal notranslate"><span class="pre">flat_leaves_evaluation_wrapper()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.focus_evaluation_wrapper"><code class="docutils literal notranslate"><span class="pre">focus_evaluation_wrapper()</span></code></a></li>
+<li><a class="reference internal" href="#leaf.metrics.test"><code class="docutils literal notranslate"><span class="pre">test()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid bg-primary text-light">
+        <div class="container">
+            <div class="row">
+        <div class="col p-4">
+            
+            <div class="text-center">
+                    &copy; Copyright 2025, Radek Zenkl
+            </div>
+            <div class="text-center text-white-50 font-italic mt-3">
+                <small>
+                    Created using
+                    <a class="text-white" href="https://github.com/wagtail/sphinx_wagtail_theme" rel="nofollow" target="_blank">
+                        Sphinx Wagtail Theme 6.5.0
+                    </a>
+                    and
+                    <a class="text-white" href="https://www.sphinx-doc.org/" rel="nofollow" target="_blank">
+                        Sphinx 8.2.3
+                    </a>
+                </small>
+            </div>
+        </div>
+    </div>
+        </div>
+    </footer>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script type="text/javascript" src="../../../_static/dist/theme.js"></script>
+        <script type="text/javascript" src="../../../_static/dist/vendor.js"></script>
+        <script type="text/javascript" src="../../../_static/searchtools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() { Search.loadIndex("../../../searchindex.js"); });
+        </script>
+        <script type="text/javascript" id="searchindexloader"></script>
+    </body>
+</html>

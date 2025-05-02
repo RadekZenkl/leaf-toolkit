@@ -1,0 +1,788 @@
+leaf.metrics
+============
+
+.. py:module:: leaf.metrics
+
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: NamingConstants
+
+   A collection of constant names used for organizing different types of
+   image predictions and ground truths. These names refer to the folder
+   structure of the results, respectively where to find what. If new
+   block are introduced to the processing pipeline, extend it here.
+
+   .. attribute:: SYMPTOMS_DET
+
+      Identifier for symptom detection predictions.
+
+      :type: str
+
+   .. attribute:: SYMPTOMS_SEG
+
+      Identifier for symptom segmentation predictions.
+
+      :type: str
+
+   .. attribute:: ORGANS
+
+      Identifier for organ segmentation predictions.
+
+      :type: str
+
+   .. attribute:: FOCUS
+
+      Identifier for focus classification.
+
+      :type: str
+
+   .. attribute:: GT_SYMPTOMS_DET
+
+      Identifier for ground truth symptom detection.
+
+      :type: str
+
+   .. attribute:: GT_SYMPTOMS_SEG
+
+      Identifier for ground truth symptom segmentation.
+
+      :type: str
+
+   .. attribute:: GT_ORGANS
+
+      Identifier for ground truth organ segmentation.
+
+      :type: str
+
+
+   .. py:attribute:: SYMPTOMS_DET
+      :value: 'symptoms_det'
+
+
+
+   .. py:attribute:: SYMPTOMS_SEG
+      :value: 'symptoms_seg'
+
+
+
+   .. py:attribute:: ORGANS
+      :value: 'organs'
+
+
+
+   .. py:attribute:: FOCUS
+      :value: 'focus'
+
+
+
+   .. py:attribute:: GT_SYMPTOMS_DET
+      :value: 'gt_symptoms_det'
+
+
+
+   .. py:attribute:: GT_SYMPTOMS_SEG
+      :value: 'gt_symptoms_seg'
+
+
+
+   .. py:attribute:: GT_ORGANS
+      :value: 'gt_organs'
+
+
+
+.. py:class:: PredictionIds
+
+   Integer ID mappings for different prediction classes used in segmentation
+   and detection tasks for plant imagery. When new models can handle additional
+   classes, their new respective ids should be added here
+
+   .. attribute:: LEAF_BACKGROUND
+
+      Background class in leaf segmentation (ID: 0).
+
+      :type: int
+
+   .. attribute:: LEAF
+
+      Leaf class in leaf segmentation (ID: 1).
+
+      :type: int
+
+   .. attribute:: LESION
+
+      Lesion symptom in segmentation (ID: 2).
+
+      :type: int
+
+   .. attribute:: INSECT_DAMAGE
+
+      Insect damage symptom in segmentation (ID: 3).
+
+      :type: int
+
+   .. attribute:: POWDERY_MILDEW
+
+      Powdery mildew symptom in segmentation (ID: 4).
+
+      :type: int
+
+   .. attribute:: PYCNIDIA
+
+      Pycnidia symptom in detection (ID: 1).
+
+      :type: int
+
+   .. attribute:: RUST
+
+      Rust symptom in detection (ID: 2).
+
+      :type: int
+
+   .. attribute:: OUT_OF_FOCUS
+
+      Class for out-of-focus regions (ID: 0).
+
+      :type: int
+
+   .. attribute:: IN_FOCUS
+
+      Class for in-focus regions (ID: 1).
+
+      :type: int
+
+   .. attribute:: ORGAN_BACKGROUND
+
+      Background class in organ segmentation (ID: 0).
+
+      :type: int
+
+   .. attribute:: HEAD
+
+      Head organ class in organ segmentation (ID: 1).
+
+      :type: int
+
+   .. attribute:: STEM
+
+      Stem organ class in organ segmentation (ID: 2).
+
+      :type: int
+
+
+   .. py:attribute:: LEAF_BACKGROUND
+      :value: 0
+
+
+
+   .. py:attribute:: LEAF
+      :value: 1
+
+
+
+   .. py:attribute:: LESION
+      :value: 2
+
+
+
+   .. py:attribute:: INSECT_DAMAGE
+      :value: 3
+
+
+
+   .. py:attribute:: POWDERY_MILDEW
+      :value: 4
+
+
+
+   .. py:attribute:: PYCNIDIA
+      :value: 1
+
+
+
+   .. py:attribute:: RUST
+      :value: 2
+
+
+
+   .. py:attribute:: OUT_OF_FOCUS
+      :value: 0
+
+
+
+   .. py:attribute:: IN_FOCUS
+      :value: 1
+
+
+
+   .. py:attribute:: ORGAN_BACKGROUND
+      :value: 0
+
+
+
+   .. py:attribute:: HEAD
+      :value: 1
+
+
+
+   .. py:attribute:: STEM
+      :value: 2
+
+
+
+.. py:class:: BasePredictionsMerger(root_folder: str, file_extension: str)
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+
+   Base class for merging prediction masks from multiple subfolders in a structured directory.
+
+   This class is used to iterate through synchronized sets of prediction files
+   (e.g., segmentation masks) located in multiple subfolders. It ensures that
+   each set of files is present in all expected subfolders and prepares them
+   for further processing.
+
+   .. attribute:: root_folder
+
+      Root directory containing prediction subfolders.
+
+      :type: str
+
+   .. attribute:: file_extension
+
+      File extension used to identify prediction files.
+
+      :type: str
+
+   .. attribute:: subfolder_filepaths
+
+      Mapping of subfolder names to their respective file paths.
+
+      :type: dict
+
+   .. attribute:: max_count
+
+      Number of synchronized prediction sets.
+
+      :type: int
+
+   .. attribute:: current_id
+
+      Current index used for iteration.
+
+      :type: int
+
+   Initializes the BasePredictionsMerger.
+
+   :param root_folder: Root directory containing prediction subfolders.
+   :type root_folder: str
+   :param file_extension: File extension to look for (e.g., '*.png').
+   :type file_extension: str
+
+
+   .. py:attribute:: root_folder
+
+
+   .. py:attribute:: file_extension
+
+
+   .. py:attribute:: subfolder_filepaths
+
+
+   .. py:attribute:: max_count
+
+
+   .. py:attribute:: current_id
+      :value: 0
+
+
+
+   .. py:method:: __len__()
+
+      Returns the total number of prediction sets.
+
+      :returns: Total number of file sets across subfolders.
+      :rtype: int
+
+
+
+   .. py:method:: __iter__()
+
+      Resets the iterator.
+
+      :returns: Iterator object.
+      :rtype: BasePredictionsMerger
+
+
+
+   .. py:method:: __getitem__(idx)
+
+      Retrieves the prediction stack for a given index.
+
+      :param idx: Index of the prediction set.
+      :type idx: int
+
+      :returns: Filepath and dictionary of masks for each subfolder.
+      :rtype: tuple
+
+
+
+   .. py:method:: __next__()
+
+      Retrieves the next prediction stack in the iteration.
+
+      :returns: Filepath and dictionary of masks for each subfolder.
+      :rtype: tuple
+
+      :raises StopIteration: When all prediction sets have been iterated through.
+
+
+
+   .. py:method:: scan_predictions_root(root_folder: str)
+
+      Scans the root directory for prediction files and validates file consistency across subfolders.
+
+      :param root_folder: The root folder containing prediction subfolders.
+      :type root_folder: str
+
+      :returns: Number of prediction sets found.
+      :rtype: int
+
+      :raises Exception: If subfolders have mismatched file counts or missing files.
+
+
+
+   .. py:method:: get_reference_subfolder()
+
+      Returns the reference subfolder used for consistency checks.
+
+      :returns: Name of the first subfolder to use as reference.
+      :rtype: str
+
+
+
+   .. py:method:: check_if_missing(file_path: str)
+
+      Checks whether a given reference file is present in all other subfolders.
+
+      :param file_path: Path to the file in the reference subfolder.
+      :type file_path: str
+
+      :raises Exception: If the corresponding file is missing in any subfolder.
+
+
+
+   .. py:method:: processing_step(id: int) -> tuple[str, dict[str:np.array]]
+
+      Loads prediction masks for a specific index from all subfolders.
+
+      :param id: Index of the prediction set.
+      :type id: int
+
+      :returns:     str: Filepath of the reference mask.
+                    dict: Dictionary mapping subfolder keys to their corresponding prediction masks (as tensors).
+      :rtype: tuple
+
+      :raises Exception: If the mask encoding is not supported.
+
+
+
+.. py:class:: CanopyPredictionsMerger(root_folder: str, file_extension: str = '*.png', prediction_subfolders: dict = {NamingConstants.SYMPTOMS_DET: 'symptoms_det/pred', NamingConstants.SYMPTOMS_SEG: 'symptoms_seg/pred', NamingConstants.ORGANS: 'organs/pred', NamingConstants.FOCUS: 'focus/pred'})
+
+   Bases: :py:obj:`BasePredictionsMerger`
+
+
+   Merges canopy prediction masks from predefined subfolders.
+
+   Inherits from `BasePredictionsMerger` and specifies subfolders for canopy-related predictions:
+   symptoms detection, segmentation, organs, and focus. This class handles merging of prediction
+   masks for specific tasks within the canopy.
+
+   Initializes the `CanopyPredictionsMerger` object with the specified prediction subfolders.
+
+   :param root_folder: Root directory containing prediction subfolders.
+   :type root_folder: str
+   :param file_extension: File extension to look for (default: '*.png').
+   :type file_extension: str
+   :param prediction_subfolders: Mapping of prediction types to subfolder paths.
+   :type prediction_subfolders: dict
+
+
+   .. py:attribute:: prediction_subfolders
+
+
+.. py:class:: CanopyBenchmarkMerger(root_folder: str, file_extension: str = '*.png', prediction_subfolders: dict = {NamingConstants.SYMPTOMS_DET: 'symptoms_det/pred', NamingConstants.SYMPTOMS_SEG: 'symptoms_seg/pred', NamingConstants.ORGANS: 'organs/pred', NamingConstants.FOCUS: 'focus/pred', NamingConstants.GT_SYMPTOMS_DET: 'symptoms_det/gt', NamingConstants.GT_SYMPTOMS_SEG: 'symptoms_seg/gt', NamingConstants.GT_ORGANS: 'organs/gt'}, focus_override: str = None)
+
+   Bases: :py:obj:`BasePredictionsMerger`
+
+
+   Merges benchmark prediction masks and ground truth from predefined subfolders.
+
+   This class handles both predictions and corresponding ground truth masks for evaluation purposes.
+   It inherits from `BasePredictionsMerger` and includes additional ground truth folders.
+
+   .. attribute:: prediction_subfolders
+
+      Mapping of prediction and ground truth types to subfolder paths.
+
+      :type: dict
+
+   .. attribute:: focus_override
+
+      Custom path to override the default focus path.
+
+      :type: str, optional
+
+   Initializes the `CanopyBenchmarkMerger` object with the specified prediction and ground truth subfolders.
+
+   :param root_folder: Root directory containing prediction subfolders.
+   :type root_folder: str
+   :param file_extension: File extension to look for (default: '*.png').
+   :type file_extension: str
+   :param prediction_subfolders: Mapping of prediction and ground truth types to subfolder paths.
+   :type prediction_subfolders: dict
+   :param focus_override: Custom path to override the default focus path (default: None).
+   :type focus_override: str, optional
+
+
+   .. py:attribute:: prediction_subfolders
+
+
+.. py:class:: FlatLeavesPredictionsMerger(root_folder: str, file_extension: str = '*.png', prediction_subfolders: dict = {NamingConstants.SYMPTOMS_DET: 'symptoms_det/pred', NamingConstants.SYMPTOMS_SEG: 'symptoms_seg/pred'})
+
+   Bases: :py:obj:`BasePredictionsMerger`
+
+
+   Merges flat leaf prediction masks from predefined subfolders.
+
+   This class handles merging of prediction masks specific to flat leaf prediction tasks, including
+   symptoms detection and segmentation.
+
+   .. attribute:: prediction_subfolders
+
+      Mapping of prediction types to subfolder paths.
+
+      :type: dict
+
+   Initializes the `FlatLeavesPredictionsMerger` object with the specified prediction subfolders.
+
+   :param root_folder: Root directory containing prediction subfolders.
+   :type root_folder: str
+   :param file_extension: File extension to look for (default: '*.png').
+   :type file_extension: str
+   :param prediction_subfolders: Mapping of prediction types to subfolder paths.
+   :type prediction_subfolders: dict
+
+
+   .. py:attribute:: prediction_subfolders
+
+
+.. py:class:: BaseEvaluator(results_path: str)
+
+   Base class for evaluating prediction results and logging them to a CSV file.
+
+   This class provides methods for evaluating prediction results, logging them to a CSV file, and
+   computing evaluation metrics. It is intended to be subclassed, with the `compute_metrics` method
+   implemented in subclasses to provide specific evaluation logic.
+
+   .. attribute:: results_path
+
+      Path to the CSV file for storing evaluation results.
+
+      :type: str
+
+   .. attribute:: filename_key
+
+      Column name for filenames in the results file.
+
+      :type: str
+
+   Initializes the evaluator and prepares the output CSV file.
+
+   :param results_path: Path to a .csv file or directory where the results will be saved.
+   :type results_path: str
+
+   :raises ValueError: If the provided path does not end with '.csv'.
+
+
+   .. py:attribute:: results_path
+      :value: ''
+
+
+
+   .. py:attribute:: filename_key
+      :value: 'filename'
+
+
+
+   .. py:method:: predict(filepath: str, prediction_stack: dict[str:np.array])
+
+      Method to predict and log results.
+
+      :param filepath: Path of the image or file.
+      :type filepath: str
+      :param prediction_stack (dict[str: np.array]): Prediction results in a dictionary form.
+
+
+
+   .. py:method:: log_results(filepath: str, results: Dict)
+
+      Method to log the results into a CSV file.
+
+      :param filepath: Path to the file.
+      :type filepath: str
+      :param results: The results dictionary to be logged.
+      :type results: Dict
+
+
+
+   .. py:method:: compute_metrics(prediction_stack: dict[str:np.array]) -> dict[str:float]
+      :abstractmethod:
+
+
+      Abstract method to compute evaluation metrics.
+      This method should be implemented by subclasses.
+
+      :param prediction_stack (dict[str: np.array]): Dictionary of predicted data.
+
+      :returns: float]: A dictionary of computed metrics.
+      :rtype: dict[str
+
+
+
+.. py:class:: CanopyEvaluator(results_path: str)
+
+   Bases: :py:obj:`BaseEvaluator`
+
+
+   A subclass of BaseEvaluator for evaluating canopy-related metrics.
+
+   This evaluator focuses on metrics specific to canopy evaluation, such as leaf area,
+   pycnidia density, rust density, and the fraction of damaged areas. It computes these metrics
+   based on the prediction results for canopy symptoms and structures.
+
+   .. attribute:: resulting_keys
+
+      The list of keys for metrics related to canopy evaluation.
+
+      :type: list
+
+   Initializes the CanopyEvaluator and sets up the result keys for canopy evaluation.
+
+   :param results_path: Path to a .csv file or directory where the results will be saved.
+   :type results_path: str
+
+
+   .. py:attribute:: resulting_keys
+      :value: ['reference_leaf_1e6', 'placl', 'n_pycnidia', 'pycnidia_density_1e-6', 'n_rust',...
+
+
+
+   .. py:method:: compute_metrics(prediction_stack: dict[str:np.array]) -> dict[str:float]
+
+      Method to compute specific evaluation metrics for canopy evaluation.
+
+      :param prediction_stack (dict[str: np.array]): Dictionary of predicted data.
+
+      :returns: float]: A dictionary containing computed metrics.
+      :rtype: dict[str
+
+
+
+.. py:class:: CanopyBenchmarkEvaluator(results_path: str)
+
+   Bases: :py:obj:`BaseEvaluator`
+
+
+   A subclass of BaseEvaluator for evaluating benchmark metrics for canopy predictions.
+
+   This evaluator extends the base evaluator to include benchmark metrics,
+   such as intersection-over-union (IoU), mean squared error (MSE), and mean absolute percentage error (MAPE)
+   for various symptoms and lesions on the canopy. It compares predicted values against ground truth.
+
+   .. attribute:: resulting_keys
+
+      The list of keys for benchmark metrics for canopy evaluation.
+
+      :type: list
+
+   Initializes the CanopyBenchmarkEvaluator and sets up the result keys for benchmark evaluation.
+
+   :param results_path: Path to a .csv file or directory where the results will be saved.
+   :type results_path: str
+
+
+   .. py:attribute:: resulting_keys
+      :value: ['necrosis_iou', 'pred_placl', 'gt_placl', 'placl_mse', 'pred_n_pycndia', 'gt_n_pycnidia',...
+
+
+
+   .. py:method:: compute_metrics(prediction_stack: dict[str:np.array]) -> dict[str:float]
+
+      Method to compute benchmark evaluation metrics.
+
+      :param prediction_stack (dict[str: np.array]): Dictionary of predicted data.
+
+      :returns: float]: A dictionary containing computed metrics.
+      :rtype: dict[str
+
+
+
+.. py:class:: FlatLeavesEvaluator(results_path: str)
+
+   Bases: :py:obj:`BaseEvaluator`
+
+
+   A subclass of BaseEvaluator for evaluating leaf-related metrics for flat leaves.
+
+   This evaluator focuses on metrics related to leaf symptoms, such as lesions and pycnidia,
+   within flat leaves. It computes relevant metrics such as leaf area, lesion area, and pycnidia density.
+
+   .. attribute:: resulting_keys
+
+      The list of keys for metrics related to flat leaf evaluation.
+
+      :type: list
+
+   Initializes the FlatLeavesEvaluator and sets up the result keys for flat leaf evaluation.
+
+   :param results_path: Path to a .csv file or directory where the results will be saved.
+   :type results_path: str
+
+
+   .. py:attribute:: resulting_keys
+      :value: ['reference_leaf_1e6', 'placl', 'n_pycnidia', 'pycnidia_density_1e-6', 'n_rust',...
+
+
+
+   .. py:method:: compute_metrics(prediction_stack: dict[str:np.array]) -> dict[str:float]
+
+      Method to compute specific evaluation metrics for flat leaves evaluation.
+
+      :param prediction_stack (dict[str: np.array]): Dictionary of predicted data.
+
+      :returns: float]: A dictionary containing computed metrics.
+      :rtype: dict[str
+
+
+
+.. py:function:: flat_leaves_predictions_iterator(root_folder: str, num_workers: int = 16)
+
+   Creates a DataLoader for iterating over flat leaves prediction data.
+
+   This function prepares a DataLoader to iterate over flat leaves prediction data from the specified
+   root folder. It utilizes a custom data-merging class (`FlatLeavesPredictionsMerger`) to load and
+   process the data in parallel using multiple workers.
+
+   :param root_folder: The path to the folder containing the flat leaves predictions data.
+   :type root_folder: str
+   :param num_workers: The number of workers to use for data loading. Default is 16.
+   :type num_workers: int, optional
+
+   :returns: A DataLoader object that loads the flat leaves prediction data in batches.
+   :rtype: DataLoader
+
+
+.. py:function:: canopy_predictions_iterator(root_folder: str, num_workers: int = 16)
+
+   Creates a DataLoader for iterating over canopy prediction data.
+
+   This function prepares a DataLoader to iterate over canopy prediction data from the specified
+   root folder, utilizing the `CanopyPredictionsMerger` class to handle data merging and loading.
+
+   :param root_folder: The path to the folder containing the canopy predictions data.
+   :type root_folder: str
+   :param num_workers: The number of workers to use for data loading. Default is 16.
+   :type num_workers: int, optional
+
+   :returns: A DataLoader object that loads the canopy prediction data in batches.
+   :rtype: DataLoader
+
+
+.. py:function:: canopy_benchmark_iterator(root_folder: str, num_workers: int = 16, focus_src_override: str = None)
+
+   Creates a DataLoader for iterating over canopy benchmark data.
+
+   This function prepares a DataLoader to iterate over canopy benchmark data, leveraging the
+   `CanopyBenchmarkMerger` class. It is used for tasks that involve benchmarking predictions against
+   ground truth data. The optional `focus_src_override` argument allows overriding the focus data source.
+
+   :param root_folder: The path to the folder containing the canopy benchmark data.
+   :type root_folder: str
+   :param num_workers: The number of workers to use for data loading. Default is 16.
+   :type num_workers: int, optional
+   :param focus_src_override: An optional path to override the focus data source.
+   :type focus_src_override: str, optional
+
+   :returns: A DataLoader object that loads the canopy benchmark data in batches.
+   :rtype: DataLoader
+
+
+.. py:function:: canopy_evaluation_wrapper(root_folder: str = 'export', results_path: str = 'canopy_results.csv', num_workers: int = 16)
+
+   Wrapper for evaluating canopy predictions and computing metrics.
+
+   This function wraps the entire process of evaluating canopy predictions, including loading the
+   prediction data, computing evaluation metrics using a `CanopyEvaluator`, and saving the results
+   in a CSV file. The computation is parallelized using a thread pool to improve performance.
+
+   :param root_folder: The path to the folder containing the canopy prediction data.
+                       Default is 'export'.
+   :type root_folder: str, optional
+   :param results_path: The path to the CSV file where results will be saved.
+                        Default is 'canopy_results.csv'.
+   :type results_path: str, optional
+   :param num_workers: The number of workers to use for data loading. Default is 16.
+   :type num_workers: int, optional
+
+
+.. py:function:: flat_leaves_evaluation_wrapper(root_folder: str = 'export', results_path: str = 'flat_leaves_results.csv', num_workers: int = 16)
+
+   Wrapper for evaluating flat leaves predictions and computing metrics.
+
+   This function wraps the entire process of evaluating flat leaves predictions, including loading
+   the prediction data, computing evaluation metrics using a `FlatLeavesEvaluator`, and saving the
+   results in a CSV file. It also uses parallel computation for efficient processing.
+
+   :param root_folder: The path to the folder containing the flat leaves prediction data.
+                       Default is 'export'.
+   :type root_folder: str, optional
+   :param results_path: The path to the CSV file where results will be saved.
+                        Default is 'flat_leaves_results.csv'.
+   :type results_path: str, optional
+   :param num_workers: The number of workers to use for data loading. Default is 16.
+   :type num_workers: int, optional
+
+
+.. py:function:: focus_evaluation_wrapper(root_folder: str = 'benchmark', results_path: str = 'benchmark.csv', focus_src_override: str = None)
+
+   Wrapper for evaluating focus data in canopy benchmark tasks.
+
+   This function wraps the process of evaluating focus-specific data by loading the data and
+   computing metrics with the `CanopyBenchmarkEvaluator`. It then logs the results in the specified CSV file.
+
+   :param root_folder: The path to the folder containing the benchmark focus data.
+                       Default is 'benchmark'.
+   :type root_folder: str, optional
+   :param results_path: The path to the CSV file where results will be saved.
+                        Default is 'benchmark.csv'.
+   :type results_path: str, optional
+   :param focus_src_override: An optional path to override the focus data source.
+   :type focus_src_override: str, optional
+
+
+.. py:function:: test() -> None
+
+   Test function for running the canopy evaluation.
+
+   This function configures logging and then triggers the canopy evaluation
+   process on a specified dataset by calling the `canopy_evaluation_wrapper` function.
+
+   :returns: None
+
+
