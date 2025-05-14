@@ -5,14 +5,14 @@ Models
   
   - ``zenkl_et_al_2025b`` *(latest)*
   - ``zenkl_et_al_2025a``
+  - ``anderegg_et_al_2025`` *(tracking_latest)*
   - ``anderegg_et_al_2024``
 
 - **Symptoms Segmentation**
   
   - ``zenkl_et_al_2025b`` *(latest)* – uses 1/2 downscaling on the input
-  - ``latest_large`` – uses full resolution
   - ``zenkl_et_al_2025a`` – uses full resolution
-  - ``tracking_latest`` – uses 1/2 downscaling on the input
+  - ``anderegg_et_al_2025`` *(tracking_latest)* – uses 1/2 downscaling on the input
   - ``anderegg_et_al_2024`` – uses full resolution
 
 - **Organ Segmentation**
