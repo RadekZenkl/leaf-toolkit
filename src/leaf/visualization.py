@@ -236,12 +236,12 @@ class Visualizer:
 
         return data_container
 
-    def find_images(self, search_root: str, img_extensions: list = ['*.jpg', '*.jpeg', '*.JPG', '*.png']) -> list[Path]:
+    def find_images(self, search_root: str | Path, img_extensions: list = ['*.jpg', '*.jpeg', '*.JPG', '*.png']) -> list[Path]:
         """
         Recursively finds images under the specified root directory.
 
         Args:
-            search_root (str): Directory to search.
+            search_root (str | pathlib.Path): Directory to search.
             img_extensions (list): List of file extensions to include.
 
         Returns:
@@ -357,12 +357,12 @@ class Visualizer:
         # save the results
         self.save_visualization(str(Path(data_set['rgb']).stem), img_bgr, 'visualization_symptoms')
 
-    def read_image(self, path: str, grayscale: bool = False, bgr: bool = True) -> np.array:
+    def read_image(self, path: str | Path, grayscale: bool = False, bgr: bool = True) -> np.array:
         """
         Loads an image from the given path.
 
         Args:
-            path (str): Path to the image file.
+            path (str | pathlib.Path): Path to the image file.
             grayscale (bool): Load in grayscale if True.
             bgr (bool): Return in BGR (default OpenCV) if True, otherwise convert to RGB.
 
@@ -372,6 +372,8 @@ class Visualizer:
         Raises:
             FileNotFoundError: If the image could not be loaded.
         """
+        path = str(path)  # Convert potential Pathlib Path to a pure string. Opencv cannot handle Pathlib paths directly
+
         if grayscale:
             # Load image in grayscale mode
             image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)

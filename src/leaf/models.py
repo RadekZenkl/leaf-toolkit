@@ -579,11 +579,11 @@ class SymptomsSegmentation(TorchscriptTransformer):
         """
         if model_name == 'latest':
             self.model_path = self.download_file('https://github.com/RadekZenkl/leaf-models/releases/download/v1.0.0/seg_fpn_mitb3_tkbkocy7.torchscript')
-        elif model_name == 'zenkl_et_al_2025b':
-            self.model_path = self.download_file('https://github.com/RadekZenkl/leaf-models/releases/download/v1.0.0/seg_fpn_mitb3_tkbkocy7.torchscript')
         elif model_name == 'tracking_latest':
             self.model_path = self.download_file('https://github.com/RadekZenkl/leaf-models/releases/download/v1.0.1/seg_fpn_mitb2_0.001_1024_seg_tracking_v1.torchscript')
-        elif model_name == 'latest_large':
+        elif model_name == 'zenkl_et_al_2025b':
+            self.model_path = self.download_file('https://github.com/RadekZenkl/leaf-models/releases/download/v1.0.0/seg_fpn_mitb3_tkbkocy7.torchscript')
+        elif model_name == 'anderegg_et_al_2025':
             self.model_path = self.download_file('https://github.com/RadekZenkl/leaf-models/releases/download/v1.0.1/seg_fpn_mitb2_0.001_1024_seg_tracking_v1.torchscript')
         elif model_name == 'zenkl_et_al_2025a':
             self.model_path = self.download_file('https://github.com/RadekZenkl/leaf-models/releases/download/v0.3.0/fpn_mitb1_v4.torchscript')
@@ -739,10 +739,14 @@ class SymptomsDetection(BaseModel):
         """
         if model_name == 'latest':
             self.model_path = self.download_file('https://github.com/RadekZenkl/leaf-models/releases/download/v1.0.0/yolo11l-pose_t11z7ymj.pt')
+        elif model_name == 'tracking_latest':
+            self.model_path = self.download_file('https://github.com/RadekZenkl/leaf-models/releases/download/v1.0.1/yolo11m-pose-key_tracking_v2.pt')
         elif model_name == 'zenkl_et_al_2025b':
             self.model_path = self.download_file('https://github.com/RadekZenkl/leaf-models/releases/download/v1.0.0/yolo11l-pose_t11z7ymj.pt')
         elif model_name == 'zenkl_et_al_2025a':
             self.model_path = self.download_file('https://github.com/RadekZenkl/leaf-models/releases/download/v0.3.0/yolov8m-pose-v4.4.pt')
+        elif model_name == 'anderegg_et_al_2025':
+            self.model_path = self.download_file('https://github.com/RadekZenkl/leaf-models/releases/download/v1.0.1/yolo11m-pose-key_tracking_v2.pt')
         elif model_name == 'anderegg_et_al_2024':
             self.model_path = self.download_file('https://github.com/RadekZenkl/leaf-models/releases/download/v0.3.1/yolov8m-pose_v7.pt')
         else:
